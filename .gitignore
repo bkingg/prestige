@@ -1,0 +1,32 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# env
+.env*.local
+.env
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# sanity
+.sanity
+
+# session-local / scratch (not part of the app)
+/.claude/
+/scratch/
+/source-docs/
