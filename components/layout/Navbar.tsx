@@ -81,11 +81,12 @@ export function Navbar() {
                   key={item.key}
                   href={item.href}
                   className={cn(
-                    "relative border-b-2 border-transparent py-1 text-[13px] font-medium text-charcoal/70 transition-colors duration-200 hover:text-burgundy xl:text-[14px]",
-                    active && "border-gold text-burgundy"
+                    "inline-flex items-center gap-2 py-1 font-serif text-[16px] text-charcoal/70 transition-colors duration-200 hover:text-burgundy xl:text-[17px]",
+                    active && "text-burgundy"
                   )}
                   aria-current={active ? "page" : undefined}
                 >
+                  {active && <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden="true" />}
                   {t(item.key)}
                 </Link>
               );

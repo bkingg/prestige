@@ -4,6 +4,8 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { fontDisplay, fontBody } from "@/lib/fonts";
+import { pageMetadata, SITE_URL } from "@/lib/seo";
+import { company } from "@/data/company";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { GrainOverlay } from "@/components/ui/Motifs";
@@ -13,8 +15,6 @@ import "../globals.css";
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.prestige.sn";
 
 export async function generateMetadata({
   params,
@@ -28,6 +28,8 @@ export async function generateMetadata({
   const description = isFr
     ? "Cabinet conseil, études et ingénierie basé à Dakar depuis 2000. Environnement, études économiques, suivi-évaluation, urbanisme, décentralisation, BTP, eau & assainissement, géomatique."
     : "Consulting, studies and engineering firm based in Dakar since 2000. Environment, economic studies, monitoring & evaluation, urban planning, decentralization, works supervision, water & sanitation, geomatics.";
+
+  const { alternates, openGraph, twitter } = pageMetadata({ locale, path: "", title, description });
 
   return {
     metadataBase: new URL(SITE_URL),
@@ -49,22 +51,44 @@ export async function generateMetadata({
       "géomatique Sénégal",
       "consulting firm Senegal",
     ],
-    alternates: {
-      canonical: `/${locale}`,
-      languages: { fr: "/fr", en: "/en" },
-    },
-    openGraph: {
-      title,
-      description,
-      url: `${SITE_URL}/${locale}`,
-      siteName: "PRESTIGE Cabinet Conseil",
-      locale: isFr ? "fr_SN" : "en_US",
-      type: "website",
-    },
-    icons: {
-      icon: "/favicon.svg",
-    },
+    icons: { icon: "/favicon.svg" },
+    robots: { index: true, follow: true },
+    alternates,
+    openGraph,
+    twitter,
   };
+}
+
+function OrganizationJsonLd({ locale }: { locale: string }) {
+  const isFr = locale === "fr";
+  const json = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: company.commonName,
+    legalName: company.legalName,
+    url: `${SITE_URL}/${locale}`,
+    foundingDate: String(company.foundedYear),
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Lot 11, Liberté VI Extension",
+      addressLocality: "Dakar",
+      addressCountry: "SN",
+    },
+    telephone: company.phones[0],
+    email: company.emails[0],
+    areaServed: company.countriesOfOperation.map((c) => c[isFr ? "fr" : "en"]),
+    description: isFr
+      ? "Cabinet conseil, études et ingénierie basé à Dakar depuis 2000."
+      : "Consulting, studies and engineering firm based in Dakar since 2000.",
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(json) }}
+    />
+  );
 }
 
 export default async function LocaleLayout({
@@ -83,6 +107,7 @@ export default async function LocaleLayout({
 
   return (
     <div lang={locale} className={cn(fontDisplay.variable, fontBody.variable, "font-sans")}>
+      <OrganizationJsonLd locale={locale} />
       <NextIntlClientProvider messages={messages}>
         <GrainOverlay />
         <a

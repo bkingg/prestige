@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { pageMetadata } from "@/lib/seo";
 import { team } from "@/data/team";
 import { TeamCard } from "@/components/team/TeamCard";
 import { Reveal } from "@/components/ui/Reveal";
@@ -10,7 +11,7 @@ type Params = { locale: string };
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "team" });
-  return { title: t("title"), description: t("subtitle") };
+  return pageMetadata({ locale, path: "/equipe", title: t("title"), description: t("subtitle") });
 }
 
 export default async function TeamPage({ params }: { params: Promise<Params> }) {

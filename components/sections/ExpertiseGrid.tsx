@@ -17,9 +17,9 @@ export function ExpertiseGrid() {
           </h2>
         </Reveal>
 
-        <div className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid gap-x-12 sm:grid-cols-2">
           {expertiseAreas.map((item, i) => (
-            <ExpertiseCard key={item.slug} item={item} delay={(i % 3) * 0.08} />
+            <ExpertiseCard key={item.slug} item={item} delay={(i % 2) * 0.08} bg="white" />
           ))}
         </div>
       </div>

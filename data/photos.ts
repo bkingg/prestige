@@ -88,6 +88,16 @@ export const photos = {
     license: "CC BY-SA 4.0",
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Barrage_de_Diama.jpg",
   },
+  communeThies: {
+    src: "/images/photos/commune-thies.jpg",
+    alt: {
+      fr: "Quartier résidentiel dans une commune de la région de Thiès",
+      en: "A residential neighborhood in a commune in the Thiès region",
+    },
+    credit: "Deyonro23",
+    license: "CC BY-SA 4.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Villa_dans_un_village_%C3%A0_thi%C3%A8s.jpg",
+  },
 } satisfies Record<string, Photo>;
 
 export const expertisePhotos: Partial<Record<string, Photo>> = {
@@ -96,5 +106,6 @@ export const expertisePhotos: Partial<Record<string, Photo>> = {
   "management-etudes-economiques-sectorielles": photos.portHarbour,
   "etudes-controle-surveillance-travaux": photos.heroPort,
   "amenagement-drainage-assainissement-adduction-eau": photos.barrageDiama,
+  "decentralisation-collectivites-locales": photos.communeThies,
   geomatique: photos.aerialDakar,
 };

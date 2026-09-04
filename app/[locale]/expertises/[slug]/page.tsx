@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { expertiseAreas, getExpertiseBySlug } from "@/data/expertise";
 import { getRelatedProjects } from "@/lib/relatedProjects";
+import { pageMetadata } from "@/lib/seo";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
@@ -22,7 +23,12 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const item = getExpertiseBySlug(slug);
   if (!item) return {};
   const loc = locale as "fr" | "en";
-  return { title: item.title[loc], description: item.pitch[loc] };
+  return pageMetadata({
+    locale,
+    path: `/expertises/${slug}`,
+    title: item.title[loc],
+    description: item.pitch[loc],
+  });
 }
 
 export default async function ExpertiseDetailPage({ params }: { params: Promise<Params> }) {

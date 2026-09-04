@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { projects, categoryLabels, getProjectById } from "@/data/projects";
 import { getExpertiseBySlug } from "@/data/expertise";
+import { pageMetadata } from "@/lib/seo";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { ChevronRule } from "@/components/ui/Motifs";
@@ -14,10 +15,15 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
-  const { id } = await params;
+  const { locale, id } = await params;
   const project = getProjectById(id);
   if (!project) return {};
-  return { title: project.title, description: `${project.client} — ${project.country} — ${project.period}` };
+  return pageMetadata({
+    locale,
+    path: `/references/${id}`,
+    title: project.title,
+    description: `${project.client} — ${project.country} — ${project.period}`,
+  });
 }
 
 const EXPERTISE_LINK_BY_CATEGORY: Record<string, string> = {
