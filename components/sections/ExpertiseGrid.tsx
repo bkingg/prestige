@@ -1,11 +1,13 @@
 import { useTranslations } from "next-intl";
 import { expertiseAreas } from "@/data/expertise";
+import { getExpertisePhotos } from "@/lib/photos";
 import { ExpertiseCard } from "@/components/expertise/ExpertiseCard";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
-export function ExpertiseGrid() {
+export async function ExpertiseGrid() {
   const t = useTranslations("home");
+  const photos = await getExpertisePhotos();
 
   return (
     <section className="bg-white py-24 sm:py-32" id="expertises">
@@ -19,7 +21,13 @@ export function ExpertiseGrid() {
 
         <div className="mt-14 grid gap-x-12 sm:grid-cols-2">
           {expertiseAreas.map((item, i) => (
-            <ExpertiseCard key={item.slug} item={item} delay={(i % 2) * 0.08} bg="white" />
+            <ExpertiseCard
+              key={item.slug}
+              item={item}
+              photo={photos[item.slug]}
+              delay={(i % 2) * 0.08}
+              bg="white"
+            />
           ))}
         </div>
       </div>

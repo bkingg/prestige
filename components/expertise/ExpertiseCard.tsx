@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { Expertise } from "@/data/expertise";
-import { expertisePhotos } from "@/data/photos";
+import { expertisePhotos, type Photo } from "@/data/photos";
 import { Reveal } from "@/components/ui/Reveal";
 import { DiamondGrid } from "@/components/ui/Motifs";
 import { ChevronRight } from "lucide-react";
@@ -15,16 +15,18 @@ const bgGradient = {
 
 export function ExpertiseCard({
   item,
+  photo: photoProp,
   delay = 0,
   bg = "cream",
 }: {
   item: Expertise;
+  photo?: Photo;
   delay?: number;
   bg?: "white" | "cream";
 }) {
   const locale = useLocale() as "fr" | "en";
   const t = useTranslations("home");
-  const photo = expertisePhotos[item.slug];
+  const photo = photoProp ?? expertisePhotos[item.slug];
 
   return (
     <Reveal delay={delay} className="h-full">

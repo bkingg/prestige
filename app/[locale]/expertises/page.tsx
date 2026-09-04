@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { pageMetadata } from "@/lib/seo";
 import { expertiseAreas } from "@/data/expertise";
+import { getExpertisePhotos } from "@/lib/photos";
 import { ExpertiseCard } from "@/components/expertise/ExpertiseCard";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
@@ -18,6 +19,7 @@ export default async function ExpertisesPage({ params }: { params: Promise<Param
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("expertise");
+  const photos = await getExpertisePhotos();
 
   return (
     <section className="bg-cream pb-24 pt-32 sm:pt-36">
@@ -32,7 +34,7 @@ export default async function ExpertisesPage({ params }: { params: Promise<Param
 
         <div className="mt-16 grid gap-x-12 sm:grid-cols-2">
           {expertiseAreas.map((item, i) => (
-            <ExpertiseCard key={item.slug} item={item} delay={(i % 2) * 0.08} />
+            <ExpertiseCard key={item.slug} item={item} photo={photos[item.slug]} delay={(i % 2) * 0.08} />
           ))}
         </div>
       </div>
