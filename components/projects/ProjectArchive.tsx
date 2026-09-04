@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Search } from "lucide-react";
 import type { Project, ProjectCategory } from "@/data/projects";
-import { categoryLabels, years } from "@/data/projects";
+import { categoryLabels } from "@/data/projects";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 
 type SortMode = "recent" | "oldest" | "alpha";
@@ -17,6 +17,11 @@ export function ProjectArchive({ projects }: { projects: Project[] }) {
   const [category, setCategory] = useState<ProjectCategory | "all">("all");
   const [year, setYear] = useState<string>("all");
   const [sort, setSort] = useState<SortMode>("recent");
+
+  const years = useMemo(
+    () => Array.from(new Set(projects.map((p) => p.yearEnd))).sort((a, b) => b - a),
+    [projects]
+  );
 
   const filtered = useMemo(() => {
     let list = projects;

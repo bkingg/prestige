@@ -42,6 +42,19 @@ const client = createClient({
 async function seed() {
   console.log(`Seeding dataset "${dataset}" on project ${projectId}...`);
 
+  // One-time cleanup: earlier runs of this script prefixed project _ids with
+  // "project-", which doesn't match the static fallback's `id` field. Remove
+  // any leftover documents in that old shape before re-seeding.
+  const staleIds: string[] = await client.fetch(
+    `*[_type == "project" && _id match "project-*"]._id`
+  );
+  if (staleIds.length > 0) {
+    const cleanupTx = client.transaction();
+    for (const id of staleIds) cleanupTx.delete(id);
+    await cleanupTx.commit();
+    console.log(`✓ removed ${staleIds.length} stale project document(s) from a previous run`);
+  }
+
   await client.createOrReplace({
     _id: "siteSettings",
     _type: "siteSettings",
@@ -96,7 +109,10 @@ async function seed() {
     const tx = client.transaction();
     for (const p of batch) {
       tx.createOrReplace({
-        _id: `project-${p.id}`,
+        // No prefix: must exactly match the static fallback's `id` field
+        // (used as the /references/[id] route param) so switching between
+        // Sanity and the static fallback never changes a project's URL.
+        _id: p.id,
         _type: "project",
         title: p.title,
         period: p.period,

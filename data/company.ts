@@ -5,8 +5,10 @@ export const company = {
     fr: "Société Anonyme Unipersonnelle",
     en: "Single-member limited company",
   },
-  shareCapital: "10 000 000 FCFA",
-  shareCapitalEn: "10,000,000 FCFA",
+  shareCapital: {
+    fr: "10 000 000 FCFA",
+    en: "10,000,000 FCFA",
+  },
   foundedYear: 2000,
   address: {
     fr: "Lot 11, Liberté VI Extension – Dakar, Sénégal",

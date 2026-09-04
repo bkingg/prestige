@@ -10,7 +10,7 @@ export function brandImageContent(isFr: boolean) {
         padding: "80px",
         backgroundColor: "#4A121B",
         backgroundImage: "linear-gradient(135deg, #4A121B 0%, #6E1F2A 60%, #4A121B 100%)",
-        fontFamily: "Georgia, serif",
+        fontFamily: "Spectral",
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
@@ -28,7 +28,7 @@ export function brandImageContent(isFr: boolean) {
             <rect x="44" y="70" width="5" height="38" fill="#C6A870" />
           </svg>
         </div>
-        <span style={{ fontSize: 30, letterSpacing: 6, color: "#C6A870" }}>PRESTIGE</span>
+        <span style={{ fontSize: 30, letterSpacing: 6, color: "#C6A870", fontWeight: 700 }}>PRESTIGE</span>
       </div>
 
       <div
@@ -36,6 +36,7 @@ export function brandImageContent(isFr: boolean) {
           display: "flex",
           marginTop: 48,
           fontSize: 52,
+          fontWeight: 700,
           lineHeight: 1.25,
           color: "#F8F6F1",
           maxWidth: 920,
@@ -51,14 +52,14 @@ export function brandImageContent(isFr: boolean) {
           display: "flex",
           marginTop: 48,
           fontSize: 24,
+          fontWeight: 400,
           letterSpacing: 2,
           color: "#C6A870",
-          fontFamily: "Arial, sans-serif",
         }}
       >
         {isFr
-          ? "Cabinet Conseil — Dakar, Sénégal — Depuis 2000"
-          : "Consulting Firm — Dakar, Senegal — Since 2000"}
+          ? "Cabinet Conseil - Dakar, Sénégal - Depuis 2000"
+          : "Consulting Firm - Dakar, Senegal - Since 2000"}
       </div>
     </div>
   );

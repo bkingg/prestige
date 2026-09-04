@@ -8,7 +8,7 @@ export const siteSettings = defineType({
     defineField({ name: "legalName", title: "Dénomination légale", type: "string" }),
     defineField({ name: "commonName", title: "Nom usuel", type: "string" }),
     defineField({ name: "legalForm", title: "Forme juridique", type: "localeString" }),
-    defineField({ name: "shareCapital", title: "Capital social", type: "string" }),
+    defineField({ name: "shareCapital", title: "Capital social", type: "localeString" }),
     defineField({ name: "foundedYear", title: "Année de création", type: "number" }),
     defineField({ name: "address", title: "Adresse", type: "localeString" }),
     defineField({ name: "poBox", title: "Boîte postale", type: "string" }),

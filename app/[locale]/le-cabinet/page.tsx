@@ -27,7 +27,7 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
     [t("denomination"), company.legalName],
     [t("commonName"), company.commonName],
     [t("legalForm"), company.legalForm[loc]],
-    [t("shareCapital"), loc === "fr" ? company.shareCapital : company.shareCapitalEn],
+    [t("shareCapital"), company.shareCapital[loc]],
     [t("foundedYear"), String(company.foundedYear)],
     [t("address"), company.address[loc]],
   ];

@@ -2,7 +2,6 @@ import { isSanityConfigured } from "@/sanity/env";
 import { client } from "@/sanity/lib/client";
 import {
   expertiseListQuery,
-  expertiseBySlugQuery,
   teamListQuery,
   projectListQuery,
   siteSettingsQuery,
@@ -17,12 +16,19 @@ import { company as staticCompany } from "@/data/company";
  * falls back to the static, document-sourced data in /data. This keeps the
  * site fully functional before the CMS is provisioned, and lets editors take
  * over the same content afterwards without any component changes.
+ *
+ * Each list is fetched at most once per server process (module-level memo,
+ * not React's per-request cache() — this needs to survive across the many
+ * separate page renders a single build worker performs). Single-item
+ * lookups (by slug/id) are derived from that cached list via .find() rather
+ * than issuing their own network call, so generating hundreds of static
+ * project pages doesn't fire hundreds of concurrent Sanity requests.
  */
 
-async function safeFetch<T>(query: string, params: Record<string, unknown> | undefined, fallback: T): Promise<T> {
+async function safeFetch<T>(query: string, fallback: T): Promise<T> {
   if (!isSanityConfigured) return fallback;
   try {
-    const result = await client.fetch<T>(query, params ?? {});
+    const result = await client.fetch<T>(query);
     if (!result || (Array.isArray(result) && result.length === 0)) return fallback;
     return result;
   } catch {
@@ -30,24 +36,37 @@ async function safeFetch<T>(query: string, params: Record<string, unknown> | und
   }
 }
 
-export async function getExpertiseAreas(): Promise<Expertise[]> {
-  return safeFetch(expertiseListQuery, undefined, expertiseAreas);
+let expertisePromise: Promise<Expertise[]> | null = null;
+let teamPromise: Promise<TeamMember[]> | null = null;
+let projectsPromise: Promise<Project[]> | null = null;
+let companyPromise: Promise<typeof staticCompany> | null = null;
+
+export function getExpertiseAreas(): Promise<Expertise[]> {
+  if (!expertisePromise) expertisePromise = safeFetch(expertiseListQuery, expertiseAreas);
+  return expertisePromise;
 }
 
 export async function getExpertiseBySlug(slug: string): Promise<Expertise | undefined> {
   const list = await getExpertiseAreas();
-  const fallback = list.find((e) => e.slug === slug);
-  return safeFetch(expertiseBySlugQuery, { slug }, fallback);
+  return list.find((e) => e.slug === slug);
 }
 
-export async function getTeam(): Promise<TeamMember[]> {
-  return safeFetch(teamListQuery, undefined, team);
+export function getTeam(): Promise<TeamMember[]> {
+  if (!teamPromise) teamPromise = safeFetch(teamListQuery, team);
+  return teamPromise;
 }
 
-export async function getProjects(): Promise<Project[]> {
-  return safeFetch(projectListQuery, undefined, staticProjects);
+export function getProjects(): Promise<Project[]> {
+  if (!projectsPromise) projectsPromise = safeFetch(projectListQuery, staticProjects);
+  return projectsPromise;
 }
 
-export async function getCompany() {
-  return safeFetch(siteSettingsQuery, undefined, staticCompany);
+export async function getProjectById(id: string): Promise<Project | undefined> {
+  const list = await getProjects();
+  return list.find((p) => p.id === id);
+}
+
+export function getCompany(): Promise<typeof staticCompany> {
+  if (!companyPromise) companyPromise = safeFetch(siteSettingsQuery, staticCompany);
+  return companyPromise;
 }
