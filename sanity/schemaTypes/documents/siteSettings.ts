@@ -33,6 +33,9 @@ export const siteSettings = defineType({
     }),
     defineField({ name: "logistics", title: "Soutien logistique", type: "localeText" }),
     defineField({ name: "humanResources", title: "Ressources humaines et opérationnelles", type: "localeText" }),
+    defineField({ name: "heroPhoto", title: "Photo — Accueil (hero)", type: "photo" }),
+    defineField({ name: "aboutPhotoPrimary", title: "Photo — Le Cabinet (haut de page)", type: "photo" }),
+    defineField({ name: "aboutPhotoSecondary", title: "Photo — Le Cabinet (chronologie)", type: "photo" }),
   ],
   preview: {
     prepare: () => ({ title: "Fiche signalétique — Prestige SAU" }),

@@ -8,6 +8,7 @@ import { Geomatics } from "@/components/sections/Geomatics";
 import { TeamPreview } from "@/components/sections/TeamPreview";
 import { CTASection } from "@/components/sections/CTASection";
 import { ContactTeaser } from "@/components/sections/ContactTeaser";
+import { getSitePhotos } from "@/lib/photos";
 
 export default async function HomePage({
   params,
@@ -16,10 +17,11 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const { heroPhoto } = await getSitePhotos();
 
   return (
     <>
-      <Hero />
+      <Hero photo={heroPhoto} />
       <Heritage />
       <Introduction />
       <ExpertiseGrid />

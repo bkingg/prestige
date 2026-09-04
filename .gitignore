@@ -25,6 +25,7 @@ next-env.d.ts
 
 # sanity
 .sanity
+/dist
 
 # session-local / scratch (not part of the app)
 /.claude/

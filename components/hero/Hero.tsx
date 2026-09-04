@@ -8,14 +8,13 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Link } from "@/i18n/navigation";
-import { photos } from "@/data/photos";
+import type { Photo } from "@/data/photos";
 
-export function Hero() {
+export function Hero({ photo }: { photo: Photo }) {
   const t = useTranslations("home");
   const locale = useLocale() as "fr" | "en";
   const reduce = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
-  const photo = photos.pontFaidherbe;
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,

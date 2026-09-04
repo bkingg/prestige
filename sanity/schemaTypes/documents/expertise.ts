@@ -18,6 +18,7 @@ export const expertise = defineType({
     defineField({ name: "pitch", title: "Accroche", type: "localeText" }),
     defineField({ name: "services", title: "Étendue des services", type: "localeStringList" }),
     defineField({ name: "order", title: "Ordre d'affichage", type: "number" }),
+    defineField({ name: "photo", title: "Photo", type: "photo" }),
   ],
   preview: {
     select: { title: "title.fr", subtitle: "number" },

@@ -7,7 +7,7 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ChevronRule } from "@/components/ui/Motifs";
 import { CountriesMap } from "@/components/ui/CountriesMap";
 import { PhotoPanel } from "@/components/ui/Photo";
-import { photos } from "@/data/photos";
+import { getSitePhotos } from "@/lib/photos";
 
 type Params = { locale: string };
 
@@ -22,6 +22,7 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
   setRequestLocale(locale);
   const t = await getTranslations("about");
   const loc = locale as "fr" | "en";
+  const { aboutPhotoPrimary, aboutPhotoSecondary } = await getSitePhotos();
 
   const identity: [string, string][] = [
     [t("denomination"), company.legalName],
@@ -44,7 +45,7 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
             <p className="mt-6 max-w-md text-lg leading-relaxed text-charcoal/70">{t("subtitle")}</p>
           </Reveal>
           <Reveal delay={0.15}>
-            <PhotoPanel photo={photos.dakarPlateau} className="aspect-[4/3] w-full" />
+            <PhotoPanel photo={aboutPhotoPrimary} className="aspect-[4/3] w-full" />
           </Reveal>
         </div>
       </section>
@@ -81,7 +82,7 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
       <section className="bg-cream py-24 sm:py-32">
         <div className="container-prestige grid gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           <Reveal className="lg:order-2">
-            <PhotoPanel photo={photos.roadConstruction} className="aspect-[4/5] w-full" wash={false} />
+            <PhotoPanel photo={aboutPhotoSecondary} className="aspect-[4/5] w-full" wash={false} />
           </Reveal>
 
           <div className="lg:order-1">

@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { ChevronRule } from "@/components/ui/Motifs";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { PhotoPanel } from "@/components/ui/Photo";
-import { expertisePhotos } from "@/data/photos";
+import { getExpertisePhotos } from "@/lib/photos";
 
 type Params = { locale: string; slug: string };
 
@@ -40,6 +40,7 @@ export default async function ExpertiseDetailPage({ params }: { params: Promise<
 
   const t = await getTranslations("expertise");
   const related = getRelatedProjects(slug);
+  const expertisePhotos = await getExpertisePhotos();
   const photo = expertisePhotos[slug];
 
   const heroText = (
