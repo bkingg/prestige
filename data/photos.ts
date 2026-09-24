@@ -128,6 +128,17 @@ export const photos = {
     license: "Licence Vecteezy",
     sourceUrl: "https://drive.google.com/file/d/1F0BiqqwaZ-Z5JUp5Ny6uB_5Bu1Rl0j_U/view",
   },
+  heroGrowth: {
+    src: "/images/photos/hero-growth-abstract.jpg",
+    alt: {
+      fr: "Illustration abstraite de croissance dans un bureau moderne",
+      en: "Abstract growth illustration in a modern office",
+    },
+    credit: "Illustration générée par IA",
+    license: "Usage interne",
+    sourceUrl:
+      "https://images.openai.com/static-rsc-4/rY_CqQy0ze7qVkrzQcoUlvibosvYwOpshqVAa72r7CHf3WgHkxN_DKeItOXmbNDQUsiIF8GYiXWkj5VvBAt4zDhKz7u3VCo4hIjRyyfq_PjvZJ-Z6D1aDQkS9mqMPEfu28avcq04Afg2Rz9y_VTz3kKDRBvaFvZkrQXV3DoAWRCraZpI8nRrk__VSPzsfrp3?purpose=fullsize",
+  },
 } satisfies Record<string, Photo>;
 
 export const expertisePhotos: Partial<Record<string, Photo>> = {

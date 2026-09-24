@@ -60,7 +60,7 @@ export const getSitePhotos = cache(async (): Promise<{
   aboutPhotoSecondary: Photo;
 }> => {
   const fallback = {
-    heroPhoto: staticPhotos.pontFaidherbe,
+    heroPhoto: staticPhotos.heroGrowth,
     aboutPhotoPrimary: staticPhotos.dakarPlateau,
     aboutPhotoSecondary: staticPhotos.roadConstruction,
   };
