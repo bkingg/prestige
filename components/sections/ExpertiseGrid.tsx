@@ -1,13 +1,12 @@
 import { useTranslations } from "next-intl";
 import { expertiseAreas } from "@/data/expertise";
-import { getExpertisePhotos } from "@/lib/photos";
+import type { Photo } from "@/data/photos";
 import { ExpertiseCard } from "@/components/expertise/ExpertiseCard";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
-export async function ExpertiseGrid() {
+export function ExpertiseGrid({ photos }: { photos: Partial<Record<string, Photo>> }) {
   const t = useTranslations("home");
-  const photos = await getExpertisePhotos();
 
   return (
     <section className="bg-white py-24 sm:py-32" id="expertises">

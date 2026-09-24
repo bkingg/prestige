@@ -1,4 +1,3 @@
-import { cache } from "react";
 import { isSanityConfigured } from "@/sanity/env";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
@@ -6,10 +5,12 @@ import { photos as staticPhotos, expertisePhotos as staticExpertisePhotos, type 
 
 /**
  * Resolves the site's hero/about/expertise photos from Sanity when
- * available, falling back to the local static photos otherwise. Kept
- * separate from lib/content.ts (which stays static-only after the RSC
- * crash documented there) since PhotoPanel/Hero render no stateful client
- * component, so this narrow, additive fetch doesn't carry the same risk.
+ * available, falling back to the local static photos otherwise. Not
+ * wrapped in React's cache(): calling both of these from the same page
+ * (the homepage uses Hero + ExpertiseGrid together) hit a Next 14.2
+ * static-generation race ("Expected a suspended thenable") on Vercel's
+ * build machine. Next's Data Cache (the `revalidate` hint below) still
+ * dedupes the underlying fetch.
  */
 
 interface SanityPhotoDoc {
@@ -35,7 +36,7 @@ function toPhoto(sp: SanityPhotoDoc | undefined | null, fallback: Photo): Photo 
 const expertisePhotosQuery = `*[_type == "expertise"]{"slug": slug.current, photo}`;
 const sitePhotosQuery = `*[_type == "siteSettings"][0]{heroPhoto, aboutPhotoPrimary, aboutPhotoSecondary}`;
 
-export const getExpertisePhotos = cache(async (): Promise<Partial<Record<string, Photo>>> => {
+export async function getExpertisePhotos(): Promise<Partial<Record<string, Photo>>> {
   const result: Partial<Record<string, Photo>> = { ...staticExpertisePhotos };
   if (!isSanityConfigured) return result;
   try {
@@ -52,13 +53,13 @@ export const getExpertisePhotos = cache(async (): Promise<Partial<Record<string,
     // keep static fallback
   }
   return result;
-});
+}
 
-export const getSitePhotos = cache(async (): Promise<{
+export async function getSitePhotos(): Promise<{
   heroPhoto: Photo;
   aboutPhotoPrimary: Photo;
   aboutPhotoSecondary: Photo;
-}> => {
+}> {
   const fallback = {
     heroPhoto: staticPhotos.heroGrowth,
     aboutPhotoPrimary: staticPhotos.dakarPlateau,
@@ -80,4 +81,4 @@ export const getSitePhotos = cache(async (): Promise<{
   } catch {
     return fallback;
   }
-});
+}

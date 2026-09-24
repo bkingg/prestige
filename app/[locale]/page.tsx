@@ -8,7 +8,7 @@ import { Geomatics } from "@/components/sections/Geomatics";
 import { TeamPreview } from "@/components/sections/TeamPreview";
 import { CTASection } from "@/components/sections/CTASection";
 import { ContactTeaser } from "@/components/sections/ContactTeaser";
-import { getSitePhotos } from "@/lib/photos";
+import { getSitePhotos, getExpertisePhotos } from "@/lib/photos";
 
 export default async function HomePage({
   params,
@@ -17,14 +17,14 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const { heroPhoto } = await getSitePhotos();
+  const [{ heroPhoto }, expertisePhotos] = await Promise.all([getSitePhotos(), getExpertisePhotos()]);
 
   return (
     <>
       <Hero photo={heroPhoto} />
       <Heritage />
       <Introduction />
-      <ExpertiseGrid />
+      <ExpertiseGrid photos={expertisePhotos} />
       <FeaturedProjects />
       <Geomatics />
       <TeamPreview />
