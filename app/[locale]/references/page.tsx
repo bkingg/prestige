@@ -32,7 +32,7 @@ export default async function ReferencesPage({ params }: { params: Promise<Param
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-charcoal/70">{t("subtitle")}</p>
         </Reveal>
         <Reveal delay={0.15}>
-          <PhotoPanel photo={photos.placeIndependance} className="aspect-[4/3] w-full" />
+          <PhotoPanel photo={photos.placeIndependance} className="aspect-[4/3] w-full" priority />
         </Reveal>
       </div>
 
