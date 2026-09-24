@@ -98,6 +98,36 @@ export const photos = {
     license: "CC BY-SA 4.0",
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Villa_dans_un_village_%C3%A0_thi%C3%A8s.jpg",
   },
+  placeIndependance: {
+    src: "/images/photos/place-independance-dakar.jpg",
+    alt: {
+      fr: "Vue aérienne de la Place de l'Indépendance, Dakar",
+      en: "Aerial view of Place de l'Indépendance, Dakar",
+    },
+    credit: "Cabinet Prestige",
+    license: "Tous droits réservés",
+    sourceUrl: "https://drive.google.com/file/d/13YauLxnenXqI0GYPuNPO0A1zMDFkTy-u/view",
+  },
+  consultantBureau: {
+    src: "/images/photos/consultant-bureau.jpg",
+    alt: {
+      fr: "Consultant du cabinet dans un bureau moderne",
+      en: "A firm consultant in a modern office",
+    },
+    credit: "Vecteezy",
+    license: "Licence Vecteezy",
+    sourceUrl: "https://drive.google.com/file/d/1l5I7HPE4f1SaGGkeEw1HLyUmcwB10UhI/view",
+  },
+  analyseStrategique: {
+    src: "/images/photos/analyse-strategique.jpg",
+    alt: {
+      fr: "Échange autour d'une analyse stratégique et de graphiques",
+      en: "Discussion around a strategic analysis and charts",
+    },
+    credit: "Vecteezy",
+    license: "Licence Vecteezy",
+    sourceUrl: "https://drive.google.com/file/d/1F0BiqqwaZ-Z5JUp5Ny6uB_5Bu1Rl0j_U/view",
+  },
 } satisfies Record<string, Photo>;
 
 export const expertisePhotos: Partial<Record<string, Photo>> = {
