@@ -63,7 +63,7 @@ export default async function ExpertiseDetailPage({ params }: { params: Promise<
           <div className="container-prestige grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
             {heroText}
             <Reveal delay={0.15}>
-              <PhotoPanel photo={photo} className="aspect-[4/3] w-full" priority />
+              <PhotoPanel photo={photo} className="aspect-[4/3] w-full" priority edgeFade />
             </Reveal>
           </div>
         ) : (

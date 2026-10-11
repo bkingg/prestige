@@ -13,11 +13,14 @@ export function PhotoPanel({
   className,
   priority,
   wash = true,
+  edgeFade = false,
 }: {
   photo: Photo;
   className?: string;
   priority?: boolean;
   wash?: boolean;
+  /** Fades the page background into the photo's leading edge on desktop, so a header's text column reads as flowing into the image rather than butting against a hard crop. */
+  edgeFade?: boolean;
 }) {
   const locale = useLocale() as "fr" | "en";
 
@@ -33,6 +36,12 @@ export function PhotoPanel({
       />
       {wash && (
         <div className="absolute inset-0 bg-gradient-to-t from-burgundy-deep/70 via-burgundy-deep/10 to-transparent mix-blend-multiply" />
+      )}
+      {edgeFade && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 left-0 hidden w-28 bg-gradient-to-r from-cream to-transparent lg:block xl:w-36"
+        />
       )}
       <PhotoCredit photo={photo} />
     </div>

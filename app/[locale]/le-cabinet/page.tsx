@@ -45,7 +45,7 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
             <p className="mt-6 max-w-md text-lg leading-relaxed text-charcoal/70">{t("subtitle")}</p>
           </Reveal>
           <Reveal delay={0.15}>
-            <PhotoPanel photo={aboutPhotoPrimary} className="aspect-[4/3] w-full" priority />
+            <PhotoPanel photo={aboutPhotoPrimary} className="aspect-[4/3] w-full" priority edgeFade />
           </Reveal>
         </div>
       </section>
