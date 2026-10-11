@@ -141,15 +141,15 @@ export const photos = {
     license: "Licence Vecteezy",
     sourceUrl: "https://drive.google.com/file/d/1F0BiqqwaZ-Z5JUp5Ny6uB_5Bu1Rl0j_U/view",
   },
-  heroDakarPlateau: {
-    src: "/images/photos/hero-dakar-plateau.jpg",
+  heroDakarSkyline: {
+    src: "/images/photos/hero-dakar-skyline.jpg",
     alt: {
-      fr: "Immeuble et espace public paysager sur la Place de l'Indépendance, Dakar",
-      en: "Apartment building and landscaped public space on Place de l'Indépendance, Dakar",
+      fr: "Silhouette du Plateau de Dakar vue depuis la baie, lumière voilée",
+      en: "Silhouette of Dakar's Plateau skyline seen across the bay, hazy light",
     },
-    credit: "Raymond Diop",
-    license: "CC BY-SA 4.0",
-    sourceUrl: "https://commons.wikimedia.org/wiki/File:@raymondiop-la-ville-de-dakar-14.jpg",
+    credit: "Vincenzo Fotoguru Iaconianni",
+    license: "CC BY-SA 2.5",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Dakar_skyline_da_gor%C3%A8.jpg",
   },
 } satisfies Record<string, Photo>;
 

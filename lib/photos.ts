@@ -22,10 +22,18 @@ interface SanityPhotoDoc {
   sourceUrl?: string;
 }
 
-function toPhoto(sp: SanityPhotoDoc | undefined | null, fallback: Photo): Photo {
+// Panels render at a max of 50vw (see PhotoPanel/ExpertiseCard `sizes`), so
+// 1600 comfortably covers them even at 2x pixel density on common laptop
+// viewports. The hero is full-bleed (`sizes="100vw"`) and needs the wider
+// cap below, or Next's optimizer ends up upscaling a too-small Sanity-CDN
+// source on large/retina displays instead of downsampling a bigger one.
+const PANEL_WIDTH = 1600;
+const HERO_WIDTH = 2400;
+
+function toPhoto(sp: SanityPhotoDoc | undefined | null, fallback: Photo, width = PANEL_WIDTH): Photo {
   if (!sp?.asset) return fallback;
   return {
-    src: urlFor(sp.asset).width(1600).quality(80).auto("format").url(),
+    src: urlFor(sp.asset).width(width).quality(80).auto("format").url(),
     alt: { fr: sp.altFr || fallback.alt.fr, en: sp.altEn || fallback.alt.en },
     credit: sp.credit || fallback.credit,
     license: sp.license || fallback.license,
@@ -36,6 +44,11 @@ function toPhoto(sp: SanityPhotoDoc | undefined | null, fallback: Photo): Photo 
 const expertisePhotosQuery = `*[_type == "expertise"]{"slug": slug.current, photo}`;
 const sitePhotosQuery = `*[_type == "siteSettings"][0]{heroPhoto, aboutPhotoPrimary, aboutPhotoSecondary}`;
 
+// Photo content changes rarely (a Studio edit, not a traffic-driven update),
+// so a longer revalidate window cuts origin round-trips to Sanity's CDN
+// without making edits feel stale.
+const PHOTOS_REVALIDATE_SECONDS = 300;
+
 export async function getExpertisePhotos(): Promise<Partial<Record<string, Photo>>> {
   const result: Partial<Record<string, Photo>> = { ...staticExpertisePhotos };
   if (!isSanityConfigured) return result;
@@ -43,7 +56,7 @@ export async function getExpertisePhotos(): Promise<Partial<Record<string, Photo
     const rows = await client.fetch<{ slug: string; photo?: SanityPhotoDoc }[]>(
       expertisePhotosQuery,
       {},
-      { next: { revalidate: 60 } }
+      { next: { revalidate: PHOTOS_REVALIDATE_SECONDS } }
     );
     for (const row of rows) {
       const fallback = staticExpertisePhotos[row.slug];
@@ -61,7 +74,7 @@ export async function getSitePhotos(): Promise<{
   aboutPhotoSecondary: Photo;
 }> {
   const fallback = {
-    heroPhoto: staticPhotos.heroDakarPlateau,
+    heroPhoto: staticPhotos.heroDakarSkyline,
     aboutPhotoPrimary: staticPhotos.dakarPlateau,
     aboutPhotoSecondary: staticPhotos.roadConstruction,
   };
@@ -71,10 +84,10 @@ export async function getSitePhotos(): Promise<{
       heroPhoto?: SanityPhotoDoc;
       aboutPhotoPrimary?: SanityPhotoDoc;
       aboutPhotoSecondary?: SanityPhotoDoc;
-    } | null>(sitePhotosQuery, {}, { next: { revalidate: 60 } });
+    } | null>(sitePhotosQuery, {}, { next: { revalidate: PHOTOS_REVALIDATE_SECONDS } });
     if (!doc) return fallback;
     return {
-      heroPhoto: toPhoto(doc.heroPhoto, fallback.heroPhoto),
+      heroPhoto: toPhoto(doc.heroPhoto, fallback.heroPhoto, HERO_WIDTH),
       aboutPhotoPrimary: toPhoto(doc.aboutPhotoPrimary, fallback.aboutPhotoPrimary),
       aboutPhotoSecondary: toPhoto(doc.aboutPhotoSecondary, fallback.aboutPhotoSecondary),
     };

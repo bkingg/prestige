@@ -51,7 +51,7 @@ async function main() {
     console.log(`✓ expertise-${slug} <- ${photo.src}`);
   }
 
-  const heroPhoto = await uploadPhoto(photos.heroDakarPlateau);
+  const heroPhoto = await uploadPhoto(photos.heroDakarSkyline);
   const aboutPhotoPrimary = await uploadPhoto(photos.dakarPlateau);
   const aboutPhotoSecondary = await uploadPhoto(photos.roadConstruction);
 
