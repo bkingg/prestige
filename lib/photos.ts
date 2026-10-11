@@ -61,7 +61,7 @@ export async function getSitePhotos(): Promise<{
   aboutPhotoSecondary: Photo;
 }> {
   const fallback = {
-    heroPhoto: staticPhotos.heroGrowth,
+    heroPhoto: staticPhotos.heroDakarPlateau,
     aboutPhotoPrimary: staticPhotos.dakarPlateau,
     aboutPhotoSecondary: staticPhotos.roadConstruction,
   };

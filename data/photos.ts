@@ -37,12 +37,15 @@ export const photos = {
     license: "Domaine public",
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Dakar-Aerial2.jpg",
   },
-  vueAerienneDakar: {
-    src: "/images/photos/vue-aerienne-dakar.jpg",
-    alt: { fr: "Vue aérienne de la trame urbaine de Dakar", en: "Aerial view of Dakar's urban fabric" },
-    credit: "CNT Guinée",
-    license: "CC BY-SA 4.0",
-    sourceUrl: "https://commons.wikimedia.org/wiki/File:Vue_a%C3%A9rien_de_Dakar.jpg",
+  trameUrbaineDakar: {
+    src: "/images/photos/trame-urbaine-dakar.jpg",
+    alt: {
+      fr: "Vue plongeante sur la trame urbaine de Dakar : immeubles, villas et voirie",
+      en: "Elevated view over Dakar's urban fabric: apartment blocks, villas and streets",
+    },
+    credit: "Jeff Attaway",
+    license: "CC BY 2.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Dakar,_Senegal_-_Left_Half_(5662420768).jpg",
   },
   portHarbour: {
     src: "/images/photos/port-harbour-aerial.jpg",
@@ -101,12 +104,22 @@ export const photos = {
   placeIndependance: {
     src: "/images/photos/place-independance-dakar.jpg",
     alt: {
-      fr: "Vue aérienne de la Place de l'Indépendance, Dakar",
-      en: "Aerial view of Place de l'Indépendance, Dakar",
+      fr: "Immeuble de bureaux et sièges bancaires sur la Place de l'Indépendance, Dakar",
+      en: "Office building and bank headquarters on Place de l'Indépendance, Dakar",
     },
-    credit: "Cabinet Prestige",
-    license: "Tous droits réservés",
-    sourceUrl: "https://drive.google.com/file/d/13YauLxnenXqI0GYPuNPO0A1zMDFkTy-u/view",
+    credit: "Raymond Diop",
+    license: "CC BY-SA 4.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:@raymondiop-la-ville-de-dakar-4.jpg",
+  },
+  ansdDakar: {
+    src: "/images/photos/ansd-dakar.jpg",
+    alt: {
+      fr: "Le siège de l'ANSD et de l'ENSAE à Dakar",
+      en: "The headquarters of the ANSD and ENSAE in Dakar",
+    },
+    credit: "Ferllyprince",
+    license: "CC BY-SA 4.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Architecture_de_l%27ANSD_du_Senegal.jpg",
   },
   consultantBureau: {
     src: "/images/photos/consultant-bureau.jpg",
@@ -128,23 +141,23 @@ export const photos = {
     license: "Licence Vecteezy",
     sourceUrl: "https://drive.google.com/file/d/1F0BiqqwaZ-Z5JUp5Ny6uB_5Bu1Rl0j_U/view",
   },
-  heroGrowth: {
-    src: "/images/photos/hero-growth-abstract.jpg",
+  heroDakarPlateau: {
+    src: "/images/photos/hero-dakar-plateau.jpg",
     alt: {
-      fr: "Illustration abstraite de croissance dans un bureau moderne",
-      en: "Abstract growth illustration in a modern office",
+      fr: "Immeuble et espace public paysager sur la Place de l'Indépendance, Dakar",
+      en: "Apartment building and landscaped public space on Place de l'Indépendance, Dakar",
     },
-    credit: "Illustration générée par IA",
-    license: "Usage interne",
-    sourceUrl:
-      "https://images.openai.com/static-rsc-4/rY_CqQy0ze7qVkrzQcoUlvibosvYwOpshqVAa72r7CHf3WgHkxN_DKeItOXmbNDQUsiIF8GYiXWkj5VvBAt4zDhKz7u3VCo4hIjRyyfq_PjvZJ-Z6D1aDQkS9mqMPEfu28avcq04Afg2Rz9y_VTz3kKDRBvaFvZkrQXV3DoAWRCraZpI8nRrk__VSPzsfrp3?purpose=fullsize",
+    credit: "Raymond Diop",
+    license: "CC BY-SA 4.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:@raymondiop-la-ville-de-dakar-14.jpg",
   },
 } satisfies Record<string, Photo>;
 
 export const expertisePhotos: Partial<Record<string, Photo>> = {
   "environnement-developpement-durable": photos.lacRose,
-  "urbanisme-amenagement-paysage": photos.vueAerienneDakar,
+  "urbanisme-amenagement-paysage": photos.trameUrbaineDakar,
   "management-etudes-economiques-sectorielles": photos.portHarbour,
+  "suivi-evaluation-planification-audit-conseil": photos.ansdDakar,
   "etudes-controle-surveillance-travaux": photos.heroPort,
   "amenagement-drainage-assainissement-adduction-eau": photos.barrageDiama,
   "decentralisation-collectivites-locales": photos.communeThies,
