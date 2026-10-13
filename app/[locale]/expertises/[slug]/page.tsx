@@ -5,11 +5,10 @@ import { expertiseAreas, getExpertiseBySlug } from "@/data/expertise";
 import { getRelatedProjects } from "@/lib/relatedProjects";
 import { pageMetadata } from "@/lib/seo";
 import { Reveal } from "@/components/ui/Reveal";
-import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
-import { ChevronRule } from "@/components/ui/Motifs";
+import { PageHeader } from "@/components/ui/PageHeader";
+import { CTABand } from "@/components/ui/CTABand";
 import { ProjectCard } from "@/components/projects/ProjectCard";
-import { PhotoPanel } from "@/components/ui/Photo";
 import { getExpertisePhotos } from "@/lib/photos";
 
 type Params = { locale: string; slug: string };
@@ -43,33 +42,17 @@ export default async function ExpertiseDetailPage({ params }: { params: Promise<
   const expertisePhotos = await getExpertisePhotos();
   const photo = expertisePhotos[slug];
 
-  const heroText = (
-    <Reveal>
-      <Button href="/expertises" variant="ghost" icon={false} className="mb-8">
-        ← {t("back")}
-      </Button>
-      <h1 className="font-serif text-4xl leading-tight text-burgundy-deep sm:text-5xl">
-        {item.title[loc]}
-      </h1>
-      <ChevronRule className="mt-6 h-3 w-20 text-gold" />
-      <p className="mt-8 text-lg leading-relaxed text-charcoal/70">{item.pitch[loc]}</p>
-    </Reveal>
-  );
-
   return (
     <>
-      <section className="bg-cream pb-16 pt-32 sm:pt-36">
-        {photo ? (
-          <div className="container-prestige grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
-            {heroText}
-            <Reveal delay={0.15}>
-              <PhotoPanel photo={photo} className="aspect-[4/3] w-full" priority />
-            </Reveal>
-          </div>
-        ) : (
-          <div className="container-prestige max-w-3xl">{heroText}</div>
-        )}
-      </section>
+      <PageHeader
+        eyebrow={`${t("eyebrow")} — ${item.number}`}
+        title={item.title[loc]}
+        subtitle={item.pitch[loc]}
+        photo={photo}
+        backHref="/expertises"
+        backLabel={t("back")}
+        rule
+      />
 
       <section className="border-t border-charcoal/10 bg-white py-20">
         <div className="container-prestige max-w-3xl">
@@ -111,16 +94,7 @@ export default async function ExpertiseDetailPage({ params }: { params: Promise<
         </section>
       )}
 
-      <section className="border-t border-charcoal/10 bg-burgundy py-16 text-center text-cream">
-        <div className="container-prestige">
-          <Reveal>
-            <h2 className="font-serif text-2xl sm:text-3xl">{t("ctaTitle")}</h2>
-            <Button href="/contact" variant="inverse" className="mx-auto mt-8">
-              {t("ctaButton")}
-            </Button>
-          </Reveal>
-        </div>
-      </section>
+      <CTABand title={t("ctaTitle")} buttonLabel={t("ctaButton")} buttonHref="/contact" size="sm" />
     </>
   );
 }

@@ -4,8 +4,7 @@ import { pageMetadata } from "@/lib/seo";
 import { company } from "@/data/company";
 import { photos } from "@/data/photos";
 import { Reveal } from "@/components/ui/Reveal";
-import { SectionLabel } from "@/components/ui/SectionLabel";
-import { PhotoPanel } from "@/components/ui/Photo";
+import { PageHeader } from "@/components/ui/PageHeader";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { Phone, Mail, MapPin } from "lucide-react";
 
@@ -25,22 +24,11 @@ export default async function ContactPage({ params }: { params: Promise<Params> 
   const mapQuery = encodeURIComponent(`${company.address.fr}, ${company.poBox}`);
 
   return (
-    <section className="bg-cream pb-24 pt-32 sm:pt-36">
-      <div className="container-prestige grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
-        <Reveal>
-          <SectionLabel>{t("eyebrow")}</SectionLabel>
-          <h1 className="mt-6 max-w-2xl font-serif text-5xl leading-tight text-burgundy-deep sm:text-6xl">
-            {t("title")}
-          </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-charcoal/70">{t("subtitle")}</p>
-        </Reveal>
-        <Reveal delay={0.15}>
-          <PhotoPanel photo={photos.analyseStrategique} className="aspect-[4/3] w-full" priority />
-        </Reveal>
-      </div>
+    <>
+      <PageHeader eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} photo={photos.analyseStrategique} />
 
-      <div className="container-prestige">
-        <div className="mt-16 grid gap-16 lg:grid-cols-[1fr_1.3fr] lg:gap-20">
+      <div className="container-prestige bg-cream pb-24">
+        <div className="grid gap-16 lg:grid-cols-[1fr_1.3fr] lg:gap-20">
           <Reveal>
             <div className="space-y-10">
               <InfoBlock icon={<MapPin className="h-5 w-5" />} title={t("addressTitle")}>
@@ -94,7 +82,7 @@ export default async function ContactPage({ params }: { params: Promise<Params> 
           </Reveal>
         </div>
       </div>
-    </section>
+    </>
   );
 }
 

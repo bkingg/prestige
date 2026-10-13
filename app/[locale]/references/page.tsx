@@ -4,9 +4,7 @@ import { pageMetadata } from "@/lib/seo";
 import { projects } from "@/data/projects";
 import { photos } from "@/data/photos";
 import { ProjectArchive } from "@/components/projects/ProjectArchive";
-import { PhotoPanel } from "@/components/ui/Photo";
-import { Reveal } from "@/components/ui/Reveal";
-import { SectionLabel } from "@/components/ui/SectionLabel";
+import { PageHeader } from "@/components/ui/PageHeader";
 
 type Params = { locale: string };
 
@@ -22,23 +20,11 @@ export default async function ReferencesPage({ params }: { params: Promise<Param
   const t = await getTranslations("references");
 
   return (
-    <section className="bg-cream pb-24 pt-32 sm:pt-36">
-      <div className="container-prestige grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
-        <Reveal>
-          <SectionLabel>{t("eyebrow")}</SectionLabel>
-          <h1 className="mt-6 max-w-2xl font-serif text-5xl leading-tight text-burgundy-deep sm:text-6xl">
-            {t("title")}
-          </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-charcoal/70">{t("subtitle")}</p>
-        </Reveal>
-        <Reveal delay={0.15}>
-          <PhotoPanel photo={photos.placeIndependance} className="aspect-[4/3] w-full" priority />
-        </Reveal>
-      </div>
-
-      <div className="container-prestige mt-14">
+    <>
+      <PageHeader eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} photo={photos.placeIndependance} />
+      <div className="container-prestige bg-cream pb-24">
         <ProjectArchive projects={projects} />
       </div>
-    </section>
+    </>
   );
 }

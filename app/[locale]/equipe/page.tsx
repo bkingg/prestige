@@ -4,9 +4,7 @@ import { pageMetadata } from "@/lib/seo";
 import { team } from "@/data/team";
 import { photos } from "@/data/photos";
 import { TeamCard } from "@/components/team/TeamCard";
-import { PhotoPanel } from "@/components/ui/Photo";
-import { Reveal } from "@/components/ui/Reveal";
-import { SectionLabel } from "@/components/ui/SectionLabel";
+import { PageHeader } from "@/components/ui/PageHeader";
 
 type Params = { locale: string };
 
@@ -22,25 +20,13 @@ export default async function TeamPage({ params }: { params: Promise<Params> }) 
   const t = await getTranslations("team");
 
   return (
-    <section className="bg-cream pb-24 pt-32 sm:pt-36">
-      <div className="container-prestige grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
-        <Reveal>
-          <SectionLabel>{t("eyebrow")}</SectionLabel>
-          <h1 className="mt-6 max-w-2xl font-serif text-5xl leading-tight text-burgundy-deep sm:text-6xl">
-            {t("title")}
-          </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-charcoal/70">{t("subtitle")}</p>
-        </Reveal>
-        <Reveal delay={0.15}>
-          <PhotoPanel photo={photos.consultantBureau} className="aspect-[4/3] w-full" priority />
-        </Reveal>
-      </div>
-
-      <div className="container-prestige mt-16 grid gap-6 sm:grid-cols-2">
+    <>
+      <PageHeader eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} photo={photos.consultantBureau} />
+      <div className="container-prestige bg-cream pb-24 pt-2 grid gap-6 sm:grid-cols-2">
         {team.map((member, i) => (
           <TeamCard key={member.slug} member={member} delay={(i % 2) * 0.1} />
         ))}
       </div>
-    </section>
+    </>
   );
 }

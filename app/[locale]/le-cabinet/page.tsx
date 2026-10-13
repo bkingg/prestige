@@ -7,6 +7,7 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ChevronRule } from "@/components/ui/Motifs";
 import { CountriesMap } from "@/components/ui/CountriesMap";
 import { PhotoPanel } from "@/components/ui/Photo";
+import { PageHeader } from "@/components/ui/PageHeader";
 import { getSitePhotos } from "@/lib/photos";
 
 type Params = { locale: string };
@@ -35,20 +36,7 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
 
   return (
     <>
-      <section className="bg-cream pb-16 pt-32 sm:pt-36">
-        <div className="container-prestige grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
-          <Reveal>
-            <SectionLabel>{t("eyebrow")}</SectionLabel>
-            <h1 className="mt-6 font-serif text-5xl leading-tight text-burgundy-deep sm:text-6xl">
-              {t("title")}
-            </h1>
-            <p className="mt-6 max-w-md text-lg leading-relaxed text-charcoal/70">{t("subtitle")}</p>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <PhotoPanel photo={aboutPhotoPrimary} className="aspect-[4/3] w-full" priority />
-          </Reveal>
-        </div>
-      </section>
+      <PageHeader eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} photo={aboutPhotoPrimary} />
 
       <section className="border-y border-charcoal/10 bg-white py-20">
         <div className="container-prestige grid gap-14 lg:grid-cols-[1fr_1.4fr] lg:gap-20">
