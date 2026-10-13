@@ -47,6 +47,7 @@ export function PhotoPanel({
           alt={photo.alt[locale]}
           fill
           priority={priority}
+          loading={priority ? undefined : "lazy"}
           sizes="(min-width: 1024px) 50vw, 100vw"
           className="object-cover"
         />

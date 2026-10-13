@@ -27,7 +27,7 @@ export default async function ContactPage({ params }: { params: Promise<Params> 
     <>
       <PageHeader eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} photo={photos.analyseStrategique} />
 
-      <div className="container-prestige bg-cream pb-24">
+      <div className="container-prestige bg-cream pb-24 pt-16 sm:pt-20">
         <div className="grid gap-16 lg:grid-cols-[1fr_1.3fr] lg:gap-20">
           <Reveal>
             <div className="space-y-10">

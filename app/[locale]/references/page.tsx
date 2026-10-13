@@ -22,7 +22,7 @@ export default async function ReferencesPage({ params }: { params: Promise<Param
   return (
     <>
       <PageHeader eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} photo={photos.placeIndependance} />
-      <div className="container-prestige bg-cream pb-24">
+      <div className="container-prestige bg-cream pb-24 pt-16 sm:pt-20">
         <ProjectArchive projects={projects} />
       </div>
     </>

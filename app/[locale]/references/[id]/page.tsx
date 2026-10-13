@@ -3,10 +3,12 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { projects, categoryLabels, getProjectById } from "@/data/projects";
 import { getExpertiseBySlug } from "@/data/expertise";
+import { photos as staticPhotos } from "@/data/photos";
+import { getExpertisePhotos } from "@/lib/photos";
 import { pageMetadata } from "@/lib/seo";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
-import { ChevronRule } from "@/components/ui/Motifs";
+import { PageHeader } from "@/components/ui/PageHeader";
 
 type Params = { locale: string; id: string };
 
@@ -46,6 +48,8 @@ export default async function ProjectDetailPage({ params }: { params: Promise<Pa
   const t = await getTranslations("references");
   const expertiseSlug = EXPERTISE_LINK_BY_CATEGORY[project.category];
   const expertise = expertiseSlug ? getExpertiseBySlug(expertiseSlug) : undefined;
+  const expertisePhotos = await getExpertisePhotos();
+  const photo = (expertiseSlug && expertisePhotos[expertiseSlug]) || staticPhotos.aerialDakar;
 
   const meta: [string, string][] = [
     [t("period"), project.period],
@@ -57,21 +61,20 @@ export default async function ProjectDetailPage({ params }: { params: Promise<Pa
   ];
 
   return (
-    <article className="bg-cream pb-24 pt-32 sm:pt-36">
-      <div className="container-prestige max-w-3xl">
-        <Reveal>
-          <Button href="/references" variant="ghost" icon={false} className="mb-8">
-            ← {t("back")}
-          </Button>
-          <p className="label-rule">{categoryLabels[project.category][loc]}</p>
-          <h1 className="mt-6 font-serif text-3xl leading-tight text-burgundy-deep sm:text-4xl">
-            {project.title}
-          </h1>
-          <ChevronRule className="mt-6 h-3 w-20 text-gold" />
-        </Reveal>
+    <article className="bg-cream pb-24">
+      <PageHeader
+        eyebrow={categoryLabels[project.category][loc]}
+        title={project.title}
+        subtitle={`${project.client} · ${project.country}`}
+        photo={photo}
+        backHref="/references"
+        backLabel={t("back")}
+        rule
+      />
 
-        <Reveal delay={0.1}>
-          <dl className="mt-12 grid gap-x-8 gap-y-6 border-y border-charcoal/12 py-10 sm:grid-cols-3">
+      <div className="container-prestige max-w-3xl pt-16 sm:pt-20">
+        <Reveal>
+          <dl className="grid gap-x-8 gap-y-6 border-y border-charcoal/12 py-10 sm:grid-cols-3">
             {meta.map(([label, value]) => (
               <div key={label}>
                 <dt className="text-xs uppercase tracking-widest2 text-charcoal/45">{label}</dt>
@@ -82,7 +85,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<Pa
         </Reveal>
 
         {expertise && (
-          <Reveal delay={0.15}>
+          <Reveal delay={0.1}>
             <p className="mt-10 text-sm text-charcoal/60">
               {loc === "fr" ? "Domaine d'expertise associé : " : "Related area of expertise: "}
               <Button href={`/expertises/${expertise.slug}`} variant="ghost" icon={false}>

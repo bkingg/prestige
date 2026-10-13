@@ -41,7 +41,9 @@ export function ExpertiseCard({
               src={photo.src}
               alt=""
               fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
+              loading="lazy"
+              quality={35}
+              sizes="(min-width: 640px) 50vw, 100vw"
               className="object-cover opacity-[0.32] transition-opacity duration-500 group-hover:opacity-[0.42]"
             />
           ) : (

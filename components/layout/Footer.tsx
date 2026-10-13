@@ -67,9 +67,20 @@ export function Footer() {
       </div>
 
       <div className="border-t border-cream/10">
-        <div className="container-prestige flex flex-col items-center justify-between gap-4 py-6 text-xs text-cream/50 sm:flex-row">
+        <div className="container-prestige flex flex-col items-center justify-between gap-2 py-6 text-xs text-cream/50 sm:flex-row">
           <p>© {year} {t("rights")}</p>
           <p>{t("legalForm")}</p>
+        </div>
+        <div className="container-prestige flex justify-center pb-6 text-xs text-cream/40 sm:justify-end sm:pt-0">
+          {t("craftedBy")}{" "}
+          <a
+            href="https://www.gdco.tech"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-1 text-cream/60 transition-colors hover:text-cream"
+          >
+            GDCO
+          </a>
         </div>
       </div>
     </footer>

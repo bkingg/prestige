@@ -54,6 +54,7 @@ export function CTABand({
           src={photos.heroDakarSkyline.src}
           alt=""
           fill
+          loading="lazy"
           sizes="100vw"
           quality={40}
           className="object-cover"

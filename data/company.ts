@@ -16,7 +16,7 @@ export const company = {
   },
   poBox: "BP 47 – Dakar – Sénégal",
   phones: ["+221 33 827 94 96", "+221 77 858 28 36", "+221 77 637 16 07"],
-  emails: ["prestige@orange.sn", "dioufali@orange.sn"],
+  emails: ["contact@prestige.sn", "dioufali@prestige.sn"],
   specialties: {
     fr: ["Conseil", "Études", "Formation", "Surveillance", "Contrôle technique"],
     en: ["Consulting", "Studies", "Training", "Monitoring", "Technical control"],
