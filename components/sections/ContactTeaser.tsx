@@ -11,11 +11,11 @@ export function ContactTeaser() {
   const mapQuery = encodeURIComponent(`${company.address.fr}, ${company.poBox}`);
 
   return (
-    <section className="bg-cream py-24 sm:py-32">
+    <section className="border-t border-tan/40 bg-white py-24 sm:py-32">
       <div className="container-prestige grid gap-14 lg:grid-cols-2 lg:gap-20">
         <Reveal>
           <SectionLabel>{t("contactEyebrow")}</SectionLabel>
-          <h2 className="mt-6 max-w-md font-serif text-3xl leading-snug text-burgundy-deep sm:text-4xl">
+          <h2 className="mt-6 max-w-md font-serif text-3xl leading-snug text-ink sm:text-4xl">
             {t("contactTitle")}
           </h2>
 
@@ -35,7 +35,7 @@ export function ContactTeaser() {
                   <p key={p}>
                     <a
                       href={`tel:${p.replace(/\s/g, "")}`}
-                      className="text-charcoal/75 transition-colors duration-200 hover:text-burgundy"
+                      className="text-charcoal/75 transition-colors duration-200 hover:text-ink"
                     >
                       {p}
                     </a>
@@ -49,7 +49,7 @@ export function ContactTeaser() {
             href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-10 inline-flex items-center gap-1 text-[15px] font-medium text-burgundy transition-colors duration-200 hover:text-burgundy-deep"
+            className="mt-10 inline-flex items-center gap-1 text-[15px] font-medium text-ink transition-colors duration-200 hover:text-ink-deep"
           >
             {tc("mapTitle")}
           </a>

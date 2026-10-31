@@ -7,10 +7,15 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-cream text-charcoal antialiased;
+    @apply bg-white text-charcoal antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
   }
   ::selection {
-    @apply bg-burgundy text-cream;
+    @apply bg-ink text-white;
   }
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-gold;
@@ -22,24 +27,51 @@
     @apply mx-auto w-full max-w-content px-6 sm:px-8 lg:px-12;
   }
   .label-rule {
-    @apply flex items-center gap-3 text-xs uppercase tracking-widest2 text-gold;
+    @apply flex items-center gap-4 text-[11px] font-medium uppercase tracking-[0.28em] text-plum;
   }
   .label-rule::before {
     content: "";
-    @apply h-px w-8 bg-gold;
+    @apply h-px w-10 bg-gold;
   }
   .link-underline {
     @apply relative inline-block;
   }
   .link-underline::after {
     content: "";
-    @apply absolute left-0 -bottom-1 h-px w-0 bg-current transition-all duration-500 ease-editorial;
+    @apply absolute left-0 -bottom-1 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 ease-out;
   }
-  .link-underline:hover::after {
-    @apply w-full;
+  @media (hover: hover) and (pointer: fine) {
+    .link-underline:hover::after {
+      @apply scale-x-100;
+    }
+  }
+  /* Tan hairline under a heading, like the rules in the printed brochure */
+  .heading-rule {
+    @apply relative pb-5;
+  }
+  .heading-rule::after {
+    content: "";
+    @apply absolute bottom-0 left-0 h-px w-full max-w-[22rem] bg-gradient-to-r from-tan to-transparent;
+  }
+  /* Gentle lift for source photos that came in a little flat or hazy */
+  .photo-vivid {
+    filter: saturate(1.12) contrast(1.05) brightness(1.02);
+  }
+  /* Press feedback for anything clickable that looks like a button */
+  .pressable {
+    @apply transition-transform duration-150 ease-out active:scale-[0.97];
   }
   .select-prestige {
     @apply w-full border border-charcoal/15 bg-white px-3 py-2.5 text-sm text-charcoal;
+  }
+}
+
+@keyframes hero-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }
 

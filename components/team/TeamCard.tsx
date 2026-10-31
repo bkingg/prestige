@@ -19,9 +19,9 @@ export function TeamCard({ member, delay = 0 }: { member: TeamMember; delay?: nu
         <div className="flex gap-6">
           <TeamAvatar name={member.name} className="w-16 shrink-0 sm:w-20" />
           <div>
-            <h3 className="font-serif text-2xl leading-tight text-burgundy-deep">{member.name}</h3>
+            <h3 className="font-serif text-2xl leading-tight text-ink">{member.name}</h3>
             <p className="mt-1.5 text-sm text-charcoal/70">{member.role[locale]}</p>
-            <p className="mt-1 text-xs uppercase tracking-wide text-gold">{member.experience[locale]}</p>
+            <p className="mt-1 text-xs uppercase tracking-wide text-plum">{member.experience[locale]}</p>
           </div>
         </div>
 
@@ -38,7 +38,7 @@ export function TeamCard({ member, delay = 0 }: { member: TeamMember; delay?: nu
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          className="mt-5 flex items-center gap-2 text-xs font-medium uppercase tracking-widest2 text-burgundy"
+          className="mt-5 flex items-center gap-2 text-xs font-medium uppercase tracking-widest2 text-ink"
         >
           {open ? t("readLess") : t("readMore")}
           <ChevronDown className={cn("h-4 w-4 transition-transform duration-300", open && "rotate-180")} />

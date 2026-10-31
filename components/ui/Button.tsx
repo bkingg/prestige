@@ -1,8 +1,8 @@
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
-import { ChevronRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
-type Variant = "primary" | "secondary" | "ghost" | "inverse";
+type Variant = "primary" | "secondary" | "ghost" | "inverse" | "outline-light";
 
 interface ButtonProps {
   href: string;
@@ -12,17 +12,18 @@ interface ButtonProps {
   icon?: boolean;
 }
 
-const pillVariants: Record<string, string> = {
-  primary: "bg-burgundy text-cream hover:bg-burgundy-deep active:bg-burgundy-deep",
-  secondary: "border border-charcoal/25 text-charcoal hover:border-charcoal/50",
-  inverse: "bg-cream text-burgundy hover:bg-white",
+const boxVariants: Record<string, string> = {
+  primary: "bg-plum text-white hover:bg-plum-deep",
+  secondary: "border border-ink/25 bg-white text-ink hover:border-ink",
+  inverse: "bg-white text-ink hover:bg-butter-deep",
+  "outline-light": "border border-white/70 text-white hover:bg-white hover:text-ink",
 };
 
 /**
- * Apple-style button system: pill shapes, sentence case, quiet color
- * transitions only — no uppercase tracking, no arrow-flies-off-on-hover,
- * no animated underline sweep. "ghost" is a plain text link with a static
- * chevron, matching the "Learn more ›" pattern rather than a button.
+ * Square, small-caps buttons with generous tracking — the restrained,
+ * institutional register of an advisory firm. Color changes are quick
+ * fades; the press scales to 0.97 so every click gets tactile feedback.
+ * "ghost" is a tracked text link with an arrow that nudges on hover.
  */
 export function Button({ href, children, variant = "primary", className, icon }: ButtonProps) {
   if (variant === "ghost") {
@@ -31,12 +32,12 @@ export function Button({ href, children, variant = "primary", className, icon }:
       <Link
         href={href}
         className={cn(
-          "inline-flex items-center gap-1 text-[15px] font-medium text-burgundy transition-colors duration-200 hover:text-burgundy-deep",
+          "group inline-flex items-center gap-2 text-[12px] font-medium uppercase tracking-caps text-ink transition-colors duration-200 hover:text-plum",
           className
         )}
       >
         {children}
-        {showIcon && <ChevronRight className="h-4 w-4" />}
+        {showIcon && <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 ease-out group-hover:translate-x-1" />}
       </Link>
     );
   }
@@ -45,13 +46,14 @@ export function Button({ href, children, variant = "primary", className, icon }:
     <Link
       href={href}
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-6 py-3 text-[15px] font-medium transition-colors duration-200",
-        pillVariants[variant],
+        "group inline-flex items-center gap-2.5 px-7 py-4 text-[12px] font-medium uppercase tracking-caps",
+        "transition-[background-color,border-color,color,transform] duration-200 ease-out active:scale-[0.97]",
+        boxVariants[variant],
         className
       )}
     >
       {children}
-      {icon && <ChevronRight className="h-4 w-4" />}
+      {icon && <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 ease-out group-hover:translate-x-1" />}
     </Link>
   );
 }

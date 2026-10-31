@@ -49,7 +49,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<Pa
   const expertiseSlug = EXPERTISE_LINK_BY_CATEGORY[project.category];
   const expertise = expertiseSlug ? getExpertiseBySlug(expertiseSlug) : undefined;
   const expertisePhotos = await getExpertisePhotos();
-  const photo = (expertiseSlug && expertisePhotos[expertiseSlug]) || staticPhotos.aerialDakar;
+  const photo = (expertiseSlug && expertisePhotos[expertiseSlug]) || staticPhotos.dakarAerial;
 
   const meta: [string, string][] = [
     [t("period"), project.period],
@@ -61,7 +61,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<Pa
   ];
 
   return (
-    <article className="bg-cream pb-24">
+    <article className="bg-white pb-24">
       <PageHeader
         eyebrow={categoryLabels[project.category][loc]}
         title={project.title}

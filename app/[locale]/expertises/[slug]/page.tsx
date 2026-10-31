@@ -73,11 +73,11 @@ export default async function ExpertiseDetailPage({ params }: { params: Promise<
       </section>
 
       {related.length > 0 && (
-        <section className="border-t border-charcoal/10 bg-cream py-20">
+        <section className="border-t border-tan/40 bg-white py-20">
           <div className="container-prestige">
             <Reveal>
               <div className="flex flex-wrap items-end justify-between gap-6">
-                <h2 className="font-serif text-2xl text-burgundy-deep">
+                <h2 className="font-serif text-2xl text-ink">
                   {t("relatedProjectsTitle")}
                 </h2>
                 <Button href="/references" variant="ghost">

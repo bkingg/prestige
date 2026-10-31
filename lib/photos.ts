@@ -41,6 +41,12 @@ function toPhoto(sp: SanityPhotoDoc | undefined | null, fallback: Photo, width =
   };
 }
 
+// The site's photography was replaced with a new corporate set (see
+// data/photos.ts). Sanity still holds the previous Wikimedia photos until
+// `npm run upload-photos` pushes the new ones; until then, the local set is
+// authoritative. Flip back to true after that sync so Studio edits apply.
+const USE_SANITY_PHOTOS = false;
+
 const expertisePhotosQuery = `*[_type == "expertise"]{"slug": slug.current, photo}`;
 const sitePhotosQuery = `*[_type == "siteSettings"][0]{heroPhoto, aboutPhotoPrimary, aboutPhotoSecondary}`;
 
@@ -51,7 +57,7 @@ const PHOTOS_REVALIDATE_SECONDS = 300;
 
 export async function getExpertisePhotos(): Promise<Partial<Record<string, Photo>>> {
   const result: Partial<Record<string, Photo>> = { ...staticExpertisePhotos };
-  if (!isSanityConfigured) return result;
+  if (!isSanityConfigured || !USE_SANITY_PHOTOS) return result;
   try {
     const rows = await client.fetch<{ slug: string; photo?: SanityPhotoDoc }[]>(
       expertisePhotosQuery,
@@ -74,11 +80,11 @@ export async function getSitePhotos(): Promise<{
   aboutPhotoSecondary: Photo;
 }> {
   const fallback = {
-    heroPhoto: staticPhotos.heroDakarSkyline,
-    aboutPhotoPrimary: staticPhotos.dakarPlateau,
-    aboutPhotoSecondary: staticPhotos.roadConstruction,
+    heroPhoto: staticPhotos.heroBoardroom,
+    aboutPhotoPrimary: staticPhotos.dakarAerial,
+    aboutPhotoSecondary: staticPhotos.planningTeam,
   };
-  if (!isSanityConfigured) return fallback;
+  if (!isSanityConfigured || !USE_SANITY_PHOTOS) return fallback;
   try {
     const doc = await client.fetch<{
       heroPhoto?: SanityPhotoDoc;

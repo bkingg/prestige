@@ -5,7 +5,7 @@ import { mapViewBox, dakarPoint, countryShapes } from "@/data/westAfricaMap";
  * — actual simplified borders (public-domain boundary data), not an
  * abstract dot-and-line diagram. Senegal is filled solid, the rest are a
  * quiet neutral silhouette group, with a single marker on Dakar. The
- * `dark` prop swaps the palette for use on a burgundy-deep background.
+ * `dark` prop swaps the palette for use on a ink-deep background.
  */
 export function CountriesMap({
   className,
@@ -25,7 +25,7 @@ export function CountriesMap({
               c.code === "SEN"
                 ? dark
                   ? "fill-cream stroke-cream"
-                  : "fill-burgundy stroke-cream"
+                  : "fill-ink stroke-cream"
                 : dark
                   ? "fill-cream/[0.08] stroke-cream/20"
                   : "fill-charcoal/[0.06] stroke-charcoal/15"

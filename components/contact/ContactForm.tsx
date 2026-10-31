@@ -60,7 +60,7 @@ export function ContactForm() {
       </div>
       <button
         type="submit"
-        className="inline-flex items-center gap-2 bg-burgundy px-7 py-3.5 text-sm font-medium uppercase tracking-wide text-cream transition-colors duration-300 hover:bg-burgundy-deep"
+        className="inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-[15px] font-medium text-white shadow-lift transition-[background-color,transform] duration-150 ease-out hover:bg-ink-soft active:scale-[0.97]"
       >
         {t("formSubmit")}
         <Send className="h-4 w-4" />

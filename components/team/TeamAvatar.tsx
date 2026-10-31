@@ -11,11 +11,11 @@ function initials(name: string) {
 export function TeamAvatar({ name, className }: { name: string; className?: string }) {
   return (
     <div
-      className={`relative flex aspect-square items-center justify-center border border-gold/40 bg-burgundy-deep ${className ?? ""}`}
+      className={`relative flex aspect-square items-center justify-center rounded-2xl bg-gradient-to-br from-butter-deep to-butter ring-1 ring-tan/60 ${className ?? ""}`}
       aria-hidden="true"
     >
-      <span className="absolute inset-3 border border-gold/25" />
-      <span className="font-serif text-3xl text-cream sm:text-4xl">{initials(name)}</span>
+      <span className="absolute inset-2.5 rounded-xl border border-tan/70" />
+      <span className="font-serif text-3xl text-plum sm:text-4xl">{initials(name)}</span>
     </div>
   );
 }

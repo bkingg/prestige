@@ -1,20 +1,19 @@
-import { Spectral, IBM_Plex_Sans } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 
-// Deliberately avoiding the Cormorant Garamond / Inter pairing that has
-// become a default "AI template" look. Spectral is a sturdier, ink-trapped
-// text serif built for long-form reading (institutional, not decorative);
-// IBM Plex Sans reads as technical/engineering rather than generic startup.
-export const fontDisplay = Spectral({
+// An editorial pairing for an institutional advisory firm: Cormorant
+// Garamond set large and light for display headings, Inter for body copy
+// and the small tracked uppercase labels/navigation.
+export const fontDisplay = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700"],
   style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
 });
 
-export const fontBody = IBM_Plex_Sans({
+export const fontBody = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600"],
   variable: "--font-body",
   display: "swap",
 });

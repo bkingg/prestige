@@ -25,9 +25,9 @@ export default async function ContactPage({ params }: { params: Promise<Params> 
 
   return (
     <>
-      <PageHeader eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} photo={photos.analyseStrategique} />
+      <PageHeader eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} photo={photos.glassOffice} />
 
-      <div className="container-prestige bg-cream pb-24 pt-16 sm:pt-20">
+      <div className="container-prestige bg-white pb-24 pt-16 sm:pt-20">
         <div className="grid gap-16 lg:grid-cols-[1fr_1.3fr] lg:gap-20">
           <Reveal>
             <div className="space-y-10">
@@ -38,7 +38,7 @@ export default async function ContactPage({ params }: { params: Promise<Params> 
                   href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-3 inline-block text-sm font-medium text-burgundy transition-colors duration-200 hover:text-burgundy-deep"
+                  className="mt-3 inline-block text-sm font-medium text-ink transition-colors duration-200 hover:text-ink-deep"
                 >
                   {t("mapTitle")}
                 </a>
@@ -49,7 +49,7 @@ export default async function ContactPage({ params }: { params: Promise<Params> 
                   <p key={phone}>
                     <a
                       href={`tel:${phone.replace(/\s/g, "")}`}
-                      className="transition-colors duration-200 hover:text-burgundy"
+                      className="transition-colors duration-200 hover:text-ink"
                     >
                       {phone}
                     </a>
@@ -62,7 +62,7 @@ export default async function ContactPage({ params }: { params: Promise<Params> 
                   <p key={email}>
                     <a
                       href={`mailto:${email}`}
-                      className="transition-colors duration-200 hover:text-burgundy"
+                      className="transition-colors duration-200 hover:text-ink"
                     >
                       {email}
                     </a>
@@ -74,7 +74,7 @@ export default async function ContactPage({ params }: { params: Promise<Params> 
 
           <Reveal delay={0.15}>
             <div className="border border-charcoal/12 bg-white p-8 sm:p-10">
-              <h2 className="font-serif text-2xl text-burgundy-deep">{t("formTitle")}</h2>
+              <h2 className="font-serif text-2xl text-ink">{t("formTitle")}</h2>
               <div className="mt-8">
                 <ContactForm />
               </div>
@@ -97,7 +97,7 @@ function InfoBlock({
 }) {
   return (
     <div className="flex gap-4">
-      <div className="flex h-11 w-11 shrink-0 items-center justify-center border border-gold/40 text-burgundy">
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center border border-gold/40 text-ink">
         {icon}
       </div>
       <div>

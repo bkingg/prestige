@@ -18,8 +18,7 @@ const NAV_ITEMS = [
 ] as const;
 
 /**
- * Solid, always-opaque top bar (never transparent-over-hero, which would
- * lose contrast against dark imagery) with a full desktop link row from
+ * White top bar that turns frosted once the page scrolls with a full desktop link row from
  * `lg` up — matching a Deloitte/KPMG-style corporate nav rather than an
  * icon-only hamburger. The hamburger is reserved for phones and portrait
  * tablets only.
@@ -31,6 +30,9 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
+  // Over the homepage slider the bar is transparent with white type until
+  // the page scrolls; everywhere else it's solid white from the start.
+  const overHero = pathname === "/" && !scrolled;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -64,16 +66,20 @@ export function Navbar() {
     <>
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 border-b border-charcoal/10 bg-cream transition-shadow duration-300",
-          scrolled && "shadow-[0_2px_12px_rgba(24,24,24,0.06)]"
+          "fixed inset-x-0 top-0 z-50 border-b transition-[background-color,box-shadow,border-color] duration-300",
+          overHero
+            ? "border-white/15 bg-transparent"
+            : scrolled
+              ? "border-tan/50 bg-white/95 shadow-[0_2px_16px_rgba(23,22,28,0.06)] backdrop-blur-md"
+              : "border-tan/40 bg-white"
         )}
       >
-        <div className="mx-auto flex h-[72px] w-full max-w-content items-center justify-between px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-12">
+        <div className="mx-auto flex h-[84px] w-full max-w-content items-center justify-between px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-12">
           <Link href="/" aria-label="PRESTIGE Cabinet Conseil — Accueil" className="shrink-0">
-            <LogoLockup />
+            <LogoLockup light={overHero} className="h-11" />
           </Link>
 
-          <nav className="hidden items-center gap-5 lg:flex xl:gap-8" aria-label="Navigation principale">
+          <nav className="hidden items-center gap-6 lg:flex xl:gap-9" aria-label="Navigation principale">
             {NAV_ITEMS.map((item) => {
               const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
               return (
@@ -81,23 +87,34 @@ export function Navbar() {
                   key={item.key}
                   href={item.href}
                   className={cn(
-                    "inline-flex items-center gap-2 py-1 font-serif text-[16px] text-charcoal/70 transition-colors duration-200 hover:text-burgundy xl:text-[17px]",
-                    active && "text-burgundy"
+                    "relative inline-flex items-center py-1 text-[11.5px] font-medium uppercase tracking-[0.2em] transition-colors duration-200",
+                    overHero ? "text-white/80 hover:text-white" : "text-ink/65 hover:text-ink",
+                    active && (overHero ? "text-white" : "text-ink")
                   )}
                   aria-current={active ? "page" : undefined}
                 >
-                  {active && <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden="true" />}
                   {t(item.key)}
+                  {active && (
+                    <motion.span
+                      layoutId="nav-active"
+                      transition={{ type: "spring", duration: 0.4, bounce: 0.15 }}
+                      className="absolute -bottom-2 left-0 right-0 h-px bg-gold"
+                      aria-hidden="true"
+                    />
+                  )}
                 </Link>
               );
             })}
           </nav>
 
           <div className="hidden items-center gap-4 lg:flex xl:gap-6">
-            <LocaleSwitch locale={locale} pathname={pathname} />
+            <LocaleSwitch locale={locale} pathname={pathname} light={overHero} />
             <Link
               href="/contact"
-              className="rounded-full bg-burgundy px-4 py-2 text-[13px] font-medium text-cream transition-colors duration-200 hover:bg-burgundy-deep xl:px-5 xl:py-2.5 xl:text-sm"
+              className={cn(
+                "px-5 py-3 text-[11px] font-medium uppercase tracking-[0.2em] transition-[background-color,border-color,color,transform] duration-200 ease-out active:scale-[0.97]",
+                overHero ? "border border-white/60 text-white hover:bg-white hover:text-ink" : "bg-plum text-white hover:bg-plum-deep"
+              )}
             >
               {t("cta")}
             </Link>
@@ -109,8 +126,8 @@ export function Navbar() {
             className="flex items-center gap-3 lg:hidden"
             aria-label={t("menu")}
           >
-            <span className="text-sm font-medium text-charcoal/70">{t("menu")}</span>
-            <HamburgerIcon open={false} />
+            <span className={cn("text-[11px] font-medium uppercase tracking-[0.2em]", overHero ? "text-white" : "text-ink/70")}>{t("menu")}</span>
+            <HamburgerIcon open={false} light={overHero} />
           </button>
         </div>
       </header>
@@ -122,14 +139,14 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-[100] flex flex-col bg-cream lg:hidden"
+            className="fixed inset-0 z-[100] flex flex-col bg-white lg:hidden"
             role="dialog"
             aria-modal="true"
             aria-label={t("menu")}
           >
-            <div className="flex h-[72px] items-center justify-between border-b border-charcoal/10 px-4 sm:px-6">
+            <div className="flex h-[84px] items-center justify-between border-b border-charcoal/10 px-4 sm:px-6">
               <Link href="/" aria-label="PRESTIGE Cabinet Conseil — Accueil">
-                <LogoMark className="h-8 w-auto" />
+                <LogoMark className="h-10 w-10" />
               </Link>
               <button
                 type="button"
@@ -151,21 +168,21 @@ export function Navbar() {
                 return (
                   <motion.div
                     key={item.key}
-                    initial={{ opacity: 0, x: -18 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.4, delay: 0.05 + i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                    initial={{ opacity: 0, transform: "translateX(-12px)" }}
+                    animate={{ opacity: 1, transform: "translateX(0px)" }}
+                    transition={{ duration: 0.35, delay: 0.04 + i * 0.04, ease: [0.23, 1, 0.32, 1] }}
                     className="border-b border-charcoal/10"
                   >
                     <Link
                       ref={i === 0 ? firstLinkRef : undefined}
                       href={item.href}
                       className={cn(
-                        "flex items-center gap-3 py-4 font-serif text-3xl text-charcoal transition-colors hover:text-burgundy sm:text-4xl",
-                        active && "text-burgundy"
+                        "flex items-center gap-3 py-4 font-serif text-3xl text-ink/80 transition-colors hover:text-ink sm:text-4xl",
+                        active && "text-ink"
                       )}
                       aria-current={active ? "page" : undefined}
                     >
-                      {active && <span className="h-1.5 w-1.5 shrink-0 bg-gold" aria-hidden="true" />}
+                      {active && <span className="h-2 w-2 shrink-0 rounded-full bg-gold" aria-hidden="true" />}
                       {t(item.key)}
                     </Link>
                   </motion.div>
@@ -184,7 +201,7 @@ export function Navbar() {
                 <LocaleSwitch locale={locale} pathname={pathname} />
                 <Link
                   href="/contact"
-                  className="rounded-full bg-burgundy px-6 py-3 text-sm font-medium text-cream transition-colors duration-200 hover:bg-burgundy-deep"
+                  className="bg-plum px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] text-white transition-[background-color,transform] duration-150 ease-out hover:bg-plum-deep active:scale-[0.97]"
                 >
                   {t("cta")}
                 </Link>
@@ -197,43 +214,43 @@ export function Navbar() {
   );
 }
 
-function HamburgerIcon({ open }: { open: boolean }) {
+function HamburgerIcon({ open, light }: { open: boolean; light?: boolean }) {
   return (
     <span className="relative flex h-4 w-6 shrink-0 flex-col justify-between">
       <motion.span
         animate={open ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
         transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-        className="h-px w-full origin-center bg-charcoal"
+        className={cn("h-px w-full origin-center", light ? "bg-white" : "bg-ink")}
       />
       <motion.span
         animate={open ? { opacity: 0 } : { opacity: 1 }}
         transition={{ duration: 0.15 }}
-        className="h-px w-full bg-charcoal"
+        className={cn("h-px w-full", light ? "bg-white" : "bg-ink")}
       />
       <motion.span
         animate={open ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
         transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-        className="h-px w-full origin-center bg-charcoal"
+        className={cn("h-px w-full origin-center", light ? "bg-white" : "bg-ink")}
       />
     </span>
   );
 }
 
-function LocaleSwitch({ locale, pathname }: { locale: string; pathname: string }) {
+function LocaleSwitch({ locale, pathname, light }: { locale: string; pathname: string; light?: boolean }) {
   return (
     <div className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide">
       <Link
         href={pathname}
         locale="fr"
-        className={locale === "fr" ? "text-burgundy" : "text-charcoal/50 hover:text-burgundy"}
+        className={locale === "fr" ? (light ? "text-white" : "text-ink") : light ? "text-white/60 hover:text-white" : "text-ink/45 transition-colors hover:text-plum"}
       >
         FR
       </Link>
-      <span className="text-charcoal/30">|</span>
+      <span className={light ? "text-white/40" : "text-ink/25"}>|</span>
       <Link
         href={pathname}
         locale="en"
-        className={locale === "en" ? "text-burgundy" : "text-charcoal/50 hover:text-burgundy"}
+        className={locale === "en" ? (light ? "text-white" : "text-ink") : light ? "text-white/60 hover:text-white" : "text-ink/45 transition-colors hover:text-plum"}
       >
         EN
       </Link>

@@ -105,7 +105,7 @@ export function ProjectArchive({ projects }: { projects: Project[] }) {
             <button
               type="button"
               onClick={clearFilters}
-              className="text-sm font-medium text-burgundy transition-colors duration-200 hover:text-burgundy-deep"
+              className="text-sm font-medium text-ink transition-colors duration-200 hover:text-ink-deep"
             >
               {t("clearFilters")}
             </button>

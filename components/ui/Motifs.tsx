@@ -7,7 +7,7 @@
 export function SkylineIllustration({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 720 480" className={className} aria-hidden="true">
-      <rect x="0" y="360" width="720" height="120" className="fill-burgundy-deep" opacity="0.9" />
+      <rect x="0" y="360" width="720" height="120" className="fill-ink-deep" opacity="0.9" />
       {Array.from({ length: 5 }).map((_, i) => (
         <path
           key={i}
@@ -19,19 +19,19 @@ export function SkylineIllustration({ className }: { className?: string }) {
         />
       ))}
 
-      <rect x="40" y="230" width="46" height="130" className="fill-burgundy" />
-      <rect x="96" y="270" width="34" height="90" className="fill-burgundy" opacity="0.85" />
+      <rect x="40" y="230" width="46" height="130" className="fill-ink" />
+      <rect x="96" y="270" width="34" height="90" className="fill-ink" opacity="0.85" />
       <rect x="140" y="195" width="30" height="165" className="fill-gold" opacity="0.9" />
 
       <g>
-        <rect x="330" y="150" width="18" height="210" className="fill-burgundy" />
+        <rect x="330" y="150" width="18" height="210" className="fill-ink" />
         <path d="M312 150L339 100L366 150Z" className="fill-gold" />
         <rect x="333" y="120" width="12" height="30" className="fill-gold" />
       </g>
 
       <path
         d="M430 360V255C430 227 452 205 480 205C508 205 530 227 530 255V360Z"
-        className="fill-burgundy"
+        className="fill-ink"
       />
       <circle cx="480" cy="205" r="10" className="fill-gold" />
 

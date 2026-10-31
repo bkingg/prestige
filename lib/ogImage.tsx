@@ -8,27 +8,22 @@ export function brandImageContent(isFr: boolean) {
         flexDirection: "column",
         justifyContent: "center",
         padding: "80px",
-        backgroundColor: "#4A121B",
-        backgroundImage: "linear-gradient(135deg, #4A121B 0%, #6E1F2A 60%, #4A121B 100%)",
+        backgroundColor: "#FFFFFF",
+        backgroundImage: "linear-gradient(135deg, #FFFFFF 0%, #FFFFFF 55%, #FFF2CC 100%)",
+        borderBottom: "14px solid #002060",
         fontFamily: "Spectral",
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-        <div style={{ display: "flex", width: 64, height: 78, position: "relative" }}>
-          <svg width="64" height="78" viewBox="0 0 100 120">
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M30 6H62C79.6731 6 94 20.3269 94 38C94 55.6731 79.6731 70 62 70H46V114H30V6ZM46 22V54H62C70.8366 54 78 46.8366 78 38C78 29.1634 70.8366 22 62 22H46Z"
-              fill="#F8F6F1"
-            />
-            <rect x="23" y="94" width="5" height="14" fill="#C6A870" />
-            <rect x="30" y="86" width="5" height="22" fill="#C6A870" />
-            <rect x="37" y="78" width="5" height="30" fill="#C6A870" />
-            <rect x="44" y="70" width="5" height="38" fill="#C6A870" />
-          </svg>
-        </div>
-        <span style={{ fontSize: 30, letterSpacing: 6, color: "#C6A870", fontWeight: 700 }}>PRESTIGE</span>
+      <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+        <svg width="80" height="80" viewBox="0 0 100 100">
+          <rect width="100" height="100" rx="6" fill="#A65A70" />
+          <circle cx="50" cy="51" r="41" fill="#E6A541" />
+          <path d="M37 33C40 28.5 43.5 27 46 27.5C45.2 43 43.4 61 41.2 75.5C40.6 80 37.6 82.6 33.8 80.8" fill="none" stroke="#2B1A14" strokeWidth="3.4" strokeLinecap="round" />
+          <path d="M45.6 30.5C53 22.5 70 21.5 72.6 33.5C75 45.5 61 55 46.4 50.5" fill="none" stroke="#2B1A14" strokeWidth="3.4" strokeLinecap="round" />
+          <path d="M34.5 44L49 41.6" fill="none" stroke="#2B1A14" strokeWidth="2.6" strokeLinecap="round" />
+        </svg>
+        <span style={{ fontSize: 34, color: "#8B1E52", fontWeight: 700 }}>PRESTIGE</span>
+        <span style={{ fontSize: 30, color: "#8B1E52" }}>» Cabinet Conseil</span>
       </div>
 
       <div
@@ -38,7 +33,7 @@ export function brandImageContent(isFr: boolean) {
           fontSize: 52,
           fontWeight: 700,
           lineHeight: 1.25,
-          color: "#F8F6F1",
+          color: "#002060",
           maxWidth: 920,
         }}
       >
@@ -54,7 +49,7 @@ export function brandImageContent(isFr: boolean) {
           fontSize: 24,
           fontWeight: 400,
           letterSpacing: 2,
-          color: "#C6A870",
+          color: "#8B1E52",
         }}
       >
         {isFr

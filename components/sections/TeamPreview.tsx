@@ -15,7 +15,7 @@ export function TeamPreview() {
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <SectionLabel>{t("teamEyebrow")}</SectionLabel>
-              <h2 className="mt-6 max-w-xl font-serif text-3xl leading-snug text-burgundy-deep sm:text-4xl lg:text-[2.75rem]">
+              <h2 className="mt-6 max-w-xl font-serif text-3xl leading-snug text-ink sm:text-4xl lg:text-[2.75rem]">
                 {t("teamTitle")}
               </h2>
             </div>

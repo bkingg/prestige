@@ -1,6 +1,6 @@
 /**
- * Uploads the site's local photo files (public/images/photos, sourced from
- * Wikimedia Commons — see data/photos.ts for licensing) to Sanity's asset
+ * Uploads the site's local photo files (public/images/photos — see
+ * data/photos.ts for sources and licensing) to Sanity's asset
  * library and attaches each one, with its alt text/credit/license/source
  * URL, to the matching document: the relevant `expertise` document's
  * `photo` field, or one of the three hero/about photo fields on
@@ -51,9 +51,9 @@ async function main() {
     console.log(`✓ expertise-${slug} <- ${photo.src}`);
   }
 
-  const heroPhoto = await uploadPhoto(photos.heroDakarSkyline);
-  const aboutPhotoPrimary = await uploadPhoto(photos.dakarPlateau);
-  const aboutPhotoSecondary = await uploadPhoto(photos.roadConstruction);
+  const heroPhoto = await uploadPhoto(photos.heroBoardroom);
+  const aboutPhotoPrimary = await uploadPhoto(photos.dakarAerial);
+  const aboutPhotoSecondary = await uploadPhoto(photos.planningTeam);
 
   await client.patch("siteSettings").set({ heroPhoto, aboutPhotoPrimary, aboutPhotoSecondary }).commit();
   console.log("✓ siteSettings <- heroPhoto, aboutPhotoPrimary, aboutPhotoSecondary");

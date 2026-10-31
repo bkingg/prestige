@@ -41,7 +41,7 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
       <section className="border-y border-charcoal/10 bg-white py-20">
         <div className="container-prestige grid gap-14 lg:grid-cols-[1fr_1.4fr] lg:gap-20">
           <Reveal>
-            <h2 className="font-serif text-2xl text-burgundy-deep">{t("identityTitle")}</h2>
+            <h2 className="font-serif text-2xl text-ink">{t("identityTitle")}</h2>
             <ChevronRule className="mt-4 h-3 w-20 text-gold" />
           </Reveal>
           <Reveal delay={0.1}>
@@ -56,7 +56,7 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
                 <dt className="text-xs uppercase tracking-widest2 text-charcoal/45">{t("specialties")}</dt>
                 <dd className="mt-3 flex flex-wrap gap-2">
                   {company.specialties[loc].map((s) => (
-                    <span key={s} className="border border-charcoal/15 px-3 py-1 text-xs text-charcoal/70">
+                    <span key={s} className="rounded-full border border-tan bg-butter-deep px-3 py-1 text-xs font-medium text-ink">
                       {s}
                     </span>
                   ))}
@@ -67,15 +67,15 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
         </div>
       </section>
 
-      <section className="bg-cream py-24 sm:py-32">
+      <section className="border-t border-tan/40 bg-white py-24 sm:py-32">
         <div className="container-prestige grid gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           <Reveal className="lg:order-2">
-            <PhotoPanel photo={aboutPhotoSecondary} className="aspect-[4/5] w-full" wash={false} />
+            <PhotoPanel photo={aboutPhotoSecondary} className="aspect-[4/5] w-full" />
           </Reveal>
 
           <div className="lg:order-1">
             <Reveal>
-              <h2 className="font-serif text-3xl leading-snug text-burgundy-deep sm:text-4xl">
+              <h2 className="font-serif text-3xl leading-snug text-ink sm:text-4xl">
                 {t("timelineTitle")}
               </h2>
             </Reveal>
@@ -84,8 +84,8 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
               <Reveal>
                 <li className="relative">
                   <span className="absolute -left-[calc(2rem+5px)] top-1.5 h-2.5 w-2.5 rounded-full bg-gold" />
-                  <p className="font-serif text-2xl text-gold">{company.foundedYear}</p>
-                  <h3 className="mt-2 text-lg font-medium text-burgundy-deep">{t("timeline2000Title")}</h3>
+                  <p className="font-serif text-2xl text-plum">{company.foundedYear}</p>
+                  <h3 className="mt-2 text-lg font-medium font-semibold text-ink">{t("timeline2000Title")}</h3>
                   <p className="mt-2 max-w-xl text-sm leading-relaxed text-charcoal/70">
                     {t("timeline2000Body")}
                   </p>
@@ -93,8 +93,8 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
               </Reveal>
               <Reveal delay={0.1}>
                 <li className="relative">
-                  <span className="absolute -left-[calc(2rem+5px)] top-1.5 h-2.5 w-2.5 rounded-full bg-burgundy" />
-                  <p className="font-serif text-2xl text-burgundy">{t("timelineTodayTitle")}</p>
+                  <span className="absolute -left-[calc(2rem+5px)] top-1.5 h-2.5 w-2.5 rounded-full bg-ink" />
+                  <p className="font-serif text-2xl text-ink">{t("timelineTodayTitle")}</p>
                   <p className="mt-2 max-w-xl text-sm leading-relaxed text-charcoal/70">
                     {t("timelineTodayBody")}
                   </p>
@@ -109,7 +109,7 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
         <div className="container-prestige max-w-3xl">
           <Reveal>
             <SectionLabel>{t("approachEyebrow")}</SectionLabel>
-            <h2 className="mt-6 font-serif text-3xl leading-snug text-burgundy-deep sm:text-4xl">
+            <h2 className="mt-6 font-serif text-3xl leading-snug text-ink sm:text-4xl">
               {t("approachTitle")}
             </h2>
             <p className="mt-6 text-base leading-relaxed text-charcoal/70">{t("approachBody")}</p>
@@ -117,29 +117,29 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
         </div>
       </section>
 
-      <section className="bg-cream py-24">
+      <section className="border-t border-tan/40 bg-white py-24">
         <div className="container-prestige grid gap-14 lg:grid-cols-2">
           <Reveal>
-            <h3 className="font-serif text-xl text-burgundy-deep">{t("operationsTitle")}</h3>
+            <h3 className="font-serif text-xl text-ink">{t("operationsTitle")}</h3>
             <p className="mt-4 text-sm leading-relaxed text-charcoal/70">{company.humanResources[loc]}</p>
           </Reveal>
           <Reveal delay={0.1}>
-            <h3 className="font-serif text-xl text-burgundy-deep">{t("logisticsTitle")}</h3>
+            <h3 className="font-serif text-xl text-ink">{t("logisticsTitle")}</h3>
             <p className="mt-4 text-sm leading-relaxed text-charcoal/70">{company.logistics[loc]}</p>
           </Reveal>
         </div>
       </section>
 
-      <section className="border-t border-charcoal/10 bg-burgundy-deep py-24 text-cream">
+      <section className="border-t border-tan/40 bg-white py-24">
         <div className="container-prestige grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-20">
           <Reveal>
-            <SectionLabel light>{t("countriesTitle")}</SectionLabel>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-cream/70">
+            <SectionLabel>{t("countriesTitle")}</SectionLabel>
+            <p className="mt-6 max-w-md text-base leading-relaxed text-charcoal/75">
               {t("countriesBody")}
             </p>
           </Reveal>
           <Reveal delay={0.15} className="flex justify-center">
-            <CountriesMap dark className="h-auto w-full max-w-md text-cream/80" />
+            <CountriesMap className="h-auto w-full max-w-md text-ink" />
           </Reveal>
         </div>
       </section>

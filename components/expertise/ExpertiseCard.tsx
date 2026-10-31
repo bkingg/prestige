@@ -5,68 +5,65 @@ import type { Expertise } from "@/data/expertise";
 import { expertisePhotos, type Photo } from "@/data/photos";
 import { Reveal } from "@/components/ui/Reveal";
 import { DiamondGrid } from "@/components/ui/Motifs";
-import { ChevronRight } from "lucide-react";
+import { Tilt } from "@/components/ui/Tilt";
+import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const bgGradient = {
-  white: "from-white via-white/85 to-white/30",
-  cream: "from-cream via-cream/85 to-cream/30",
-};
-
+/**
+ * A real card: the area's photograph at full color on top, title and pitch
+ * below on white, with a butter header strip echoing the table headers of
+ * the client's printed brochure. The whole card tilts in 3D toward the
+ * pointer (see <Tilt>); the photo gets a slow, slight zoom on hover.
+ */
 export function ExpertiseCard({
   item,
   photo: photoProp,
   delay = 0,
-  bg = "cream",
+  featured,
 }: {
   item: Expertise;
   photo?: Photo;
   delay?: number;
-  bg?: "white" | "cream";
+  featured?: boolean;
 }) {
   const locale = useLocale() as "fr" | "en";
   const t = useTranslations("home");
   const photo = photoProp ?? expertisePhotos[item.slug];
 
   return (
-    <Reveal delay={delay} className="h-full">
-      <Link
-        href={`/expertises/${item.slug}`}
-        className="group relative flex h-full min-h-[172px] flex-col overflow-hidden border-t border-charcoal/15 py-8 transition-colors duration-300 hover:border-gold"
-      >
-        {/* A visible but secondary hint of photography — never the focal point */}
-        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          {photo ? (
-            <Image
-              src={photo.src}
-              alt=""
-              fill
-              loading="lazy"
-              quality={35}
-              sizes="(min-width: 640px) 50vw, 100vw"
-              className="object-cover opacity-[0.32] transition-opacity duration-500 group-hover:opacity-[0.42]"
-            />
-          ) : (
-            <DiamondGrid className="absolute inset-y-0 right-0 h-full w-1/2 text-burgundy/[0.06]" />
-          )}
-          <div className={cn("absolute inset-0 bg-gradient-to-r", bgGradient[bg])} />
-        </div>
-
-        <div className="relative flex flex-1 flex-col">
-          <div>
-            <h3 className="max-w-sm font-serif text-2xl leading-snug text-burgundy-deep sm:text-[1.7rem]">
-              {item.title[locale]}
-            </h3>
-            <p className="mt-3 max-w-md text-sm leading-relaxed text-charcoal/60">
-              {item.pitch[locale]}
-            </p>
+    <Reveal delay={delay} className={cn("h-full", featured && "lg:col-span-2")}>
+      <Tilt max={5} scale={1.01} className="h-full rounded-2xl">
+        <Link
+          href={`/expertises/${item.slug}`}
+          className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-lift ring-1 ring-ink/10 transition-shadow duration-300 hover:shadow-float"
+        >
+          <div className={cn("relative overflow-hidden bg-butter", featured ? "aspect-[16/9] lg:aspect-[21/9]" : "aspect-[16/10]")}>
+            {photo ? (
+              <Image
+                src={photo.src}
+                alt=""
+                fill
+                loading="lazy"
+                sizes={featured ? "(min-width: 1024px) 66vw, (min-width: 640px) 50vw, 100vw" : "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"}
+                className="photo-vivid object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              />
+            ) : (
+              <DiamondGrid className="absolute inset-0 h-full w-full text-ink/40" />
+            )}
           </div>
-          <span className="mt-auto inline-flex w-fit items-center gap-1 pt-4 text-[15px] font-medium text-burgundy transition-colors duration-200 group-hover:text-burgundy-deep">
-            {t("expertiseCta")}
-            <ChevronRight className="h-4 w-4" />
-          </span>
-        </div>
-      </Link>
+
+          <div className="h-1 bg-gradient-to-r from-plum via-gold to-butter-deep" aria-hidden="true" />
+
+          <div className="flex flex-1 flex-col p-6 sm:p-7">
+            <h3 className="font-serif text-[1.75rem] leading-[1.15] text-ink">{item.title[locale]}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-charcoal/70">{item.pitch[locale]}</p>
+            <span className="mt-auto inline-flex w-fit items-center gap-2 pt-6 text-[11px] font-medium uppercase tracking-[0.2em] text-plum transition-colors duration-200 group-hover:text-ink">
+              {t("expertiseCta")}
+              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 ease-out group-hover:translate-x-1" />
+            </span>
+          </div>
+        </Link>
+      </Tilt>
     </Reveal>
   );
 }

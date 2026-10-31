@@ -6,14 +6,16 @@ export function Introduction() {
   const t = useTranslations("home");
 
   return (
-    <section className="bg-cream py-24 sm:py-32">
-      <div className="container-prestige max-w-3xl">
+    <section className="bg-white py-24 sm:py-32">
+      <div className="container-prestige grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20">
         <Reveal>
           <SectionLabel>{t("introEyebrow")}</SectionLabel>
-          <h2 className="mt-6 font-serif text-3xl leading-snug text-burgundy-deep sm:text-4xl lg:text-[2.75rem]">
+        </Reveal>
+        <Reveal delay={0.08}>
+          <h2 className="font-serif text-4xl font-light leading-[1.08] text-ink sm:text-5xl lg:text-[3.6rem]">
             {t("introTitle")}
           </h2>
-          <p className="mt-8 text-base leading-relaxed text-charcoal/70">{t("introBody")}</p>
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink/65">{t("introBody")}</p>
         </Reveal>
       </div>
     </section>

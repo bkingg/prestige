@@ -28,13 +28,13 @@ export function FeaturedProjects() {
   const featured = pickFeatured();
 
   return (
-    <section className="bg-cream py-24 sm:py-32">
+    <section className="border-t border-tan/40 bg-white py-24 sm:py-32">
       <div className="container-prestige">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <SectionLabel>{t("projectsEyebrow")}</SectionLabel>
-              <h2 className="mt-6 max-w-2xl font-serif text-3xl leading-snug text-burgundy-deep sm:text-4xl lg:text-[2.75rem]">
+              <h2 className="mt-6 max-w-2xl font-serif text-3xl leading-snug text-ink sm:text-4xl lg:text-[2.75rem]">
                 {t("projectsTitle")}
               </h2>
               <p className="mt-6 max-w-xl text-base leading-relaxed text-charcoal/70">
