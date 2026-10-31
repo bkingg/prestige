@@ -146,7 +146,7 @@ export function Navbar() {
           >
             <div className="flex h-[84px] items-center justify-between border-b border-charcoal/10 px-4 sm:px-6">
               <Link href="/" aria-label="PRESTIGE Cabinet Conseil, Accueil">
-                <LogoMark className="h-10 w-10" />
+                <LogoMark className="h-11 w-auto" />
               </Link>
               <button
                 type="button"

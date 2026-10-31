@@ -6,17 +6,35 @@ interface LogoMarkProps {
 }
 
 /**
- * The client's original mark — a mauve square holding an amber disc with a
- * calligraphic "P" — redrawn as vector paths so it stays sharp at any size
- * instead of the blurry raster from the old letterhead. Same composition
- * and colors; only the rendering is cleaned up (thicker, legible stroke on
- * the "P", soft gradients in place of the scanned texture).
+ * The client's mark, traced from the letterhead in the company brochure: a
+ * mauve-to-rose square (slightly taller than wide) holding a large amber
+ * disc with a hand-drawn "P" embossed in the same amber. Redrawn as vector
+ * paths so it stays sharp at any size instead of the blurry raster in the
+ * PDF, with a heavier stroke than the original so it reads small.
  */
 export function LogoMark({ className }: LogoMarkProps) {
   return (
-    <svg viewBox="0 0 100 100" className={className} role="img" aria-label="PRESTIGE" shapeRendering="geometricPrecision">
+    <svg viewBox="0 0 100 108" className={className} role="img" aria-label="PRESTIGE" shapeRendering="geometricPrecision">
       <LogoMarkShapes />
     </svg>
+  );
+}
+
+// The hand-drawn "P", traced from the letterhead (stem with tick and hooked
+// tail, tilted oval bowl, small cross-stroke).
+const P_STROKES = [
+  "M50.3 22.2C49.8 29 48.6 36.5 46.8 43C45.8 47 44.9 50.4 44 54C42.3 60.6 40.2 67.6 37.8 74.2C36.2 78.6 34.4 83.2 32 86.8C30.6 88.8 28.6 89.3 27 88.6",
+  "M43.2 46C49.5 38.2 59.5 31.2 72 29.6C80 28.8 86.5 32 86.7 38.5C86.9 46 82 55 75.5 62C69.5 68.5 61 72 53 72.2C49.5 72.3 46.8 71.6 44.6 70.8",
+  "M37.3 44.8C40.5 44.2 44 43.6 47.3 43.2",
+];
+
+function PStrokes() {
+  return (
+    <>
+      {P_STROKES.map((d) => (
+        <path key={d} d={d} />
+      ))}
+    </>
   );
 }
 
@@ -26,33 +44,50 @@ function LogoMarkShapes() {
   return (
     <>
       <defs>
-        <linearGradient id={`${id}-sq`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#B4687E" />
-          <stop offset="100%" stopColor="#934A61" />
+        <linearGradient id={`${id}-sq`} x1="0.2" y1="0" x2="0.6" y2="1">
+          <stop offset="0%" stopColor="#A9637A" />
+          <stop offset="55%" stopColor="#A2607A" />
+          <stop offset="100%" stopColor="#C77986" />
         </linearGradient>
-        <radialGradient id={`${id}-disc`} cx="0.38" cy="0.32" r="0.75">
-          <stop offset="0%" stopColor="#F7C766" />
-          <stop offset="70%" stopColor="#E6A541" />
-          <stop offset="100%" stopColor="#D08F2E" />
+        <radialGradient id={`${id}-halo`} cx="0.5" cy="0.5" r="0.5">
+          <stop offset="84%" stopColor="#6E3448" stopOpacity="0.4" />
+          <stop offset="100%" stopColor="#6E3448" stopOpacity="0" />
         </radialGradient>
+        <radialGradient id={`${id}-disc`} cx="0.45" cy="0.42" r="0.62">
+          <stop offset="0%" stopColor="#F9CB72" />
+          <stop offset="75%" stopColor="#F2B65A" />
+          <stop offset="100%" stopColor="#EBAA55" />
+        </radialGradient>
+        <linearGradient id={`${id}-p`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#F7C46A" />
+          <stop offset="100%" stopColor="#E7A64B" />
+        </linearGradient>
+        <filter id={`${id}-shade`} x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="1.3" />
+        </filter>
       </defs>
-      <rect width="100" height="100" rx="6" fill={`url(#${id}-sq)`} />
-      <circle cx="50" cy="50" r="41" fill={`url(#${id}-disc)`} />
-      <circle cx="50" cy="50" r="41" fill="none" stroke="#7E3B50" strokeOpacity="0.35" strokeWidth="1" />
-      <g
-        transform="translate(-4.4 -2)"
-        fill="none"
-        stroke="#2B1A14"
-        strokeWidth="3.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        {/* stem with its little hooked tail */}
-        <path d="M37 33C40 28.5 43.5 27 46 27.5C45.2 43 43.4 61 41.2 75.5C40.6 80 37.6 82.6 33.8 80.8" />
-        {/* bowl */}
-        <path d="M45.6 30.5C53 22.5 70 21.5 72.6 33.5C75 45.5 61 55 46.4 50.5" />
-        {/* the small cross-stroke on the stem */}
-        <path d="M34.5 44L49 41.6" strokeWidth="2.6" />
+      <rect width="100" height="108" fill={`url(#${id}-sq)`} />
+      <circle cx="50" cy="54" r="48.5" fill={`url(#${id}-halo)`} />
+      <circle cx="50" cy="54" r="45" fill={`url(#${id}-disc)`} />
+      {/*
+        The "P" is the disc's own amber, raised by an emboss: a soft blurred
+        shade and a crisp bronze edge to the lower right, a cream highlight
+        to the upper left. Optically centred on the disc (nudged left to
+        balance the heavy bowl).
+      */}
+      <g transform="translate(-6.5 -1.5)" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="5">
+        <g transform="translate(1.6 2)" stroke="#5C3208" strokeOpacity="0.45" filter={`url(#${id}-shade)`}>
+          <PStrokes />
+        </g>
+        <g transform="translate(1 1.2)" stroke="#7A4510" strokeOpacity="0.9">
+          <PStrokes />
+        </g>
+        <g transform="translate(-0.7 -0.8)" stroke="#FFF3CF">
+          <PStrokes />
+        </g>
+        <g stroke={`url(#${id}-p)`}>
+          <PStrokes />
+        </g>
       </g>
     </>
   );
@@ -78,7 +113,7 @@ export function LogoLockup({ className, light }: LogoMarkProps & { light?: boole
       aria-label="PRESTIGE Cabinet Conseil"
       shapeRendering="geometricPrecision"
     >
-      <svg x="0" y="0" width="48" height="48" viewBox="0 0 100 100" overflow="visible">
+      <svg x="0" y="0" width="44.4" height="48" viewBox="0 0 100 108" overflow="visible">
         <LogoMarkShapes />
       </svg>
       <path d={WORDMARK_PATH} className={cn("transition-colors duration-300", light ? "fill-white" : "fill-plum")} />

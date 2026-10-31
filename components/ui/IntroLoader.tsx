@@ -16,7 +16,7 @@ export function IntroLoader() {
         <svg viewBox="0 0 120 120" className="intro-ring">
           <circle cx="60" cy="60" r="56" />
         </svg>
-        <LogoMark className="h-[72px] w-[72px]" />
+        <LogoMark className="h-[78px] w-auto" />
       </div>
       <p className="intro-word">PRESTIGE</p>
     </div>
