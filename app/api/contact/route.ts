@@ -33,16 +33,26 @@ function oneLine(s: string) {
 
 let transporter: nodemailer.Transporter | null = null;
 
+// Spacemail (Spaceship) by default: SSL on 465. Any SMTP provider works by
+// overriding SMTP_HOST / SMTP_PORT; port 587 switches to STARTTLS.
+// OFFICE365_* are read as a fallback for existing deployments.
+function smtpConfig() {
+  const user = process.env.SMTP_USER || process.env.OFFICE365_USER;
+  const pass = process.env.SMTP_PASS || process.env.OFFICE365_PASS;
+  const host = process.env.SMTP_HOST || "mail.spacemail.com";
+  const port = Number(process.env.SMTP_PORT) || 465;
+  return user && pass ? { user, pass, host, port } : null;
+}
+
 function getTransporter() {
-  const user = process.env.OFFICE365_USER;
-  const pass = process.env.OFFICE365_PASS;
-  if (!user || !pass) return null;
+  const cfg = smtpConfig();
+  if (!cfg) return null;
   transporter ??= nodemailer.createTransport({
-    host: "smtp.office365.com",
-    port: 587,
-    secure: false,
-    requireTLS: true,
-    auth: { user, pass },
+    host: cfg.host,
+    port: cfg.port,
+    secure: cfg.port === 465,
+    requireTLS: cfg.port !== 465,
+    auth: { user: cfg.user, pass: cfg.pass },
   });
   return transporter;
 }
@@ -83,7 +93,7 @@ export async function POST(req: Request) {
 
   const mailer = getTransporter();
   if (!mailer) {
-    console.error("[contact] OFFICE365_USER / OFFICE365_PASS are not set");
+    console.error("[contact] SMTP_USER / SMTP_PASS are not set");
     return NextResponse.json({ ok: false, error: "unavailable" }, { status: 503 });
   }
 
@@ -122,7 +132,7 @@ export async function POST(req: Request) {
 
   try {
     await mailer.sendMail({
-      from: { name: "Site PRESTIGE", address: process.env.OFFICE365_USER! },
+      from: { name: "Site PRESTIGE", address: smtpConfig()!.user },
       to: RECIPIENT,
       replyTo: { name: oneLine(data.name), address: oneLine(data.email) },
       subject: `[Site web] ${oneLine(data.subject)}`,
