@@ -8,6 +8,8 @@ import { pageMetadata, SITE_URL } from "@/lib/seo";
 import { company } from "@/data/company";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { IntroLoader } from "@/components/ui/IntroLoader";
+import { NavigationProgress } from "@/components/ui/NavigationProgress";
 import { cn } from "@/lib/utils";
 import "../globals.css";
 
@@ -23,7 +25,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const isFr = locale === "fr";
 
-  const title = "PRESTIGE Cabinet Conseil | PRESTIGE SAU — Dakar, Sénégal";
+  const title = "PRESTIGE Cabinet Conseil | PRESTIGE SAU · Dakar, Sénégal";
   const description = isFr
     ? "Cabinet conseil, études et ingénierie basé à Dakar depuis 2000. Environnement, études économiques, suivi-évaluation, urbanisme, décentralisation, BTP, eau & assainissement, géomatique."
     : "Consulting, studies and engineering firm based in Dakar since 2000. Environment, economic studies, monitoring & evaluation, urban planning, decentralization, works supervision, water & sanitation, geomatics.";
@@ -114,6 +116,8 @@ export default async function LocaleLayout({
         >
           Aller au contenu principal
         </a>
+        <IntroLoader />
+        <NavigationProgress />
         <Navbar />
         <main id="main-content">{children}</main>
         <Footer />

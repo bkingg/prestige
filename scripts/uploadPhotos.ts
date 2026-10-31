@@ -52,8 +52,8 @@ async function main() {
   }
 
   const heroPhoto = await uploadPhoto(photos.heroBoardroom);
-  const aboutPhotoPrimary = await uploadPhoto(photos.dakarAerial);
-  const aboutPhotoSecondary = await uploadPhoto(photos.planningTeam);
+  const aboutPhotoPrimary = await uploadPhoto(photos.cabinetBoardroom);
+  const aboutPhotoSecondary = await uploadPhoto(photos.projectWaterTower);
 
   await client.patch("siteSettings").set({ heroPhoto, aboutPhotoPrimary, aboutPhotoSecondary }).commit();
   console.log("✓ siteSettings <- heroPhoto, aboutPhotoPrimary, aboutPhotoSecondary");

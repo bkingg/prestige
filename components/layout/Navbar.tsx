@@ -75,7 +75,7 @@ export function Navbar() {
         )}
       >
         <div className="mx-auto flex h-[84px] w-full max-w-content items-center justify-between px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-12">
-          <Link href="/" aria-label="PRESTIGE Cabinet Conseil — Accueil" className="shrink-0">
+          <Link href="/" aria-label="PRESTIGE Cabinet Conseil, Accueil" className="shrink-0">
             <LogoLockup light={overHero} className="h-11" />
           </Link>
 
@@ -145,7 +145,7 @@ export function Navbar() {
             aria-label={t("menu")}
           >
             <div className="flex h-[84px] items-center justify-between border-b border-charcoal/10 px-4 sm:px-6">
-              <Link href="/" aria-label="PRESTIGE Cabinet Conseil — Accueil">
+              <Link href="/" aria-label="PRESTIGE Cabinet Conseil, Accueil">
                 <LogoMark className="h-10 w-10" />
               </Link>
               <button

@@ -117,7 +117,7 @@ export const expertiseAreas: Expertise[] = [
       en: "Project Monitoring & Evaluation, Planning, Studies, Audit & Consulting",
     },
     pitch: {
-      fr: "Le cabinet met à disposition une équipe d'experts spécialisée dans les évaluations des projets, la planification, l'implémentation d'un système de suivi-évaluation et gestion et la démarche GAR — Gestion axée sur les résultats.",
+      fr: "Le cabinet met à disposition une équipe d'experts spécialisée dans les évaluations des projets, la planification, l'implémentation d'un système de suivi-évaluation et gestion et la démarche GAR (Gestion axée sur les résultats).",
       en: "The firm provides a team of experts specializing in project evaluations, planning, implementation of a monitoring and evaluation system and the results-based management (RBM) approach.",
     },
     services: {

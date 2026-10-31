@@ -26,7 +26,7 @@ export function ProjectCard({ project, delay = 0 }: { project: Project; delay?: 
             {project.title}
           </h3>
           <p className="mt-2 text-sm text-charcoal/55">
-            {project.client} — {project.country}
+            {project.client} · {project.country}
           </p>
         </div>
 

@@ -244,7 +244,7 @@ export function Hero() {
                 type="button"
                 role="tab"
                 aria-selected={i === index}
-                aria-label={`${i + 1} / ${count} — ${s.tab[locale]}`}
+                aria-label={`${i + 1} / ${count}: ${s.tab[locale]}`}
                 onClick={() => go(i)}
                 className={cn(
                   "group relative flex min-w-[64px] flex-1 items-center gap-3 py-5 pr-4 text-left transition-colors duration-200",

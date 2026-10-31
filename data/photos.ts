@@ -63,29 +63,11 @@ export const photos = {
     "Vue aérienne de Dakar",
     "Aerial view of Dakar"
   ),
-  planningTeam: unsplash(
-    "planning-team",
-    "1688372296394-f8c21c15ed65",
-    "Deux consultants travaillant sur des plans autour d'une table",
-    "Two consultants working through plans at a table"
-  ),
   solarFarmAerial: unsplash(
     "solar-farm-aerial",
     "1497435334941-8c899ee9e8e9",
     "Vue aérienne d'un parc solaire au milieu de la végétation",
     "Aerial view of a solar park surrounded by greenery"
-  ),
-  executiveMeeting: unsplash(
-    "executive-meeting",
-    "1573164574511-73c773193279",
-    "Équipe de direction en réunion de travail",
-    "Management team in a working session"
-  ),
-  auditMeeting: unsplash(
-    "audit-meeting",
-    "1573164574397-dd250bc8a598",
-    "Consultantes en réunion d'évaluation",
-    "Consultants in an evaluation meeting"
   ),
   cityBoulevard: unsplash(
     "city-boulevard",
@@ -123,30 +105,60 @@ export const photos = {
     "Plans techniques et crayon sur une table de travail",
     "Technical drawings and a pencil on a work table"
   ),
-  executiveLaptop: unsplash(
-    "executive-laptop",
-    "1758519290890-46b542bb25fd",
-    "Cadre travaillant sur son ordinateur dans un bureau",
-    "Executive working on a laptop in an office"
+  heroHandshake: unsplash(
+    "hero-handshake",
+    "1758519288905-38b7b00c1023",
+    "Poignée de main entre deux dirigeants autour d'une table de travail",
+    "Two executives shaking hands across a working table"
   ),
-  glassOffice: unsplash(
-    "glass-office",
-    "1573164574048-f968d7ee9f20",
-    "Échange entre deux consultantes dans un bureau vitré",
-    "Two consultants talking in a glass-walled office"
+  executivePortrait: unsplash(
+    "executive-portrait",
+    "1666866834805-8cc91d4774ac",
+    "Portrait d'un dirigeant souriant en costume et cravate",
+    "Portrait of a smiling executive in suit and tie"
   ),
-  teamWomen: unsplash(
-    "team-women",
-    "1573497701291-18243a6dc63d",
-    "Membres de l'équipe réunies au bureau",
-    "Team members together at the office"
+  managementAnalysis: unsplash(
+    "management-analysis",
+    "1628348068343-c6a848d2b6dd",
+    "Dirigeant en costume analysant des graphiques financiers avec une calculatrice",
+    "Executive in a suit analysing financial charts with a calculator"
+  ),
+  evaluationChart: unsplash(
+    "evaluation-chart",
+    "1543286386-2e659306cd6c",
+    "Courbe de suivi tracée sur papier, stylos et règle sur un bureau en bois",
+    "Trend chart drawn on paper, with pens and a ruler on a wooden desk"
+  ),
+  cabinetBoardroom: unsplash(
+    "cabinet-boardroom",
+    "1517502884422-41eaead166d4",
+    "Salle de réunion lumineuse avec grande table en bois et vue sur la ville",
+    "Bright meeting room with a large wooden table and a view over the city"
+  ),
+  referencesSigning: unsplash(
+    "references-signing",
+    "1521791055366-0d553872125f",
+    "Signature d'un contrat au stylo plume",
+    "Signing a contract with a fountain pen"
+  ),
+  projectWaterTower: unsplash(
+    "project-water-tower",
+    "1621355254187-22a61da5ec52",
+    "Château d'eau en construction sous échafaudages, ciel bleu",
+    "Water tower under construction in scaffolding against a blue sky"
+  ),
+  heritageBaobab: unsplash(
+    "heritage-baobab",
+    "1711711857661-b3111a5647d6",
+    "Baobab centenaire au bord de l'eau, Sénégal",
+    "Century-old baobab tree at the water's edge, Senegal"
   ),
 } satisfies Record<string, Photo>;
 
 export const expertisePhotos: Partial<Record<string, Photo>> = {
   "environnement-developpement-durable": photos.solarFarmAerial,
-  "management-etudes-economiques-sectorielles": photos.executiveMeeting,
-  "suivi-evaluation-planification-audit-conseil": photos.auditMeeting,
+  "management-etudes-economiques-sectorielles": photos.managementAnalysis,
+  "suivi-evaluation-planification-audit-conseil": photos.evaluationChart,
   "urbanisme-amenagement-paysage": photos.cityBoulevard,
   "decentralisation-collectivites-locales": photos.villageAerial,
   "etudes-controle-surveillance-travaux": photos.constructionCrane,

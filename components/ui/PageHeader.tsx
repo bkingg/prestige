@@ -14,11 +14,11 @@ import type { Photo } from "@/data/photos";
 import { cn } from "@/lib/utils";
 
 /**
- * The shared "page intro" band, in the same bright language as the
- * homepage Hero: ink heading on paper-white, and — when a photo is given —
- * the photo at full color in a 3D tilt card on the right (no dark scrim
- * over it). Pages with no photo fall back to a text-only band with a faint
- * topographic motif.
+ * The shared "page intro" band. With a photo, the text carries the weight
+ * (7 of 12 columns, large light title) and the photo sits beside it as a
+ * smaller landscape card in a 3D tilt, vertically centred on the copy, so
+ * neither side overpowers the other. Pages with no photo fall back to a
+ * text-only band with a faint topographic motif.
  *
  * Parallax on both the photo and the fallback motif is a scroll-linked
  * CSS `transform` (Framer Motion, GPU-composited, no layout cost), the
@@ -97,33 +97,35 @@ export function PageHeader({
   }
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-white pb-16 pt-32 sm:pb-20 sm:pt-36">
-      <div className="container-prestige relative grid items-center gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
-        <Reveal>
+    <section ref={sectionRef} className="relative overflow-hidden bg-white pb-16 pt-32 sm:pb-20 sm:pt-40">
+      <div className="container-prestige grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+        <Reveal className="lg:col-span-7">
           {backLink}
           <SectionLabel>{eyebrow}</SectionLabel>
-          <h1 className="heading-rule mt-6 max-w-xl font-serif text-[2.6rem] leading-[1.1] text-ink sm:text-[3.25rem]">
+          <h1 className="mt-7 font-serif text-[2.75rem] font-light leading-[1.04] text-ink sm:text-6xl lg:text-[4.5rem]">
             {title}
           </h1>
+          <span aria-hidden="true" className="mt-8 block h-px w-14 bg-gold" />
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/70">{subtitle}</p>
           {rule && <ChevronRule className="mt-6 h-3 w-20 text-gold" />}
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-charcoal/75">{subtitle}</p>
         </Reveal>
 
         <motion.div
           initial={{ opacity: 0, transform: reduce ? "none" : "perspective(1200px) rotateY(-12deg) translateX(20px)" }}
           animate={{ opacity: 1, transform: "perspective(1200px) rotateY(0deg) translateX(0px)" }}
           transition={{ duration: 1, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
+          className="lg:col-span-5"
         >
           <Tilt max={6} className="rounded-[20px]">
-            <div className="relative aspect-[16/11] overflow-hidden rounded-[20px] bg-butter shadow-float ring-1 ring-ink/10">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[20px] bg-butter shadow-float ring-1 ring-ink/10">
               <motion.div style={{ y: photoY }} className="absolute inset-x-0 -top-[6%] h-[112%]">
                 <Image
                   src={photo.src}
                   alt={photo.alt[locale]}
                   fill
                   priority
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
+                  sizes="(min-width: 1024px) 40vw, 100vw"
+                  className="object-cover object-[50%_30%]"
                 />
               </motion.div>
               <PhotoCredit photo={photo} />

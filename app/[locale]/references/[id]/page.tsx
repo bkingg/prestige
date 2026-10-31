@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
     locale,
     path: `/references/${id}`,
     title: project.title,
-    description: `${project.client} — ${project.country} — ${project.period}`,
+    description: `${project.client} · ${project.country} · ${project.period}`,
   });
 }
 

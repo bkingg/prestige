@@ -45,7 +45,7 @@ export default async function ExpertiseDetailPage({ params }: { params: Promise<
   return (
     <>
       <PageHeader
-        eyebrow={`${t("eyebrow")} — ${item.number}`}
+        eyebrow={`${t("eyebrow")} · ${item.number}`}
         title={item.title[loc]}
         subtitle={item.pitch[loc]}
         photo={photo}

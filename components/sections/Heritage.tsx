@@ -11,18 +11,20 @@ import { photos } from "@/data/photos";
 import { company } from "@/data/company";
 
 /**
- * Split "anchoring" band: an aerial of Dakar bleeding off the left edge and
- * fading into the white page, with the firm's heritage copy and three
+ * Split "heritage" band: a baobab, the emblem of Senegal, bleeding off the left
+ * edge and fading into the white page, with the firm's heritage copy and three
  * figures that count up once when they scroll into view.
  */
 export function Heritage() {
   const t = useTranslations("home");
   const locale = useLocale() as "fr" | "en";
-  const photo = photos.dakarAerial;
+  const photo = photos.heritageBaobab;
+  // One source for the years figure so the heading and the counter always agree.
+  const years = new Date().getFullYear() - company.foundedYear;
 
   const stats = [
     { to: company.foundedYear, label: t("heritageStatYear"), plain: true },
-    { to: new Date().getFullYear() - company.foundedYear, suffix: "+", label: t("heritageStatExperience") },
+    { to: years, suffix: "+", label: t("heritageStatExperience") },
     { to: company.countriesOfOperation.length, label: locale === "fr" ? "Pays d'intervention" : "Countries of operation" },
   ];
 
@@ -37,7 +39,7 @@ export function Heritage() {
               fill
               loading="lazy"
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
+              className="object-cover object-[75%_50%]"
             />
           </ScrollTilt>
           <div className="absolute inset-0 hidden bg-gradient-to-r from-transparent via-transparent to-white lg:block" />
@@ -49,7 +51,7 @@ export function Heritage() {
             <Reveal>
               <SectionLabel>{t("heritageEyebrow")}</SectionLabel>
               <h2 className="mt-7 font-serif text-5xl font-light leading-[1.05] text-ink sm:text-6xl">
-                {t("heritageTitle")}
+                {t("heritageTitle", { years })}
               </h2>
               <p className="mt-8 text-base leading-relaxed text-ink/70">{t("heritageBody")}</p>
             </Reveal>

@@ -16,17 +16,17 @@
     "expertiseTitle": "Expertise",
     "contactTitle": "Contact",
     "rights": "PRESTIGE SAU. All rights reserved.",
-    "legalForm": "Single-member limited company — Dakar, Senegal",
+    "legalForm": "Single-member limited company · Dakar, Senegal",
     "craftedBy": "Website by"
   },
   "home": {
-    "heroEyebrow": "Consulting firm — Dakar, Senegal — Since 2000",
+    "heroEyebrow": "Consulting firm · Dakar, Senegal · Since 2000",
     "heroTitle": "Turning complex challenges into decisions that create impact.",
     "heroSubtitle": "Since 2000, PRESTIGE has supported public and private actors in their strategic, economic, environmental and territorial projects.",
     "heroCtaPrimary": "Discover our expertise",
     "heroCtaSecondary": "See our references",
     "heritageEyebrow": "Heritage",
-    "heritageTitle": "25+ years of expertise",
+    "heritageTitle": "{years}+ years of expertise",
     "heritageBody": "For more than two decades, PRESTIGE has built multidisciplinary expertise in service of structuring projects across Africa.",
     "heritageStatYear": "Year founded",
     "heritageStatExperience": "Years of experience",
@@ -72,7 +72,7 @@
     "timelineTodayTitle": "Today",
     "timelineTodayBody": "The firm has developed multidisciplinary expertise across eight areas of intervention, serving public institutions, international donors and private operators across West Africa.",
     "approachTitle": "Multidisciplinary expertise",
-    "approachBody": "PRESTIGE brings together expertise in environment, economics, monitoring & evaluation, urban planning, decentralization, works engineering, water and sanitation, and geomatics — enabling a comprehensive, coherent reading of the projects entrusted to it.",
+    "approachBody": "PRESTIGE brings together expertise in environment, economics, monitoring & evaluation, urban planning, decentralization, works engineering, water and sanitation, and geomatics, enabling a comprehensive, coherent reading of the projects entrusted to it.",
     "operationsTitle": "Human and operational resources",
     "logisticsTitle": "Logistics support",
     "countriesTitle": "Countries of operation",
@@ -150,7 +150,15 @@
     "emailCta": "Send an email",
     "formSending": "Sending…",
     "formError": "Your message couldn't be sent. Please try again, or email us directly at contact@prestige.sn.",
-    "formRateLimited": "Too many messages sent in a short time. Please try again in a few minutes."
+    "formRateLimited": "Too many messages sent in a short time. Please try again in a few minutes.",
+    "formCountry": "Country",
+    "errors": {
+      "required": "This field is required.",
+      "invalid_email": "Please enter a valid email address.",
+      "invalid_phone": "Please enter a valid phone number.",
+      "too_short": "Your message is a little short (10 characters minimum).",
+      "too_long": "This field is too long."
+    }
   },
   "common": {
     "readMore": "Learn more",

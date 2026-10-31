@@ -16,17 +16,17 @@
     "expertiseTitle": "Expertises",
     "contactTitle": "Contact",
     "rights": "PRESTIGE SAU. Tous droits réservés.",
-    "legalForm": "Société Anonyme Unipersonnelle — Dakar, Sénégal",
+    "legalForm": "Société Anonyme Unipersonnelle · Dakar, Sénégal",
     "craftedBy": "Site réalisé par"
   },
   "home": {
-    "heroEyebrow": "Cabinet conseil — Dakar, Sénégal — Depuis 2000",
+    "heroEyebrow": "Cabinet conseil · Dakar, Sénégal · Depuis 2000",
     "heroTitle": "Transformer les enjeux complexes en décisions qui créent de l'impact.",
     "heroSubtitle": "Depuis 2000, PRESTIGE accompagne les acteurs publics et privés dans leurs projets stratégiques, économiques, environnementaux et territoriaux.",
     "heroCtaPrimary": "Découvrir nos expertises",
     "heroCtaSecondary": "Voir nos références",
     "heritageEyebrow": "Héritage",
-    "heritageTitle": "25+ années d'expertise",
+    "heritageTitle": "{years}+ années d'expertise",
     "heritageBody": "Depuis plus de deux décennies, PRESTIGE développe une expertise multidisciplinaire au service des projets structurants en Afrique.",
     "heritageStatYear": "Année de création",
     "heritageStatExperience": "Années d'expérience",
@@ -72,7 +72,7 @@
     "timelineTodayTitle": "Aujourd'hui",
     "timelineTodayBody": "Le cabinet développe une expertise multidisciplinaire couvrant huit domaines d'intervention, au service d'acteurs publics, de bailleurs internationaux et d'opérateurs privés à travers l'Afrique de l'Ouest.",
     "approachTitle": "Une expertise multidisciplinaire",
-    "approachBody": "PRESTIGE réunit sous un même cabinet des compétences en environnement, en économie, en suivi-évaluation, en urbanisme, en décentralisation, en ingénierie de travaux, en eau et assainissement, et en géomatique — permettant une lecture globale et cohérente des projets qui lui sont confiés.",
+    "approachBody": "PRESTIGE réunit sous un même cabinet des compétences en environnement, en économie, en suivi-évaluation, en urbanisme, en décentralisation, en ingénierie de travaux, en eau et assainissement, et en géomatique, permettant une lecture globale et cohérente des projets qui lui sont confiés.",
     "operationsTitle": "Ressources humaines et opérationnelles",
     "logisticsTitle": "Soutien logistique",
     "countriesTitle": "Pays d'opération",
@@ -150,7 +150,15 @@
     "emailCta": "Écrire un email",
     "formSending": "Envoi en cours…",
     "formError": "Le message n'a pas pu être envoyé. Merci de réessayer, ou de nous écrire directement à contact@prestige.sn.",
-    "formRateLimited": "Trop de messages envoyés en peu de temps. Merci de réessayer dans quelques minutes."
+    "formRateLimited": "Trop de messages envoyés en peu de temps. Merci de réessayer dans quelques minutes.",
+    "formCountry": "Pays",
+    "errors": {
+      "required": "Ce champ est obligatoire.",
+      "invalid_email": "Merci de saisir une adresse email valide.",
+      "invalid_phone": "Merci de saisir un numéro de téléphone valide.",
+      "too_short": "Votre message est un peu court (10 caractères minimum).",
+      "too_long": "Ce champ est trop long."
+    }
   },
   "common": {
     "readMore": "En savoir plus",

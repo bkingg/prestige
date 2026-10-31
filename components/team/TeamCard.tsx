@@ -16,12 +16,12 @@ export function TeamCard({ member, delay = 0 }: { member: TeamMember; delay?: nu
   return (
     <Reveal delay={delay}>
       <article className="border-t border-charcoal/15 pt-8">
-        <div className="flex gap-6">
-          <TeamAvatar name={member.name} className="w-16 shrink-0 sm:w-20" />
-          <div>
-            <h3 className="font-serif text-2xl leading-tight text-ink">{member.name}</h3>
+        <div className="flex items-center gap-6 sm:gap-7">
+          <TeamAvatar name={member.name} className="w-20 shrink-0 sm:w-24" />
+          <div className="min-w-0">
+            <h3 className="font-serif text-[1.65rem] leading-tight text-ink">{member.name}</h3>
             <p className="mt-1.5 text-sm text-charcoal/70">{member.role[locale]}</p>
-            <p className="mt-1 text-xs uppercase tracking-wide text-plum">{member.experience[locale]}</p>
+            <p className="mt-2 text-[11px] font-medium uppercase tracking-[0.18em] text-plum">{member.experience[locale]}</p>
           </div>
         </div>
 

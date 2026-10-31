@@ -81,8 +81,8 @@ export async function getSitePhotos(): Promise<{
 }> {
   const fallback = {
     heroPhoto: staticPhotos.heroBoardroom,
-    aboutPhotoPrimary: staticPhotos.dakarAerial,
-    aboutPhotoSecondary: staticPhotos.planningTeam,
+    aboutPhotoPrimary: staticPhotos.cabinetBoardroom,
+    aboutPhotoSecondary: staticPhotos.projectWaterTower,
   };
   if (!isSanityConfigured || !USE_SANITY_PHOTOS) return fallback;
   try {

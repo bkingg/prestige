@@ -21,7 +21,7 @@ export default async function TeamPage({ params }: { params: Promise<Params> }) 
 
   return (
     <>
-      <PageHeader eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} photo={photos.teamWomen} />
+      <PageHeader eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} photo={photos.heroBoardroom} />
       <div className="container-prestige bg-white pb-24 pt-16 sm:pt-20 grid gap-6 sm:grid-cols-2">
         {team.map((member, i) => (
           <TeamCard key={member.slug} member={member} delay={(i % 2) * 0.1} />

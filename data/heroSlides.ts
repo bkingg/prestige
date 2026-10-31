@@ -17,9 +17,9 @@ export interface HeroSlide {
 
 export const heroSlides: HeroSlide[] = [
   {
-    photo: photos.heroBoardroom,
+    photo: photos.heroHandshake,
     tab: { fr: "Conseil", en: "Advisory" },
-    eyebrow: { fr: "Cabinet conseil — Dakar — Depuis 2000", en: "Consulting firm — Dakar — Since 2000" },
+    eyebrow: { fr: "Cabinet conseil · Dakar · Depuis 2000", en: "Consulting firm · Dakar · Since 2000" },
     title: {
       fr: "Transformer les enjeux complexes en décisions qui créent de l'impact.",
       en: "Turning complex challenges into decisions that create impact.",
@@ -30,7 +30,7 @@ export const heroSlides: HeroSlide[] = [
     },
     href: "/expertises",
     cta: { fr: "Découvrir nos expertises", en: "Discover our expertise" },
-    focus: "60% 50%",
+    focus: "70% 40%",
   },
   {
     photo: photos.heroRenaissance,

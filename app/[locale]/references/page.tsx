@@ -21,7 +21,7 @@ export default async function ReferencesPage({ params }: { params: Promise<Param
 
   return (
     <>
-      <PageHeader eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} photo={photos.executiveLaptop} />
+      <PageHeader eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} photo={photos.referencesSigning} />
       <div className="container-prestige bg-white pb-24 pt-16 sm:pt-20">
         <ProjectArchive projects={projects} />
       </div>
