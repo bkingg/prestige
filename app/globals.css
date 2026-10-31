@@ -53,10 +53,6 @@
     content: "";
     @apply absolute bottom-0 left-0 h-px w-full max-w-[22rem] bg-gradient-to-r from-tan to-transparent;
   }
-  /* Gentle lift for source photos that came in a little flat or hazy */
-  .photo-vivid {
-    filter: saturate(1.12) contrast(1.05) brightness(1.02);
-  }
   /* Press feedback for anything clickable that looks like a button */
   .pressable {
     @apply transition-transform duration-150 ease-out active:scale-[0.97];

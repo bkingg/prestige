@@ -31,7 +31,6 @@
     "heritageStatYear": "Année de création",
     "heritageStatExperience": "Années d'expérience",
     "heritageStatBase": "Siège social",
-    "introEyebrow": "Approche",
     "introTitle": "Une expertise multidisciplinaire au service des projets qui façonnent les territoires.",
     "introBody": "Conseil, études, formation, surveillance et contrôle technique : PRESTIGE réunit huit domaines d'expertise complémentaires pour accompagner ses clients de la conception à la mise en œuvre de leurs projets.",
     "expertiseEyebrow": "Domaines d'intervention",
@@ -72,7 +71,6 @@
     "timeline2000Body": "PRESTIGE SAU est fondée à Dakar comme cabinet de conseil, d'études, de formation, de surveillance et de contrôle technique.",
     "timelineTodayTitle": "Aujourd'hui",
     "timelineTodayBody": "Le cabinet développe une expertise multidisciplinaire couvrant huit domaines d'intervention, au service d'acteurs publics, de bailleurs internationaux et d'opérateurs privés à travers l'Afrique de l'Ouest.",
-    "approachEyebrow": "Approche",
     "approachTitle": "Une expertise multidisciplinaire",
     "approachBody": "PRESTIGE réunit sous un même cabinet des compétences en environnement, en économie, en suivi-évaluation, en urbanisme, en décentralisation, en ingénierie de travaux, en eau et assainissement, et en géomatique — permettant une lecture globale et cohérente des projets qui lui sont confiés.",
     "operationsTitle": "Ressources humaines et opérationnelles",
@@ -145,11 +143,14 @@
     "formSubject": "Objet",
     "formMessage": "Message",
     "formSubmit": "Envoyer le message",
-    "formSuccess": "Merci, votre message a bien été enregistré. Notre équipe vous recontactera rapidement.",
-    "formNote": "Ce formulaire enregistre votre demande localement dans votre navigateur pour cette démonstration ; pour une prise de contact immédiate, privilégiez le téléphone ou l'email.",
+    "formSuccess": "Merci, votre message a bien été envoyé. Notre équipe vous recontactera rapidement.",
+    "formNote": "Vos informations sont uniquement utilisées pour répondre à votre demande.",
     "mapTitle": "Nous trouver",
     "callCta": "Appeler le cabinet",
-    "emailCta": "Écrire un email"
+    "emailCta": "Écrire un email",
+    "formSending": "Envoi en cours…",
+    "formError": "Le message n'a pas pu être envoyé. Merci de réessayer, ou de nous écrire directement à contact@prestige.sn.",
+    "formRateLimited": "Trop de messages envoyés en peu de temps. Merci de réessayer dans quelques minutes."
   },
   "common": {
     "readMore": "En savoir plus",

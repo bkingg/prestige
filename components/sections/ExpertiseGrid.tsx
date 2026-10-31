@@ -50,7 +50,7 @@ export function ExpertiseGrid({ photos }: { photos: Partial<Record<string, Photo
                 fill
                 loading="lazy"
                 sizes="(min-width: 1024px) 20vw, 45vw"
-                className="photo-vivid object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />

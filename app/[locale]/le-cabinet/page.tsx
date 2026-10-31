@@ -85,7 +85,7 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
                 <li className="relative">
                   <span className="absolute -left-[calc(2rem+5px)] top-1.5 h-2.5 w-2.5 rounded-full bg-gold" />
                   <p className="font-serif text-2xl text-plum">{company.foundedYear}</p>
-                  <h3 className="mt-2 text-lg font-medium font-semibold text-ink">{t("timeline2000Title")}</h3>
+                  <h3 className="mt-2 text-lg font-medium text-ink">{t("timeline2000Title")}</h3>
                   <p className="mt-2 max-w-xl text-sm leading-relaxed text-charcoal/70">
                     {t("timeline2000Body")}
                   </p>
@@ -108,8 +108,7 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
       <section className="border-t border-charcoal/10 bg-white py-24">
         <div className="container-prestige max-w-3xl">
           <Reveal>
-            <SectionLabel>{t("approachEyebrow")}</SectionLabel>
-            <h2 className="mt-6 font-serif text-3xl leading-snug text-ink sm:text-4xl">
+            <h2 className="font-serif text-4xl font-light leading-[1.1] text-ink sm:text-5xl">
               {t("approachTitle")}
             </h2>
             <p className="mt-6 text-base leading-relaxed text-charcoal/70">{t("approachBody")}</p>

@@ -43,8 +43,26 @@ export function Hero() {
   const count = heroSlides.length;
   const slide = heroSlides[index];
   const running = !paused && !hovering && !hidden;
+  // Only the first slide's photo is fetched up front; each later photo is
+  // mounted (and so requested) once it's the current or the upcoming slide,
+  // after the first one has loaded — instead of five full-width downloads
+  // competing with the LCP image on first paint.
+  const [mounted, setMounted] = useState<Set<number>>(() => new Set([0]));
+  const [firstLoaded, setFirstLoaded] = useState(false);
 
-  const go = useCallback((i: number) => setIndex(((i % count) + count) % count), [count]);
+  useEffect(() => {
+    if (!firstLoaded) return;
+    setMounted((prev) => {
+      const nextIdx = (index + 1) % count;
+      if (prev.has(index) && prev.has(nextIdx)) return prev;
+      return new Set([...prev, index, nextIdx]);
+    });
+  }, [index, firstLoaded, count]);
+
+  const go = useCallback(
+    (i: number) => setIndex(((i % count) + count) % count),
+    [count],
+  );
   const next = useCallback(() => go(index + 1), [go, index]);
   const prev = useCallback(() => go(index - 1), [go, index]);
 
@@ -101,7 +119,9 @@ export function Hero() {
   return (
     <section
       aria-roledescription="carousel"
-      aria-label={locale === "fr" ? "Présentation de PRESTIGE" : "About PRESTIGE"}
+      aria-label={
+        locale === "fr" ? "Présentation de PRESTIGE" : "About PRESTIGE"
+      }
       onPointerMove={onPointerMove}
       onPointerEnter={(e) => e.pointerType === "mouse" && setHovering(true)}
       onPointerLeave={() => {
@@ -113,33 +133,41 @@ export function Hero() {
       onPointerUp={onPointerUp}
       onKeyDown={onKeyDown}
       onFocus={() => setHovering(true)}
-      onBlur={(e) => !e.currentTarget.contains(e.relatedTarget as Node) && setHovering(false)}
+      onBlur={(e) =>
+        !e.currentTarget.contains(e.relatedTarget as Node) && setHovering(false)
+      }
       className="relative flex h-[100svh] min-h-[720px] w-full items-end overflow-hidden bg-ink-deep text-white"
     >
-      <motion.div style={{ transform: reduce ? undefined : photoTransform }} className="absolute inset-0">
+      <motion.div
+        style={{ transform: reduce ? undefined : photoTransform }}
+        className="absolute inset-0"
+      >
         {heroSlides.map((s, i) => (
           <div
             key={s.photo.src}
             aria-hidden={i !== index}
             className={cn(
               "absolute inset-0 transition-opacity duration-[1200ms] ease-out",
-              i === index ? "opacity-100" : "opacity-0"
+              i === index ? "opacity-100" : "opacity-0",
             )}
           >
-            <Image
-              src={s.photo.src}
-              alt={s.photo.alt[locale]}
-              fill
-              priority={i === 0}
-              loading={i === 0 ? undefined : "eager"}
-              sizes="100vw"
-              style={{ objectPosition: s.focus ?? "50% 50%" }}
-              className={cn(
-                "object-cover",
-                !reduce && "transition-transform duration-[8000ms] ease-out",
-                !reduce && (i === index ? "scale-100" : "scale-[1.08]")
-              )}
-            />
+            {(mounted.has(i) || i === index) && (
+              <Image
+                src={s.photo.src}
+                alt={s.photo.alt[locale]}
+                fill
+                priority={i === 0}
+                onLoad={i === 0 ? () => setFirstLoaded(true) : undefined}
+                quality={70}
+                sizes="100vw"
+                style={{ objectPosition: s.focus ?? "50% 50%" }}
+                className={cn(
+                  "object-cover",
+                  !reduce && "transition-transform duration-[8000ms] ease-out",
+                  !reduce && (i === index ? "scale-100" : "scale-[1.08]"),
+                )}
+              />
+            )}
           </div>
         ))}
       </motion.div>
@@ -162,7 +190,10 @@ export function Hero() {
             variants={{
               hidden: {},
               show: { transition: { staggerChildren: 0.08 } },
-              exit: { opacity: 0, transition: { duration: 0.25, ease: "easeOut" } },
+              exit: {
+                opacity: 0,
+                transition: { duration: 0.25, ease: "easeOut" },
+              },
             }}
             aria-live={running ? "off" : "polite"}
           >
@@ -185,7 +216,10 @@ export function Hero() {
             >
               {slide.body[locale]}
             </motion.p>
-            <motion.div variants={fadeUp(reduce)} className="mt-9 flex flex-wrap items-center gap-4">
+            <motion.div
+              variants={fadeUp(reduce)}
+              className="mt-9 flex flex-wrap items-center gap-4"
+            >
               <Button href={slide.href} variant="primary" icon>
                 {slide.cta[locale]}
               </Button>
@@ -200,7 +234,10 @@ export function Hero() {
       {/* Controls */}
       <div className="absolute inset-x-0 bottom-0 z-20 border-t border-white/15 bg-black/20 backdrop-blur-[2px]">
         <div className="container-prestige flex items-stretch">
-          <div className="flex flex-1 items-stretch overflow-x-auto" role="tablist">
+          <div
+            className="flex flex-1 items-stretch overflow-x-auto"
+            role="tablist"
+          >
             {heroSlides.map((s, i) => (
               <button
                 key={s.photo.src}
@@ -211,16 +248,24 @@ export function Hero() {
                 onClick={() => go(i)}
                 className={cn(
                   "group relative flex min-w-[64px] flex-1 items-center gap-3 py-5 pr-4 text-left transition-colors duration-200",
-                  i === index ? "text-white" : "text-white/55 hover:text-white/85"
+                  i === index
+                    ? "text-white"
+                    : "text-white/55 hover:text-white/85",
                 )}
               >
-                <span className="absolute inset-x-0 top-0 h-px bg-white/20" aria-hidden="true">
+                <span
+                  className="absolute inset-x-0 top-0 h-px bg-white/20"
+                  aria-hidden="true"
+                >
                   {i === index && (
                     <span
                       key={`${index}-${running}`}
                       className="block h-full origin-left bg-gold"
                       style={{
-                        animation: running && !reduce ? `hero-progress ${INTERVAL_MS}ms linear forwards` : undefined,
+                        animation:
+                          running && !reduce
+                            ? `hero-progress ${INTERVAL_MS}ms linear forwards`
+                            : undefined,
                         transform: running && !reduce ? undefined : "scaleX(1)",
                       }}
                     />
@@ -238,15 +283,23 @@ export function Hero() {
             <button
               type="button"
               onClick={() => setPaused((p) => !p)}
-              aria-label={paused ? (locale === "fr" ? "Lecture" : "Play") : "Pause"}
+              aria-label={
+                paused ? (locale === "fr" ? "Lecture" : "Play") : "Pause"
+              }
               className="flex h-10 w-10 items-center justify-center text-white/75 transition-[color,transform] duration-150 ease-out hover:text-white active:scale-[0.94]"
             >
-              {paused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
+              {paused ? (
+                <Play className="h-4 w-4" />
+              ) : (
+                <Pause className="h-4 w-4" />
+              )}
             </button>
             <button
               type="button"
               onClick={prev}
-              aria-label={locale === "fr" ? "Diapositive précédente" : "Previous slide"}
+              aria-label={
+                locale === "fr" ? "Diapositive précédente" : "Previous slide"
+              }
               className="flex h-10 w-10 items-center justify-center border border-white/30 text-white transition-[background-color,color,transform] duration-150 ease-out hover:bg-white hover:text-ink active:scale-[0.94]"
             >
               <ChevronLeft className="h-4 w-4" />
@@ -254,7 +307,9 @@ export function Hero() {
             <button
               type="button"
               onClick={next}
-              aria-label={locale === "fr" ? "Diapositive suivante" : "Next slide"}
+              aria-label={
+                locale === "fr" ? "Diapositive suivante" : "Next slide"
+              }
               className="flex h-10 w-10 items-center justify-center border border-white/30 text-white transition-[background-color,color,transform] duration-150 ease-out hover:bg-white hover:text-ink active:scale-[0.94]"
             >
               <ChevronRight className="h-4 w-4" />
@@ -269,6 +324,10 @@ export function Hero() {
 function fadeUp(reduce: boolean | null) {
   return {
     hidden: { opacity: 0, transform: reduce ? "none" : "translateY(22px)" },
-    show: { opacity: 1, transform: "translateY(0px)", transition: { duration: 0.8, ease: EASE_OUT } },
+    show: {
+      opacity: 1,
+      transform: "translateY(0px)",
+      transition: { duration: 0.8, ease: EASE_OUT },
+    },
   };
 }

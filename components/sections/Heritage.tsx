@@ -37,7 +37,7 @@ export function Heritage() {
               fill
               loading="lazy"
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className="photo-vivid object-cover"
+              className="object-cover"
             />
           </ScrollTilt>
           <div className="absolute inset-0 hidden bg-gradient-to-r from-transparent via-transparent to-white lg:block" />

@@ -95,7 +95,7 @@ export function Tilt({
       onPointerEnter={() => hover.set(1)}
       onPointerLeave={onLeave}
       style={{ transform, transformStyle: "preserve-3d" }}
-      className={cn("relative will-change-transform", className)}
+      className={cn("relative", className)}
     >
       {children}
       {glare && (

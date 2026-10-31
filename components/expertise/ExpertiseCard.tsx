@@ -45,7 +45,7 @@ export function ExpertiseCard({
                 fill
                 loading="lazy"
                 sizes={featured ? "(min-width: 1024px) 66vw, (min-width: 640px) 50vw, 100vw" : "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"}
-                className="photo-vivid object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
               />
             ) : (
               <DiamondGrid className="absolute inset-0 h-full w-full text-ink/40" />

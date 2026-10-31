@@ -31,7 +31,6 @@
     "heritageStatYear": "Year founded",
     "heritageStatExperience": "Years of experience",
     "heritageStatBase": "Headquarters",
-    "introEyebrow": "Approach",
     "introTitle": "Multidisciplinary expertise serving the projects that shape territories.",
     "introBody": "Consulting, studies, training, monitoring and technical control: PRESTIGE brings together eight complementary areas of expertise to support clients from project design through implementation.",
     "expertiseEyebrow": "Areas of intervention",
@@ -72,7 +71,6 @@
     "timeline2000Body": "PRESTIGE SAU is founded in Dakar as a consulting, studies, training, monitoring and technical control firm.",
     "timelineTodayTitle": "Today",
     "timelineTodayBody": "The firm has developed multidisciplinary expertise across eight areas of intervention, serving public institutions, international donors and private operators across West Africa.",
-    "approachEyebrow": "Approach",
     "approachTitle": "Multidisciplinary expertise",
     "approachBody": "PRESTIGE brings together expertise in environment, economics, monitoring & evaluation, urban planning, decentralization, works engineering, water and sanitation, and geomatics — enabling a comprehensive, coherent reading of the projects entrusted to it.",
     "operationsTitle": "Human and operational resources",
@@ -145,11 +143,14 @@
     "formSubject": "Subject",
     "formMessage": "Message",
     "formSubmit": "Send message",
-    "formSuccess": "Thank you, your message has been recorded. Our team will get back to you shortly.",
-    "formNote": "This form saves your request locally in your browser for this demonstration; for an immediate response, please use phone or email.",
+    "formSuccess": "Thank you, your message has been sent. Our team will get back to you shortly.",
+    "formNote": "Your details are only used to respond to your request.",
     "mapTitle": "Find us",
     "callCta": "Call the firm",
-    "emailCta": "Send an email"
+    "emailCta": "Send an email",
+    "formSending": "Sending…",
+    "formError": "Your message couldn't be sent. Please try again, or email us directly at contact@prestige.sn.",
+    "formRateLimited": "Too many messages sent in a short time. Please try again in a few minutes."
   },
   "common": {
     "readMore": "Learn more",

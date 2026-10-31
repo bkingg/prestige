@@ -5,7 +5,7 @@ import { Cormorant_Garamond, Inter } from "next/font/google";
 // and the small tracked uppercase labels/navigation.
 export const fontDisplay = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400"],
   style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
@@ -13,7 +13,7 @@ export const fontDisplay = Cormorant_Garamond({
 
 export const fontBody = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500"],
   variable: "--font-body",
   display: "swap",
 });

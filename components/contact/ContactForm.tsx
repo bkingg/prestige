@@ -2,70 +2,111 @@
 
 import { useState, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
-import { Send } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
+type Status = "idle" | "sending" | "sent" | "error";
+
+/**
+ * Posts to /api/contact, which emails the request to contact@prestige.sn
+ * (Reply-To set to the visitor). A visually hidden "website" field acts as
+ * a honeypot for bots.
+ */
 export function ContactForm() {
   const t = useTranslations("contact");
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
+  const [errorKey, setErrorKey] = useState<"formError" | "formRateLimited">("formError");
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (status === "sending") return;
+    setStatus("sending");
+
+    const form = new FormData(e.currentTarget);
+    const payload = Object.fromEntries(
+      ["name", "organization", "email", "phone", "subject", "message", "website"].map((k) => [k, String(form.get(k) ?? "")])
+    );
+
     try {
-      const form = new FormData(e.currentTarget);
-      const entry = {
-        name: form.get("name"),
-        organization: form.get("organization"),
-        email: form.get("email"),
-        phone: form.get("phone"),
-        subject: form.get("subject"),
-        message: form.get("message"),
-        date: new Date().toISOString(),
-      };
-      const existing = JSON.parse(localStorage.getItem("prestige-contact-requests") || "[]");
-      localStorage.setItem("prestige-contact-requests", JSON.stringify([...existing, entry]));
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        setStatus("sent");
+        return;
+      }
+      setErrorKey(res.status === 429 ? "formRateLimited" : "formError");
+      setStatus("error");
     } catch {
-      // localStorage unavailable — still show confirmation
+      setErrorKey("formError");
+      setStatus("error");
     }
-    setSubmitted(true);
   }
 
-  if (submitted) {
+  if (status === "sent") {
     return (
-      <div className="border border-gold/40 bg-white p-8 text-sm leading-relaxed text-charcoal/75">
+      <div role="status" className="border-l-2 border-gold bg-butter p-8 text-sm leading-relaxed text-ink/80">
         {t("formSuccess")}
       </div>
     );
   }
 
+  const sending = status === "sending";
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6" noValidate={false}>
       <div className="grid gap-6 sm:grid-cols-2">
-        <Field id="name" label={t("formName")} required />
-        <Field id="organization" label={t("formOrganization")} />
-        <Field id="email" label={t("formEmail")} type="email" required />
-        <Field id="phone" label={t("formPhone")} type="tel" />
+        <Field id="name" label={t("formName")} required autoComplete="name" />
+        <Field id="organization" label={t("formOrganization")} autoComplete="organization" />
+        <Field id="email" label={t("formEmail")} type="email" required autoComplete="email" />
+        <Field id="phone" label={t("formPhone")} type="tel" autoComplete="tel" />
       </div>
       <Field id="subject" label={t("formSubject")} required />
       <div>
-        <label htmlFor="message" className="text-xs uppercase tracking-widest2 text-charcoal/45">
+        <label htmlFor="message" className="text-[11px] font-medium uppercase tracking-[0.2em] text-ink/50">
           {t("formMessage")}
         </label>
         <textarea
           id="message"
           name="message"
           required
-          rows={5}
-          className="mt-2 w-full border border-charcoal/15 bg-white px-4 py-3 text-sm text-charcoal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+          maxLength={5000}
+          rows={6}
+          className="mt-2 w-full border border-ink/15 bg-white px-4 py-3 text-sm text-ink transition-colors focus-visible:border-ink/40 focus-visible:outline-none"
         />
       </div>
+
+      {/* Honeypot — hidden from people and assistive tech, tempting to bots */}
+      <div aria-hidden="true" className="absolute left-[-10000px] top-auto h-px w-px overflow-hidden">
+        <label htmlFor="website">Website</label>
+        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+
+      {status === "error" && (
+        <p role="alert" className="border-l-2 border-plum bg-plum/5 px-4 py-3 text-sm text-plum">
+          {t(errorKey)}
+        </p>
+      )}
+
       <button
         type="submit"
-        className="inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-[15px] font-medium text-white shadow-lift transition-[background-color,transform] duration-150 ease-out hover:bg-ink-soft active:scale-[0.97]"
+        disabled={sending}
+        className={cn(
+          "group inline-flex items-center gap-2.5 bg-plum px-7 py-4 text-[12px] font-medium uppercase tracking-caps text-white",
+          "transition-[background-color,transform,opacity] duration-200 ease-out hover:bg-plum-deep active:scale-[0.97]",
+          sending && "cursor-wait opacity-80"
+        )}
       >
-        {t("formSubmit")}
-        <Send className="h-4 w-4" />
+        {sending ? t("formSending") : t("formSubmit")}
+        {sending ? (
+          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+        ) : (
+          <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 ease-out group-hover:translate-x-1" />
+        )}
       </button>
-      <p className="max-w-md text-xs leading-relaxed text-charcoal/45">{t("formNote")}</p>
+      <p className="max-w-md text-xs leading-relaxed text-ink/45">{t("formNote")}</p>
     </form>
   );
 }
@@ -75,15 +116,17 @@ function Field({
   label,
   type = "text",
   required = false,
+  autoComplete,
 }: {
   id: string;
   label: string;
   type?: string;
   required?: boolean;
+  autoComplete?: string;
 }) {
   return (
     <div>
-      <label htmlFor={id} className="text-xs uppercase tracking-widest2 text-charcoal/45">
+      <label htmlFor={id} className="text-[11px] font-medium uppercase tracking-[0.2em] text-ink/50">
         {label}
       </label>
       <input
@@ -91,7 +134,9 @@ function Field({
         name={id}
         type={type}
         required={required}
-        className="mt-2 w-full border border-charcoal/15 bg-white px-4 py-2.5 text-sm text-charcoal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+        autoComplete={autoComplete}
+        maxLength={type === "email" ? 200 : 200}
+        className="mt-2 w-full border border-ink/15 bg-white px-4 py-2.5 text-sm text-ink transition-colors focus-visible:border-ink/40 focus-visible:outline-none"
       />
     </div>
   );

@@ -123,7 +123,7 @@ export function PageHeader({
                   fill
                   priority
                   sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="photo-vivid object-cover"
+                  className="object-cover"
                 />
               </motion.div>
               <PhotoCredit photo={photo} />

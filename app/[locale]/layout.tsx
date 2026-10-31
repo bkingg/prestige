@@ -8,7 +8,6 @@ import { pageMetadata, SITE_URL } from "@/lib/seo";
 import { company } from "@/data/company";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { GrainOverlay } from "@/components/ui/Motifs";
 import { cn } from "@/lib/utils";
 import "../globals.css";
 
@@ -109,7 +108,6 @@ export default async function LocaleLayout({
     <div lang={locale} className={cn(fontDisplay.variable, fontBody.variable, "font-sans")}>
       <OrganizationJsonLd locale={locale} />
       <NextIntlClientProvider messages={messages}>
-        <GrainOverlay />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-cream focus:px-4 focus:py-2 focus:text-ink"
