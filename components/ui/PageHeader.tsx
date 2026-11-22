@@ -26,6 +26,17 @@ import { cn } from "@/lib/utils";
  * iOS Safari doesn't support. `prefers-reduced-motion` disables it, as
  * with every other motion effect in this UI.
  */
+/**
+ * Display size steps down with title length: section names ("Références")
+ * keep the large light display size, while mission titles of 150+
+ * characters would otherwise run to ten lines at 72px.
+ */
+function titleSizeClass(title: string, base: string) {
+  if (title.length <= 45) return base;
+  if (title.length <= 90) return "text-4xl leading-[1.1] sm:text-5xl lg:text-[3.25rem]";
+  return "text-[1.75rem] leading-[1.2] sm:text-4xl lg:text-[2.5rem]";
+}
+
 export function PageHeader({
   eyebrow,
   title,
@@ -82,7 +93,12 @@ export function PageHeader({
               />
               {backLink}
               <SectionLabel>{eyebrow}</SectionLabel>
-              <h1 className="heading-rule mt-6 max-w-xl font-serif text-5xl leading-tight text-ink sm:text-6xl">
+              <h1
+                className={cn(
+                  "heading-rule mt-6 text-balance font-serif text-ink",
+                  titleSizeClass(title, "max-w-xl text-5xl leading-tight sm:text-6xl")
+                )}
+              >
                 {title}
               </h1>
               {rule && <ChevronRule className="mt-6 h-3 w-20 text-gold" />}
@@ -102,7 +118,12 @@ export function PageHeader({
         <Reveal className="lg:col-span-7">
           {backLink}
           <SectionLabel>{eyebrow}</SectionLabel>
-          <h1 className="mt-7 font-serif text-[2.75rem] font-light leading-[1.04] text-ink sm:text-6xl lg:text-[4.5rem]">
+          <h1
+            className={cn(
+              "mt-7 text-balance font-serif font-light text-ink",
+              titleSizeClass(title, "text-[2.75rem] leading-[1.04] sm:text-6xl lg:text-[4.5rem]")
+            )}
+          >
             {title}
           </h1>
           <span aria-hidden="true" className="mt-8 block h-px w-14 bg-gold" />

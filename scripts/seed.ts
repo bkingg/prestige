@@ -124,6 +124,7 @@ async function seed() {
         category: p.category,
         sector: p.sector,
         group: p.group,
+        description: p.description,
       });
     }
     await tx.commit();

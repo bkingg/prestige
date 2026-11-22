@@ -116,6 +116,8 @@
     "role": "Rôle",
     "sector": "Secteur",
     "missionType": "Type de mission",
+    "context": "Contexte de la mission",
+    "funding": "Financement",
     "detailsCta": "Voir la mission",
     "back": "Toutes les références"
   },

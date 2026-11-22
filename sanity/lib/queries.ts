@@ -15,9 +15,9 @@ export const teamListQuery = groq`*[_type == "teamMember"] | order(order asc){
 }`;
 
 export const projectListQuery = groq`*[_type == "project"] | order(yearEnd desc, yearStart desc){
-  "id": _id, period, yearStart, yearEnd, title, client, country, role, category, sector, group
+  "id": _id, period, yearStart, yearEnd, title, client, country, role, category, sector, group, description
 }`;
 
 export const projectByIdQuery = groq`*[_type == "project" && _id == $id][0]{
-  "id": _id, period, yearStart, yearEnd, title, client, country, role, category, sector, group
+  "id": _id, period, yearStart, yearEnd, title, client, country, role, category, sector, group, description
 }`;

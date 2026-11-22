@@ -116,6 +116,9 @@
     "role": "Role",
     "sector": "Sector",
     "missionType": "Mission type",
+    "context": "Mission context",
+    "contextNote": "Summary from our French-language references document.",
+    "funding": "Funding",
     "detailsCta": "View mission",
     "back": "All references"
   },

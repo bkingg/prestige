@@ -31,6 +31,7 @@ export const project = defineType({
     }),
     defineField({ name: "sector", title: "Secteur", type: "string" }),
     defineField({ name: "group", title: "Type de mission", type: "string" }),
+    defineField({ name: "description", title: "Contexte de la mission", type: "text", rows: 5 }),
   ],
   preview: {
     select: { title: "title", subtitle: "client" },

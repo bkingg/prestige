@@ -1,3 +1,5 @@
+import { projectDescriptions } from "./projectDescriptions";
+
 export type ProjectCategory =
   | "environnement"
   | "urbanisme"
@@ -29,15 +31,22 @@ export interface Project {
   category: ProjectCategory;
   sector: string;
   group: string;
+  /** Short context paragraph (French), from the references document. */
+  description?: string;
 }
 
-// Row shape: [period, yearStart, yearEnd, title, client, country, role, category, sector, group]
-type Row = [string, number, number, string, string, string, string, ProjectCategory, string, string];
+// Row shape: [period, yearStart, yearEnd, title, client, country, role, category, sector, group, extras?]
+// `extras.id` pins a project's URL when its title or start year is corrected
+// after publication, so existing links to /references/[id] keep working.
+type RowExtras = { id?: string };
+type Row =
+  | [string, number, number, string, string, string, string, ProjectCategory, string, string]
+  | [string, number, number, string, string, string, string, ProjectCategory, string, string, RowExtras];
 
 const rows: Row[] = [
   // 1.1, Évaluations environnementales et sociales, EIES
   ["2026 – en cours", 2026, 2026, "Étude d'impact environnemental et social (EIES) pour la création d'une nouvelle usine de fabrication de céramique et de porcelaine dans la zone économique spéciale APIX de Diass", "SENECERA SAU", "Sénégal", "Consultant unique", "environnement", "Industrie", "EIES"],
-  ["2024", 2024, 2024, "EIES de 400 km de pistes rurales dans des collectivités territoriales de Tambacounda, Kédougou, Kolda et Sédhiou (lot 3), Financement BAD", "Projet de Désenclavement des Zones de Production (PDZP) / PNDL", "Sénégal", "Consultant unique", "environnement", "Infrastructure", "EIES"],
+  ["2024 – en cours", 2024, 2026, "Réalisation de trois EIES portant sur 400 km de pistes rurales dans des collectivités territoriales de Tambacounda, Kédougou, Kolda et Sédhiou (lot 3), Financement BAD", "Projet de Désenclavement des Zones de Production (PDZP) / PNDL", "Sénégal", "Consultant unique", "environnement", "Infrastructure", "EIES", { id: "2024-eies-de-400-km-de-pistes-rurales-dans-des-collectivites-terr-1" }],
   ["2017 – 2018", 2017, 2018, "EIES du projet de raccordement électrique 30 kV Marssassoum à partir de Tangori, Financement Banque Mondiale", "Senelec / Projet d'Appui au Secteur de l'Électricité (PASE)", "Sénégal", "Chef de file, Groupement Prestige / Ingérco Mali", "environnement", "Énergie", "EIES"],
   ["2017 – 2018", 2017, 2018, "EIES du projet de raccordement électrique 30 kV Vélingara – Nétéboulou, Financement Banque Mondiale", "Senelec / PASE", "Sénégal", "Chef de file, Groupement Prestige / Ingérco Mali", "environnement", "Énergie", "EIES"],
   ["2017 – 2018", 2017, 2018, "EIES du projet de raccordement électrique 30 kV Djéndé – Sakar-Diana Malari – Kolda, Financement Banque Mondiale", "Senelec / PASE", "Sénégal", "Chef de file, Groupement Prestige / Ingérco Mali", "environnement", "Énergie", "EIES"],
@@ -45,20 +54,20 @@ const rows: Row[] = [
   ["2013 – 2014", 2013, 2014, "EIES du projet de construction d'un complexe hôtelier sur la Voie de Dégagement Nord, Le Park Inn", "Cabinet Simon & Christiansen Afrique", "Sénégal", "Consultant unique", "environnement", "Tourisme & Hôtellerie", "EIES"],
   ["Mars 2013", 2013, 2013, "EIES du projet d'extension de la capacité de stockage de CO2 et N2 à Dakar", "Air Liquide", "Sénégal", "Consultant unique", "environnement", "Industrie", "EIES"],
   ["Janvier – Mars 2013", 2013, 2013, "EIES des travaux portuaires de Foundiougne", "S&D Suarl", "Sénégal", "Consultant unique", "environnement", "Transport & Portuaire", "EIES"],
-  ["2013 – 2014", 2013, 2014, "EIES du projet de deux centrales à barges au HFO de 70 MW", "APIX / Cellule Énergie", "Sénégal", "Groupement avec HPR Ankh et HDS Canada", "environnement", "Énergie", "EIES"],
-  ["Janvier 2013", 2013, 2013, "EIES des travaux portuaires de Foundiougne", "ANAM / Samsung Corporation", "Sénégal", "Consultant unique", "environnement", "Transport & Portuaire", "EIES"],
-  ["2012 – 2013", 2012, 2013, "EIES du projet d'exploitation d'une centrale d'enrobage à Ndafonga, région de Fatick", "Eiffage Sénégal", "Sénégal", "Consultant unique", "environnement", "Infrastructure", "EIES"],
+  ["Avril 2013 – Février 2014", 2013, 2014, "EIES du projet de deux centrales à barges au HFO de 70 MW", "APIX / Cellule Énergie", "Sénégal", "Groupement avec HPR Ankh et HDS Canada", "environnement", "Énergie", "EIES"],
+  ["2013", 2013, 2013, "EIES du projet d'infrastructures et d'équipements maritimes (MIEP) à Foundiougne", "Agence Nationale des Affaires Maritimes (ANAM) / Samsung Corporation", "Sénégal", "Consultant unique", "environnement", "Transport & Portuaire", "EIES", { id: "2013-eies-des-travaux-portuaires-de-foundiougne-10" }],
+  ["Septembre 2012 – Janvier 2013", 2012, 2013, "EIES du projet d'exploitation d'une centrale d'enrobage à Ndafonga, région de Fatick", "Eiffage Sénégal", "Sénégal", "Consultant unique", "environnement", "Infrastructure", "EIES"],
   ["2012", 2012, 2012, "EIES du projet d'aménagement de l'exploitation agricole de Temeye Agro dans la communauté rurale de Mbane, région de Saint-Louis", "Temeye Agro Sarl", "Sénégal", "Consultant unique", "environnement", "Agriculture", "EIES"],
-  ["2011 – 2012", 2011, 2012, "EIES du projet d'exploitation d'une centrale d'enrobage, d'une centrale à béton et d'une centrale à grave sur le site Eiffage de Diamniadio", "Eiffage Sénégal", "Sénégal", "Consultant unique", "environnement", "Infrastructure", "EIES"],
+  ["Octobre 2011 – Janvier 2012", 2011, 2012, "EIES du projet d'exploitation d'une centrale d'enrobage, d'une centrale à béton et d'une centrale à grave sur le site Eiffage de Diamniadio", "Eiffage Sénégal", "Sénégal", "Consultant unique", "environnement", "Infrastructure", "EIES"],
   ["Jan – Avril 2011", 2011, 2011, "Évaluations environnementales des microprojets soumis au financement du PNDL, Dakar, Thiès, Diourbel, Fatick", "Programme National de Développement Local (PNDL)", "Sénégal", "HPR Ankh Consultants / Prestige", "environnement", "Développement local", "EIES"],
   ["Jan – Avril 2011", 2011, 2011, "Évaluations environnementales des microprojets soumis au financement du PNDL, Louga, Matam, Saint-Louis", "Programme National de Développement Local (PNDL)", "Sénégal", "HPR Ankh Consultants / Prestige", "environnement", "Développement local", "EIES"],
   ["Jan – Avril 2011", 2011, 2011, "Évaluations environnementales des microprojets soumis au financement du PNDL, Kaolack, Kaffrine, Kédougou, Tambacounda, Kolda, Sédhiou, Ziguinchor", "Programme National de Développement Local (PNDL)", "Sénégal", "HPR Ankh Consultants / Prestige", "environnement", "Développement local", "EIES"],
   ["2009", 2009, 2009, "EIES des travaux de construction de 94 km de pistes de production dans la région de Tambacounda, Financement IDA/ACDI", "PDMAS", "Sénégal", "Consultant unique", "environnement", "Infrastructure", "EIES"],
   ["2008", 2008, 2008, "EIES et plan de prévention du programme de forages et de production de gaz dans le permis de Tamna", "FORTESA International – Sénégal", "Sénégal", "Consultant unique", "environnement", "Mines & Industrie", "EIES"],
-  ["2008", 2008, 2008, "EIES du plan d'investissement 2007–2011 de la SUNEOR", "SUNEOR (SONACOS)", "Sénégal", "Consultant unique", "environnement", "Industrie", "EIES"],
-  ["2006", 2006, 2006, "EIES du projet de construction d'un terminal céréalier au Port Autonome de Dakar", "Société Africia", "Sénégal", "DDH Environnement Ltée / Prestige", "environnement", "Transport & Portuaire", "EIES"],
+  ["Février – Mai 2008", 2008, 2008, "EIES du plan d'investissement 2007–2011 de la SUNEOR", "SUNEOR (SONACOS)", "Sénégal", "Consultant unique", "environnement", "Industrie", "EIES"],
+  ["Février – Juillet 2006", 2006, 2006, "EIES du projet de construction d'un terminal céréalier au Port Autonome de Dakar", "Société Africia", "Sénégal", "DDH Environnement Ltée / Prestige", "environnement", "Transport & Portuaire", "EIES"],
   ["2005", 2005, 2005, "EIES et plan de mesures d'urgence pour la fermeture du puits gazier Retba1", "PETROSEN", "Sénégal", "Consultant unique", "environnement", "Mines & Industrie", "EIES"],
-  ["2004", 2004, 2004, "Étude d'évaluation des impacts environnementaux de l'extension du terminal à conteneurs au Port Autonome de Dakar", "Port Autonome de Dakar", "Sénégal", "Groupement avec DDH Environnement Ltée (Canada)", "environnement", "Transport & Portuaire", "EIES"],
+  ["Mars – Décembre 2004", 2004, 2004, "Étude d'évaluation des impacts environnementaux de l'extension du terminal à conteneurs au Port Autonome de Dakar", "Port Autonome de Dakar", "Sénégal", "Groupement avec DDH Environnement Ltée (Canada)", "environnement", "Transport & Portuaire", "EIES"],
   ["2004", 2004, 2004, "EIES de la première tranche de la ZAC de la Ville Nouvelle de Diamniadio (2 500 ha)", "Ministère de l'Urbanisme et de l'Aménagement du Territoire", "Sénégal", "Consultant unique", "environnement", "Urbanisme", "EIES"],
   ["2004", 2004, 2004, "Impacts environnementaux du déversement d'hydrocarbures à Gossas : analyses et évaluations suite au déraillement au PK 179+500", "Transrail SA", "Sénégal", "Consultant unique", "environnement", "Transport & Portuaire", "EIES"],
   ["2004", 2004, 2004, "Vérification environnementale des installations aéroportuaires du Sénégal et plan de gestion environnementale des aéroports", "Direction de l'Aviation Civile (actuelle ANACIM) / Programme sectoriel des transports N°2", "Sénégal", "Chef de file, Groupement avec DDH (Canada)", "environnement", "Transport & Portuaire", "EIES"],
@@ -73,21 +82,21 @@ const rows: Row[] = [
   // AIE
   ["2023", 2023, 2023, "Analyse environnementale initiale pour la construction d'une installation de stockage de déchets non-dangereux (ISDND) à Méckhé", "Commune de Méckhé / GESCOD", "Sénégal", "Consultant unique", "environnement", "Gestion des déchets", "AIE"],
   ["2022", 2022, 2022, "Analyse environnementale initiale du projet de construction d'une usine de fabrication de tuyaux d'assainissement en résine, zone économique spéciale APIX de Diass", "Africa Pipe Industries", "Sénégal", "Consultant unique", "environnement", "Industrie", "AIE"],
-  ["2022", 2022, 2022, "Analyse environnementale initiale d'un héliport à Toubacouta, région de Fatick", "Ministère du Tourisme et du Transport Aérien", "Sénégal", "Consultant unique", "environnement", "Transport & Portuaire", "AIE"],
+  ["2022", 2022, 2022, "Analyse environnementale initiale d'un héliport à Toubacouta, région de Fatick", "AIBD SA / Ministère du Tourisme et du Transport Aérien", "Sénégal", "Consultant unique", "environnement", "Transport & Portuaire", "AIE"],
   ["2021", 2021, 2021, "Analyse environnementale initiale pour la construction d'une installation de stockage de déchets non-dangereux (ISDND) à Nguéniène", "Commune de Nguéniène / GESCOD", "Sénégal", "Consultant unique", "environnement", "Gestion des déchets", "AIE"],
   ["2017 – 2018", 2017, 2018, "Analyse environnementale initiale du raccordement électrique 30 kV Pakour – Kounkané – Dabo", "Senelec / PASE", "Sénégal", "Chef de file, Groupement Prestige / Ingérco Mali", "environnement", "Énergie", "AIE"],
   ["2017 – 2018", 2017, 2018, "Analyse environnementale initiale du raccordement électrique 30 kV Médina Gounass à partir de Bokonto", "Senelec / PASE", "Sénégal", "Chef de file, Groupement Prestige / Ingérco Mali", "environnement", "Énergie", "AIE"],
   ["2017 – 2018", 2017, 2018, "Analyse environnementale initiale du raccordement électrique 30 kV Kolda – Médina Yoro Foulah – Pata – Ndorma", "Senelec / PASE", "Sénégal", "Chef de file, Groupement Prestige / Ingérco Mali", "environnement", "Énergie", "AIE"],
   ["2015 – 2016", 2015, 2016, "Études environnementales préliminaires des projets d'amélioration de la fluidité du transport à Dakar, révision du Plan Directeur d'Urbanisme horizon 2035", "Agence Japonaise de Coopération Internationale (JICA) / Direction de l'Urbanisme et de l'Architecture", "Sénégal", "Consultant unique", "environnement", "Urbanisme", "AIE"],
   ["2013", 2013, 2013, "Analyse environnementale initiale d'une unité de valorisation (biogaz) de déchets d'abattoir", "Société de Gestion des Abattoirs du Sénégal (SOGAS)", "Sénégal", "Consultant unique", "environnement", "Gestion des déchets", "AIE"],
-  ["2011", 2011, 2011, "Analyse environnementale initiale du Programme de Développement Économique des Niayes (PADEN)", "PADEN / Direction Régionale du Développement Rural", "Sénégal", "Groupement avec HPR Ankh Consultants", "environnement", "Agriculture", "AIE"],
+  ["Juillet – Octobre 2011", 2011, 2011, "Évaluation environnementale stratégique (ÉES) du Programme d'Aménagement et de Développement Économique des Niayes (PADEN)", "PADEN / Direction Régionale du Développement Rural / Ministère de l'Agriculture", "Sénégal", "Groupement avec HPR Ankh Consultants", "environnement", "Agriculture", "EESS", { id: "2011-analyse-environnementale-initiale-du-programme-de-developpem-41" }],
   ["2009", 2009, 2009, "Analyse environnementale initiale du transfert de l'atelier de l'entreprise Eiffage à Diamniadio", "Eiffage Sénégal", "Sénégal", "Consultant unique", "environnement", "Industrie", "AIE"],
   // Audit E&S
-  ["2026 – en cours", 2026, 2026, "Audit environnemental de la mise en œuvre du PGES et de l'EIES", "Conseil Exécutif des Transports urbains de Dakar (CETUD)", "Sénégal", "Consultant unique", "environnement", "Transport & Portuaire", "Audit E&S"],
+  ["2026 – en cours", 2026, 2026, "Audit environnemental et social de la mise en œuvre du PGES et de l'EIES du projet Bus Rapid Transit (BRT) de Dakar", "Conseil Exécutif des Transports urbains de Dakar (CETUD)", "Sénégal", "Consultant unique", "environnement", "Transport & Portuaire", "Audit E&S", { id: "2026-audit-environnemental-de-la-mise-en-uvre-du-pges-et-de-l-eie-43" }],
   ["2024", 2024, 2024, "Audit annuel des performances E&S du Projet de Valorisation des Eaux pour le Développement des Chaînes de Valeur (PROVALE-CV), exercice 2023, Financement BAD", "Ministère de l'Agriculture, de l'Équipement Rural et de la Souveraineté Alimentaire", "Sénégal", "Consultant unique", "environnement", "Agriculture", "Audit E&S"],
   ["2023", 2023, 2023, "Audit annuel des performances E&S du PROVALE-CV, exercices cumulés 2021–2022, Financement BAD", "Ministère de l'Agriculture, de l'Équipement Rural et de la Souveraineté Alimentaire", "Sénégal", "Consultant unique", "environnement", "Agriculture", "Audit E&S"],
-  ["2021 – en cours", 2021, 2026, "Mise en conformité ICPE des postes de Hann, Patte d'Oie, Malicounda, Tobène et Thiona, Financement budget Senelec", "Senelec", "Sénégal", "Consultant unique", "environnement", "Énergie", "Audit E&S"],
-  ["2019", 2019, 2019, "Mise en conformité de l'EIES et du PGES des travaux de protection côtière dans la Langue de Barbarie, Saint-Louis, Financement AFD", "Agence de Développement Municipal", "Sénégal", "Consultant unique", "environnement", "Environnement", "Audit E&S"],
+  ["2021 – 2025", 2021, 2025, "Mise en conformité ICPE des postes de Hann, Patte d'Oie, Malicounda, Tobène et Thiona, Financement budget Senelec", "Senelec", "Sénégal", "Consultant unique", "environnement", "Énergie", "Audit E&S"],
+  ["2020", 2020, 2020, "Mise en conformité de l'EIES et du PGES des travaux de protection côtière dans la Langue de Barbarie, Saint-Louis, Financement AFD", "Agence de Développement Municipal / Projet de Lutte contre l'Érosion Côtière à Saint-Louis (PPCS)", "Sénégal", "Consultant unique", "environnement", "Environnement", "EIES", { id: "2019-mise-en-conformite-de-l-eies-et-du-pges-des-travaux-de-prote-47" }],
   ["2017", 2017, 2017, "Étude de la conformité environnementale des activités de transformation post-récolte du projet Naatal Mbay, Financement USAID", "Feed the Future, Projet Naatal Mbay / USAID", "Sénégal", "Consultant unique", "environnement", "Agriculture", "Audit E&S"],
   ["2016", 2016, 2016, "Audit environnemental et social des ouvrages de rétention des eaux de ruissellement à Allou Kagne, région de Thiès", "Agence de Promotion du Réseau Hydrographique National (APRHN)", "Sénégal", "Consultant unique", "environnement", "Eau & Assainissement", "Audit E&S"],
   ["2015", 2015, 2015, "Audit environnemental et social des tronçons Malick Sy – Patte d'Oie – Pikine de l'autoroute à péage Dakar-Diamniadio", "APIX / AGEROUTE", "Sénégal", "Cabinet HPR Ankh Consultants, chef de file", "environnement", "Infrastructure", "Audit E&S"],
@@ -151,7 +160,7 @@ const rows: Row[] = [
   ["2001", 2001, 2001, "Mission d'assistance à l'exécution du programme de la Direction de la Marine Marchande", "Cellule de Coordination du 2ème Programme Sectoriel des Transports", "Sénégal", "Consultant unique", "economie", "Transport & Portuaire", "Études économiques"],
 
   // 1.5, Business plan et études de faisabilité
-  ["2024 – en cours", 2024, 2026, "Étude de faisabilité pour la mise en place d'une unité d'industrialisation et d'une centrale d'achats, en 2 lots", "Société Nationale des HLM (SN-HLM)", "Sénégal", "Consultant unique", "suivi-evaluation", "Études économiques", "Business plan & Faisabilité"],
+  ["Janvier 2024 – en cours", 2024, 2026, "Étude de faisabilité pour la mise en place d'une unité d'industrialisation et d'une centrale d'achats, en 2 lots", "Société Nationale des HLM (SN-HLM)", "Sénégal", "Consultant unique", "suivi-evaluation", "Études économiques", "Business plan & Faisabilité"],
   ["2015", 2015, 2015, "Réactualisation de l'étude de faisabilité du parc de stationnement de gros porteurs à Kidira", "Conseil Sénégalais des Chargeurs (COSEC)", "Sénégal", "Consultant unique", "suivi-evaluation", "Transport & Portuaire", "Business plan & Faisabilité"],
   ["2014", 2014, 2014, "Étude de faisabilité pour la création d'une société de transport (COREDIA), Programme PAISD, Financement OFII", "SCAC / Ambassade de France au Sénégal", "Sénégal", "Consultant unique", "suivi-evaluation", "Transport & Portuaire", "Business plan & Faisabilité"],
   ["2012", 2012, 2012, "Accompagnement de CR-NAV pour l'acquisition en location-vente de deux bateaux auprès de la SOGENAV", "Compagnie Régionale de Navigation (CR-NAV)", "Mali, Mauritanie, Sénégal", "Consultant unique", "suivi-evaluation", "Transport & Portuaire", "Business plan & Faisabilité"],
@@ -163,7 +172,7 @@ const rows: Row[] = [
   ["2010", 2010, 2010, "Formation et suivi économique pour une société de prestations en informatique, Programme PAISD, Financement OFII", "SCAC / Ambassade de France au Sénégal", "Sénégal", "Consultant unique", "suivi-evaluation", "Études économiques", "Business plan & Faisabilité"],
   ["2010", 2010, 2010, "Formation et suivi économique pour une société de prestations dans le domaine du web, Programme PAISD, Financement OFII", "SCAC / Ambassade de France au Sénégal", "Sénégal", "Consultant unique", "suivi-evaluation", "Études économiques", "Business plan & Faisabilité"],
   ["2010", 2010, 2010, "Formation et suivi économique pour une société de vente de produits informatiques et de recyclage de cartouches d'encre, Programme PAISD, Financement OFII", "SCAC / Ambassade de France au Sénégal", "Sénégal", "Consultant unique", "suivi-evaluation", "Études économiques", "Business plan & Faisabilité"],
-  ["2010", 2010, 2010, "Étude d'organisation et de mise en place de la Société de Gestion et d'Exploitation de la Navigation sur le fleuve Sénégal (SOGENAV)", "SOGENAV / OMVS", "Mauritanie", "Consultant unique", "suivi-evaluation", "Transport & Portuaire", "Business plan & Faisabilité"],
+  ["2011", 2011, 2011, "Étude d'organisation et de mise en place de la Société de Gestion et d'Exploitation de la Navigation sur le fleuve Sénégal (SOGENAV)", "SOGENAV / OMVS", "Mauritanie", "Consultant unique", "suivi-evaluation", "Transport & Portuaire", "Business plan & Faisabilité", { id: "2010-etude-d-organisation-et-de-mise-en-place-de-la-societe-de-ge-114" }],
   ["2007", 2007, 2007, "Étude de faisabilité pour une école privée d'enseignement général et professionnel à Matam, Programme PAISD, Financement OFII", "SCAC / Ambassade de France au Sénégal", "Sénégal", "Consultant unique", "suivi-evaluation", "Formation", "Business plan & Faisabilité"],
   ["2007", 2007, 2007, "Étude de faisabilité pour une école française à Dakar, Programme PAISD, Financement OFII", "SCAC / Ambassade de France au Sénégal", "Sénégal", "Consultant unique", "suivi-evaluation", "Formation", "Business plan & Faisabilité"],
   ["2007", 2007, 2007, "Étude de faisabilité pour un complexe hôtelier à Bakel, Programme PAISD, Financement OFII", "SCAC / Ambassade de France au Sénégal", "Sénégal", "Consultant unique", "suivi-evaluation", "Tourisme & Hôtellerie", "Business plan & Faisabilité"],
@@ -205,13 +214,13 @@ const rows: Row[] = [
   ["2017 – 2018", 2017, 2018, "Assistance des études et suivi des travaux du Parc des Technologies Numériques, Pôle Urbain de Diamniadio", "IDOM Consulting Engineering Architecture / Ministère des Postes et Télécommunications", "Sénégal", "Sous-traitant IDOM", "infrastructure", "Infrastructure", "Études techniques & Contrôle"],
   ["2006", 2006, 2006, "Maîtrise d'œuvre des études et du contrôle des travaux de construction d'un hangar métallique de 1 500 m² pour le stockage d'attapulgite au Port de Dakar", "SENMINES", "Sénégal", "Consultant unique", "infrastructure", "Infrastructure", "Études techniques & Contrôle"],
   ["2004", 2004, 2004, "Conseil en maîtrise d'œuvre pour l'adduction d'eau potable dans 8 villages, la réfection d'une case-foyer, un mur de clôture d'école et des unités de transformation céréalière", "Communauté rurale de Lambaye", "Sénégal", "Consultant unique", "infrastructure", "Eau & Assainissement", "Études techniques & Contrôle"],
-  ["2004", 2004, 2004, "Maîtrise d'œuvre des travaux de pistes rurales dans les communautés rurales de Ngogom, Keur Ngalgou Baba Garage et Touba, région de Diourbel", "Projet de Pistes Communautaires / PNIR", "Sénégal", "Consultant unique", "infrastructure", "Infrastructure", "Études techniques & Contrôle"],
-  ["2003 – 2004", 2003, 2004, "Viabilisation de la Zone d'Aménagement Concerté de Nguenth-Nord (1 000 ha) à Thiès, 2ème tranche", "AGETIP", "Sénégal", "Groupement avec BAU + BET", "infrastructure", "Urbanisme", "Études techniques & Contrôle"],
-  ["2003 – 2004", 2003, 2004, "Mise en place des Zones d'Aménagement Concerté et contrôle des travaux de la Ville Nouvelle de Diamniadio (2 500 ha)", "Direction de l'Urbanisme et de l'Architecture", "Sénégal", "Consultant", "infrastructure", "Urbanisme", "Études techniques & Contrôle"],
+  ["2005", 2005, 2005, "Maîtrise d'œuvre des travaux de pistes rurales dans les communautés rurales de Ngogom, Keur Ngalgou, Baba Garage et Touba, région de Diourbel", "Projet de Pistes Communautaires / PNIR", "Sénégal", "Consultant unique", "infrastructure", "Infrastructure", "Études techniques & Contrôle", { id: "2004-maitrise-d-uvre-des-travaux-de-pistes-rurales-dans-les-commu-152" }],
+  ["2004 – 2005", 2004, 2005, "Viabilisation de la Zone d'Aménagement Concerté de Nguenth-Nord (1 000 ha) à Thiès, 2ème tranche, Financement Fonds ZAC", "AGETIP / Ministère de l'Urbanisme et de l'Aménagement du Territoire", "Sénégal", "Groupement avec BAU + BET", "infrastructure", "Urbanisme", "Études techniques & Contrôle", { id: "2003-viabilisation-de-la-zone-d-amenagement-concerte-de-nguenth-n-153" }],
+  ["2003 – 2004", 2003, 2004, "Mise en place des Zones d'Aménagement Concerté et contrôle des travaux de la Ville Nouvelle de Diamniadio (2 500 ha)", "Direction de l'Urbanisme et de l'Architecture", "Sénégal", "Groupement avec BAU + BET", "infrastructure", "Urbanisme", "Études techniques & Contrôle"],
   ["2003 – 2004", 2003, 2004, "Études techniques des Zones d'Aménagement Concerté de Kolda, Mboro, Ourossogui, Tivaouane et Ziguinchor, Lot 1 : Kolda", "Direction de l'Urbanisme et de l'Architecture", "Sénégal", "Groupement avec BAU + BET", "infrastructure", "Urbanisme", "Études techniques & Contrôle"],
   ["2003 – 2004", 2003, 2004, "Études techniques des Zones d'Aménagement Concerté, Lot 2 : Mboro", "Direction de l'Urbanisme et de l'Architecture", "Sénégal", "Groupement avec BAU + BET", "infrastructure", "Urbanisme", "Études techniques & Contrôle"],
   ["2003 – 2004", 2003, 2004, "Études techniques des Zones d'Aménagement Concerté, Lot 3 : Tivaouane", "Direction de l'Urbanisme et de l'Architecture", "Sénégal", "Groupement avec BAU + BET", "infrastructure", "Urbanisme", "Études techniques & Contrôle"],
-  ["2002", 2002, 2002, "Mise en place de Zones d'Aménagement Concerté et contrôle des travaux dans le secteur Nord-Nguenth de la ville de Thiès", "Direction de l'Urbanisme et de l'Architecture", "Sénégal", "Groupement avec BAU + BET", "infrastructure", "Urbanisme", "Études techniques & Contrôle"],
+  ["2004", 2004, 2004, "Mise en place de Zones d'Aménagement Concerté et contrôle des travaux dans le secteur Nord-Nguenth de la ville de Thiès", "Direction de l'Urbanisme et de l'Architecture", "Sénégal", "Groupement avec BAU + BET", "infrastructure", "Urbanisme", "Études techniques & Contrôle", { id: "2002-mise-en-place-de-zones-d-amenagement-concerte-et-controle-de-158" }],
   ["2008 – 2009", 2008, 2009, "Marketing social et IEC, assainissement des eaux pluviales dans les villes secondaires, Axe 2 : Mbour et Tivaouane", "Office National de l'Assainissement du Sénégal (ONAS)", "Sénégal", "Consultant unique", "infrastructure", "Eau & Assainissement", "Maîtrise d'œuvre sociale"],
   ["2008 – 2009", 2008, 2009, "Marketing social et IEC, assainissement des eaux pluviales, Axe 3 : Richard-Toll", "Office National de l'Assainissement du Sénégal (ONAS)", "Sénégal", "Consultant unique", "infrastructure", "Eau & Assainissement", "Maîtrise d'œuvre sociale"],
   ["2008 – 2009", 2008, 2009, "Marketing social et IEC, assainissement des eaux pluviales, Axe 1 : Mbacké et Diourbel", "Office National de l'Assainissement du Sénégal (ONAS)", "Sénégal", "Consultant unique", "infrastructure", "Eau & Assainissement", "Maîtrise d'œuvre sociale"],
@@ -231,6 +240,16 @@ const rows: Row[] = [
   ["2002", 2002, 2002, "Formation de 15 formateurs en gestion de projet", "Office National de Formation Professionnelle (ONFP)", "Sénégal", "Consultant unique", "formation", "Formation", "Formation"],
   ["2001", 2001, 2001, "Formation en techniques commerciales pour 15 agents du secteur moderne", "Office National de Formation Professionnelle (ONFP)", "Sénégal", "Consultant unique", "formation", "Formation", "Formation"],
   ["2001", 2001, 2001, "Formation en création d'entreprise pour 15 agents du secteur moderne", "Office National de Formation Professionnelle (ONFP)", "Sénégal", "Consultant unique", "formation", "Formation", "Formation"],
+
+  // Ajouts issus de l'édition d'octobre 2026 du document « Expérience de PRESTIGE ».
+  // Toujours ajouter en fin de liste : l'index fait partie de l'identifiant.
+  ["2013", 2013, 2013, "EIES du projet d'implantation d'une unité de purification, de stockage et de transport de CO2 à Richard Toll, dans l'enceinte de la Compagnie Sucrière Sénégalaise (CSS)", "Air Liquide Sénégal", "Sénégal", "Consultant unique", "environnement", "Industrie", "EIES"],
+  ["2012", 2012, 2012, "EIES des travaux de protection côtière au niveau de la Corniche Ouest (Fann-Mermoz)", "Eiffage Sénégal", "Sénégal", "Consultant unique", "environnement", "Environnement", "EIES"],
+  ["2005", 2005, 2005, "EIES des pistes rurales des communautés rurales de Touba Mosquée, Ngogom, Baba Garage et Keur Ngalgou, région de Diourbel (études APS, volet environnement)", "Projet de Pistes Communautaires / PNIR", "Sénégal", "Consultant unique", "environnement", "Infrastructure", "EIES"],
+  ["2026", 2026, 2026, "Analyse environnementale initiale du projet de réhabilitation du périmètre rizicole du secteur 3 de l'Anambé, commune de Diaobé-Kabendou, région de Kolda (financement Korea Rural Community Corporation)", "Société de Développement Agricole et Industriel du Sénégal (SODAGRI)", "Sénégal", "Consultant unique", "environnement", "Agriculture", "AIE"],
+  ["2026 – en cours", 2026, 2026, "Audit d'achèvement de la mise en œuvre du plan d'action de réinstallation de l'autoroute Dakar–Tivaouane–Saint-Louis, section Mékhé – Saint-Louis, lot 1.2 Ndande – Guéoul (30 km)", "AGEROUTE Sénégal", "Sénégal", "Consultant unique", "environnement", "Infrastructure", "Audit E&S"],
+  ["2003 – 2004", 2003, 2004, "Révision du Plan Directeur d'Urbanisme de la ville de Ziguinchor, horizon 2025", "Direction de l'Urbanisme et de l'Architecture / Ministère de l'Urbanisme et de l'Aménagement du Territoire", "Sénégal", "Consultant unique", "urbanisme", "Urbanisme", "Aménagement du territoire"],
+  ["Avril – Juin 2010", 2010, 2010, "Évaluation finale du Projet Africain de Lutte d'Urgence contre le Criquet Pèlerin (AELP)", "Unité de Coordination du Projet AELP / Direction de la Protection des Végétaux / Ministère de l'Agriculture", "Sénégal", "Consultant unique", "suivi-evaluation", "Agriculture", "Suivi & Évaluation d'impact"],
 ];
 
 function slugify(text: string) {
@@ -243,8 +262,10 @@ function slugify(text: string) {
     .slice(0, 60);
 }
 
-export const projects: Project[] = rows.map((r, i) => ({
-  id: `${String(r[1]).padStart(4, "0")}-${slugify(r[3])}-${i}`,
+export const projects: Project[] = rows.map((r, i) => {
+  const id = r[10]?.id ?? `${String(r[1]).padStart(4, "0")}-${slugify(r[3])}-${i}`;
+  return {
+  id,
   period: r[0],
   yearStart: r[1],
   yearEnd: r[2],
@@ -255,7 +276,9 @@ export const projects: Project[] = rows.map((r, i) => ({
   category: r[7],
   sector: r[8],
   group: r[9],
-})).sort((a, b) => b.yearEnd - a.yearEnd || b.yearStart - a.yearStart);
+  description: projectDescriptions[id],
+  };
+}).sort((a, b) => b.yearEnd - a.yearEnd || b.yearStart - a.yearStart);
 
 export const sectors = Array.from(new Set(projects.map((p) => p.sector))).sort();
 export const clients = Array.from(new Set(projects.map((p) => p.client))).sort();
