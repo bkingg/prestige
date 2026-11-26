@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { projects } from "@/data/projects";
+import { getClientMarks } from "@/data/clients";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
@@ -14,10 +15,13 @@ const FEATURED_IDS_BY_CATEGORY = [
   "developpement-local",
 ] as const;
 
+/** Most recent mission per domain, preferring clients we can show a logo for. */
 function pickFeatured() {
   const picked: typeof projects = [];
+  const hasLogo = (p: (typeof projects)[number]) => getClientMarks(p.client)[0].kind === "logo";
   for (const cat of FEATURED_IDS_BY_CATEGORY) {
-    const match = projects.find((p) => p.category === cat && !picked.includes(p));
+    const inCat = projects.filter((p) => p.category === cat && !picked.includes(p));
+    const match = inCat.find(hasLogo) ?? inCat[0];
     if (match) picked.push(match);
   }
   return picked;

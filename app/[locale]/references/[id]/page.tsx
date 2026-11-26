@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { projects, categoryLabels, getProjectById } from "@/data/projects";
@@ -11,6 +10,7 @@ import { pageMetadata } from "@/lib/seo";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { ClientMarkTile } from "@/components/projects/ClientMarkTile";
 
 type Params = { locale: string; id: string };
 
@@ -65,7 +65,6 @@ export default async function ProjectDetailPage({ params }: { params: Promise<Pa
   const meta: [string, string][] = [
     [t("period"), project.period],
     [t("country"), project.country],
-    [t("role"), project.role],
     [t("sector"), project.sector],
     [t("missionType"), project.group],
     ...(funding ? ([[t("funding"), funding]] as [string, string][]) : []),
@@ -114,23 +113,9 @@ export default async function ProjectDetailPage({ params }: { params: Promise<Pa
           <aside className="rounded-[20px] bg-ink-wash p-6 ring-1 ring-ink/10 sm:p-8 lg:sticky lg:top-28">
             <p className="text-xs uppercase tracking-widest2 text-ink/50">{t("client")}</p>
             <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-4">
-              {marks.map((m) =>
-                m.kind === "logo" ? (
-                  <div key={m.brand.name} className="relative h-14 w-32 rounded-md bg-white p-2 ring-1 ring-ink/5">
-                    <div className="relative h-full w-full">
-                      <Image src={m.brand.logo} alt={m.brand.name} fill sizes="128px" className="object-contain" />
-                    </div>
-                  </div>
-                ) : (
-                  <span
-                    key={m.text}
-                    aria-hidden="true"
-                    className="flex h-14 min-w-14 items-center justify-center rounded-md bg-plum px-3 font-serif text-lg tracking-wide text-white"
-                  >
-                    {m.text}
-                  </span>
-                )
-              )}
+              {marks.map((m) => (
+                <ClientMarkTile key={m.kind === "logo" ? m.brand.name : m.text} mark={m} />
+              ))}
             </div>
             <p className="mt-5 text-sm font-medium leading-relaxed text-ink/85">{project.client}</p>
 
